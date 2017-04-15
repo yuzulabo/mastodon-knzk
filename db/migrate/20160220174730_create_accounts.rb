@@ -1,8 +1,8 @@
 class CreateAccounts < ActiveRecord::Migration
   def change
     create_table :accounts do |t|
-      t.string :username, null: false, default: ''
-      t.string :domain, null: true
+      t.string :username, null: false, default: '', limit: 191
+      t.string :domain, null: true, limit: 191
 
       # PuSH credentials
       t.string :verify_token, null: false, default: ''

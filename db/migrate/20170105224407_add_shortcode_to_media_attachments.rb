@@ -1,6 +1,6 @@
 class AddShortcodeToMediaAttachments < ActiveRecord::Migration[5.0]
   def up
-    add_column :media_attachments, :shortcode, :string, null: true, default: nil
+    add_column :media_attachments, :shortcode, :string, null: true, default: nil, limit: 191
     add_index :media_attachments, :shortcode, unique: true
 
     # Migrate old links

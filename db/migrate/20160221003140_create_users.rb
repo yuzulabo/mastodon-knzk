@@ -1,7 +1,7 @@
 class CreateUsers < ActiveRecord::Migration
   def change
     create_table :users do |t|
-      t.string :email, null: false, default: ''
+      t.string :email, null: false, default: '', limit:191
       t.integer :account_id, null: false
 
       t.timestamps null: false
