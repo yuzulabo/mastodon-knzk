@@ -60,6 +60,9 @@ gem 'react-rails'
 gem 'browserify-rails'
 gem 'autoprefixer-rails'
 
+# Added by Kibousoft
+gem 'omniauth-facebook'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'pry-rails'

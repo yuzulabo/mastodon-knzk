@@ -8,4 +8,5 @@
   .actions
     = f.button :button, t('auth.login'), type: :submit
 
+= link_to button_tag("Log in with facebook", class: "facebook-login-button")  , user_facebook_omniauth_authorize_path
 .form-footer= render "auth/shared/links"
