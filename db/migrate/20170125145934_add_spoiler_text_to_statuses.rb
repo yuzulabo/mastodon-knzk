@@ -1,5 +1,5 @@
 class AddSpoilerTextToStatuses < ActiveRecord::Migration[5.0]
   def change
-    add_column :statuses, :spoiler_text, :text, null: false
+    add_column :statuses, :spoiler_text, :text, null: true
   end
 end

@@ -1,7 +1,7 @@
 class CreateStatuses < ActiveRecord::Migration
   def change
     create_table :statuses do |t|
-      t.string :uri, null: false, default: ''
+      t.string :uri, null: false, default: '', limit: 191
       t.integer :account_id, null: false
       t.text :text, null: true
 

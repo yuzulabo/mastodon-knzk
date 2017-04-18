@@ -4,7 +4,7 @@ class MigrateSettings < ActiveRecord::Migration
     rename_column :settings, :target_id, :thing_id
     rename_column :settings, :target_type, :thing_type
     change_column :settings, :thing_id, :integer, null: true, default: nil
-    change_column :settings, :thing_type, :string, null: true, default: nil
+    change_column :settings, :thing_type, :string, null: true, default: nil, limit: 191
     add_index :settings, [:thing_type, :thing_id, :var], unique: true
   end
 
