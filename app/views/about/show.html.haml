@@ -42,7 +42,10 @@
   %h3= "ソーシャルログイン"
   .oauth-signup
     = link_to button_tag("facebook", class: "facebook-login-button"), user_facebook_omniauth_authorize_path
-
+    %br
+    facebook認証するだけで、自動で会員登録できます。
+    %br
+    facebookのタイムラインに無断で投稿することはありません。
   %h3= t('about.features_headline')
 
   .features-list
