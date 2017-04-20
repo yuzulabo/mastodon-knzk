@@ -6,7 +6,9 @@ class HomeController < ApplicationController
   def index
     @body_classes           = 'app-body'
     @token                  = find_or_create_access_token.token
-    @web_settings           = Web::Setting.find_by(user: current_user)&.data || {}
+    @web_settings           = {}
+    setting = Web::Setting.find_by(user: current_user)
+    @web_settings           = JSON.parse(setting.data) if setting.present?
     @admin                  = Account.find_local(Setting.site_contact_username)
     @streaming_api_base_url = Rails.configuration.x.streaming_api_base_url
   end

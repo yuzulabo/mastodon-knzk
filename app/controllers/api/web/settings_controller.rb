@@ -7,7 +7,7 @@ class Api::Web::SettingsController < ApiController
 
   def update
     setting      = ::Web::Setting.where(user: current_user).first_or_initialize(user: current_user)
-    setting.data = params[:data]
+    setting.data = params[:data].to_json
     setting.save!
 
     render_empty
