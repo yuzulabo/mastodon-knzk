@@ -46,34 +46,30 @@
     facebook認証するだけで、自動で会員登録できます。
     %br
     facebookのタイムラインに無断で投稿することはありません。
-  %h3= t('about.features_headline')
+  %h3 このインスタンスの特徴
 
   .features-list
     .features-list__column
       %ul.fa-ul
         %li
           = fa_icon('li check-square')
-          = t 'about.features.chronology'
+          日本国内法人運営
         %li
           = fa_icon('li check-square')
-          = t 'about.features.public'
+          = link_to "利用規約", about_more_path
+          を定義
         %li
           = fa_icon('li check-square')
-          = t 'about.features.characters'
+          Amazon Web Services上で運用
         %li
           = fa_icon('li check-square')
-          = t 'about.features.gifv'
-    .features-list__column
-      %ul.fa-ul
+          Amazon Aurora DBを採用（脱PostgreSQL）
         %li
           = fa_icon('li check-square')
-          = t 'about.features.privacy'
+          Facebookログイン可能
         %li
           = fa_icon('li check-square')
-          = t 'about.features.blocks'
-        %li
-          = fa_icon('li check-square')
-          = t 'about.features.api'
+          さらなる独自の機能追加を予定
 
   - unless @instance_presenter.site_description.blank?
     %h3= t('about.description_headline', domain: site_hostname)
