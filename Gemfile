@@ -63,6 +63,7 @@ gem 'autoprefixer-rails'
 
 # Added by Kibousoft
 gem 'omniauth-facebook'
+gem 'react-rails-img'
 
 group :development, :test do
   gem 'rspec-rails'

@@ -357,6 +357,8 @@ GEM
       execjs
       railties (>= 3.2)
       tilt
+    react-rails-img (0.1.6)
+      react-rails
     redis (3.3.3)
     redis-actionpack (5.0.1)
       actionpack (>= 4.0, < 6)
@@ -542,6 +544,7 @@ DEPENDENCIES
   rails-settings-cached
   rails_12factor
   react-rails
+  react-rails-img
   redis (~> 3.2)
   redis-rails
   rqrcode
