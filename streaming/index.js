@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 import express from 'express'
 import http from 'http'
 import redis from 'redis'
-import pg from 'pg'
+import mysql from 'mysql'
 import log from 'npmlog'
 import url from 'url'
 import WebSocket from 'ws'
@@ -33,11 +33,13 @@ if (cluster.isMaster) {
 } else {
   // cluster worker
 
-  const pgConfigs = {
+  const dbConfigs = {
     development: {
-      database: 'mastodon_development',
-      host:     '/var/run/postgresql',
-      max:      10
+      user:     process.env.DB_USER || 'mastodon',
+      password: process.env.DB_PASS || '',
+      database: process.env.DB_NAME || 'mastodon_development',
+      host:     process.env.DB_HOST || 'localhost',
+      port:     process.env.DB_PORT || 3306,
     },
 
     production: {
@@ -45,13 +47,12 @@ if (cluster.isMaster) {
       password: process.env.DB_PASS || '',
       database: process.env.DB_NAME || 'mastodon_production',
       host:     process.env.DB_HOST || 'localhost',
-      port:     process.env.DB_PORT || 5432,
-      max:      10
+      port:     process.env.DB_PORT || 3306,
     }
   }
 
   const app    = express()
-  const pgPool = new pg.Pool(pgConfigs[env])
+  const mysqlPool = mysql.createPool(dbConfigs[env])
   const server = http.createServer(app)
   const wss    = new WebSocket.Server({ server })
 
@@ -104,21 +105,21 @@ if (cluster.isMaster) {
   }
 
   const accountFromToken = (token, req, next) => {
-    pgPool.connect((err, client, done) => {
+    mysqlPool.getConnection((err, connection) => {
       if (err) {
         next(err)
         return
       }
 
-      client.query('SELECT oauth_access_tokens.resource_owner_id, users.account_id FROM oauth_access_tokens INNER JOIN users ON oauth_access_tokens.resource_owner_id = users.id WHERE oauth_access_tokens.token = $1 LIMIT 1', [token], (err, result) => {
-        done()
+      connection.query('SELECT oauth_access_tokens.resource_owner_id, users.account_id FROM oauth_access_tokens INNER JOIN users ON oauth_access_tokens.resource_owner_id = users.id WHERE oauth_access_tokens.token = ? LIMIT 1', [token], (err, result, fields) => {
+        connection.release()
 
         if (err) {
           next(err)
           return
         }
 
-        if (result.rows.length === 0) {
+        if (result.length === 0) {
           err = new Error('Invalid access token')
           err.statusCode = 401
 
@@ -126,7 +127,7 @@ if (cluster.isMaster) {
           return
         }
 
-        req.accountId = result.rows[0].account_id
+        req.accountId = result[0].account_id
 
         next()
       })
@@ -179,7 +180,7 @@ if (cluster.isMaster) {
       // Only messages that may require filtering are statuses, since notifications
       // are already personalized and deletes do not matter
       if (needsFiltering && event === 'update') {
-        pgPool.connect((err, client, done) => {
+        mysqlPool.getConnection((err, connection) => {
           if (err) {
             log.error(err)
             return
@@ -187,16 +188,15 @@ if (cluster.isMaster) {
 
           const unpackedPayload  = JSON.parse(payload)
           const targetAccountIds = [unpackedPayload.account.id].concat(unpackedPayload.mentions.map(item => item.id)).concat(unpackedPayload.reblog ? [unpackedPayload.reblog.account.id] : [])
-
-          client.query(`SELECT target_account_id FROM blocks WHERE account_id = $1 AND target_account_id IN (${placeholders(targetAccountIds, 1)}) UNION SELECT target_account_id FROM mutes WHERE account_id = $1 AND target_account_id IN (${placeholders(targetAccountIds, 1)})`, [req.accountId].concat(targetAccountIds), (err, result) => {
-            done()
+          connection.query(`SELECT target_account_id FROM blocks WHERE account_id = ? AND target_account_id IN (?) UNION SELECT target_account_id FROM mutes WHERE account_id = ? AND target_account_id IN (?)`, [req.accountId, targetAccountIds, req.accountId, targetAccountIds], (err, result, fields) => {
+            connection.release()
 
             if (err) {
               log.error(err)
               return
             }
 
-            if (result.rows.length > 0) {
+            if (result.length > 0) {
               return
             }
 
