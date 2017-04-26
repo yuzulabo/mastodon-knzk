@@ -25,6 +25,8 @@
     = f.button :button, t('about.get_started'), type: :submit
 
   .info
+    %span{class: 'r18-warning'} 18歳未満の登録は禁止しています。
     = link_to t('auth.login'), new_user_session_path, class: 'webapp-btn'
-    ·
-    = link_to t('about.about_this'), about_more_path
+    %br
+    = link_to "About this instance / 利用規約", about_more_path
+
