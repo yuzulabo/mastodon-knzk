@@ -106,7 +106,10 @@ const StatusActionBar = React.createClass({
       reply_title = intl.formatMessage(messages.replyAll);
     }
 
-    let content_for_share = status.get('url') + "\n" + status.getIn(['account', 'username']) + "さんのマストドンの投稿：\n" + status.get('content').replace(/<br \/>/g, '\n').replace(/<\/p><p>/g, '\n\n').replace(/<p>/g, '').replace(/<\/p>/g, '').replace(/<a href="/g, '')
+    let content_for_share = status.get('url') + "\n" + status.getIn(['account', 'username']) + "さんのマストドンの投稿：\n" + status.get('content').replace(/<br \/>/g, '\n').replace(/<\/p><p>/g, '\n\n').replace(/<p>/g, '').replace(/<\/p>/g, '')
+      // content_for_share = content_for_share[] &&= ""
+      content_for_share = content_for_share.match(/(a href=\"[^\"]*\")(\?<=\")(.*)/)[2]
+      // content_for_share.replace(/<a href="/g, '')
     if (content_for_share.length > 140) {
       content_for_share = content_for_share.substr(0, 140)
     }
