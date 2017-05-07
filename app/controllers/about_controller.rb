@@ -27,7 +27,9 @@ class AboutController < ApplicationController
   Dotenv.load
   def set_explaine
     jsonArray = ENV['EXPLAINE']
-    @explaine = JSON.parse(jsonArray)
+    if(jsonArray != nil)
+      @explaine = JSON.parse(jsonArray)
+    end
   end
 
 
