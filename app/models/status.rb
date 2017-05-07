@@ -94,9 +94,14 @@ class Status < ApplicationRecord
   def ancestors(account = nil)
     # TODO: Recursive Logic
     results = Status.where(in_reply_to_id: id).to_a
-    #ids      = (Status.find_by_sql(['WITH RECURSIVE search_tree(id, in_reply_to_id, path) AS (SELECT id, in_reply_to_id, ARRAY[id] FROM statuses WHERE id = ? UNION ALL SELECT statuses.id, statuses.in_reply_to_id, path || statuses.id FROM search_tree JOIN statuses ON statuses.id = search_tree.in_reply_to_id WHERE NOT statuses.id = ANY(path)) SELECT id FROM search_tree ORDER BY path DESC', id]) - [self]).pluck(:id)
-    #statuses = Status.where(id: ids).group_by(&:id)
-    #results  = ids.map { |id| statuses[id].first }
+    ids      = (Status.find_by_sql(['SELECT tmmp.`id` FROM (SELECT t.id AS id, @pv:=t.`in_reply_to_id` AS parent
+FROM (SELECT * FROM `statuses` ORDER BY id DESC) t
+JOIN
+(SELECT @pv:= ? )tmp
+WHERE t.id=@pv )AS tmmp ORDER BY tmmp.`id` ASC;', id]) - [self]).pluck(:id)
+    statuses = Status.where(id: ids).group_by(&:id)
+    results  = ids.map { |id| statuses[id].first }
+
     results  = results.reject { |status| filter_from_context?(status, account) }
 
     results
@@ -105,9 +110,14 @@ class Status < ApplicationRecord
   def descendants(account = nil)
     # TODO: Recursive Logic
     results = Status.where(in_reply_to_id: id).to_a
-    #ids      = (Status.find_by_sql(['WITH RECURSIVE search_tree(id, path) AS (SELECT id, ARRAY[id] FROM statuses WHERE id = ? UNION ALL SELECT statuses.id, path || statuses.id FROM search_tree JOIN statuses ON statuses.in_reply_to_id = search_tree.id WHERE NOT statuses.id = ANY(path)) SELECT id FROM search_tree ORDER BY path', id]) - [self]).pluck(:id)
-    #statuses = Status.where(id: ids).group_by(&:id)
-    #results  = ids.map { |id| statuses[id].first }
+    ids      = (Status.find_by_sql(['
+    SELECT tmmp.parent AS id FROM (SELECT t.in_reply_to_id AS id, @pv:=t.`id` AS parent
+FROM (SELECT * FROM `statuses` ORDER BY id ASC) t
+JOIN
+(SELECT @pv:= ?)tmp
+WHERE t.`in_reply_to_id`=@pv )AS tmmp ORDER BY tmmp.`id` ASC;', id]) - [self]).pluck(:id)
+    statuses = Status.where(id: ids).group_by(&:id)
+    results  = ids.map { |id| statuses[id].first }
     results  = results.reject { |status| filter_from_context?(status, account) }
 
     results
