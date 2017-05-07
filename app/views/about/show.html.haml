@@ -53,24 +53,10 @@
   .features-list
     .features-list__column
       %ul.fa-ul
-        %li
-          = fa_icon('li check-square')
-          パチンコ／パチスロファンの交流のためのインスタンスです
-        %li
-          = fa_icon('li check-square')
-          18歳未満の登録は禁止しています
-        %li
-          = fa_icon('li check-square')
-          Amazon Web Services上で運用
-        %li
-          = fa_icon('li check-square')
-          Amazon Aurora DBを採用（脱PostgreSQL）
-        %li
-          = fa_icon('li check-square')
-          Facebookログイン可能
-        %li
-          = fa_icon('li check-square')
-          さらなる独自の機能追加を予定
+        - @explaine.each do |a|
+          %li
+            = fa_icon('li check-square')
+            = a
 
   - unless @instance_presenter.site_description.blank?
     %h3= t('about.description_headline', domain: site_hostname)
