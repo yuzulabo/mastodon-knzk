@@ -55,25 +55,6 @@
           %li
             = fa_icon('li check-square')
             = a
-        %li
-          = fa_icon('li check-square')
-          日本国内法人運営
-        %li
-          = fa_icon('li check-square')
-          = link_to "利用規約", about_more_path(anchor: "legal")
-          を定義
-        %li
-          = fa_icon('li check-square')
-          Amazon Web Services上で運用
-        %li
-          = fa_icon('li check-square')
-          Amazon Aurora DBを採用（脱PostgreSQL）
-        %li
-          = fa_icon('li check-square')
-          Facebookログイン可能
-        %li
-          = fa_icon('li check-square')
-          さらなる独自の機能追加を予定
 
   - unless @instance_presenter.site_description.blank?
     %h3= t('about.description_headline', domain: site_hostname)
