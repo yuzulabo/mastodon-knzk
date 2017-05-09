@@ -22,6 +22,10 @@ class Auth::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       set_flash_message(:notice, :success, :kind => "GitHub") if is_navigational_format?
       redirect_to root_path and return
     end
+
+    failure_reason = if @user.errors.any? @user.errors.full_messages.join(' / '); else nil end
+    set_flash_message(:notice, :failure, kind: "GitHub", reason: failure_reason)
+    redirect_to new_user_session_path
   end
 
   def failure
