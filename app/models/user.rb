@@ -33,16 +33,18 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(auth)
-    user = where(provider: auth.provider, uid: auth.uid).first
-    unless user.present?
-      email = auth.info.email
+    uid = auth['uid']
+    provider = auth['provider']
+    email = auth['info']['email'] || ''
+    display_name = auth['info']['name']
+    user = find_or_create_by(provider: provider, uid: uid) do |user|
       password = Devise.friendly_token[0,20]
-      user = User.new(email: email, password: password, password_confirmation: password)
-      user.provider = auth.provider
-      user.uid = auth.uid
       user.build_account if user.account.nil?
       user.account.username = "fb#{auth.uid}" # assuming the user model has a name
       user.account.display_name = auth.info.name
+      user.email = email
+      user.password = password
+      user.password_confirmation = password
       user.skip_confirmation!
       unless user.save
         return nil
