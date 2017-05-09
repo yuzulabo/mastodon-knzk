@@ -3,6 +3,12 @@ class Auth::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     # You need to implement the method below in your model (e.g. app/models/user.rb)
     @user = User.from_omniauth(request.env["omniauth.auth"])
 
+    if @user.errors.any?
+      reason = @user.errors.full_messages.join(' / ')
+      set_flash_message(:alert, :failure, kind: "Facebook", reason: reason)
+      redirect_to new_user_session_path and return
+    end
+
     if @user.present?
       p "Login Success"
       sign_in @user
