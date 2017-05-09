@@ -14,6 +14,16 @@ class Auth::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
+  def github
+    @user = User.from_omniauth(request.env["omniauth.auth"])
+
+    if @user.present?
+      sign_in @user
+      set_flash_message(:notice, :success, :kind => "GitHub") if is_navigational_format?
+      redirect_to root_path and return
+    end
+  end
+
   def failure
     redirect_to root_path
   end

@@ -8,7 +8,7 @@ class User < ApplicationRecord
          :two_factor_authenticatable, :two_factor_backupable,
          otp_secret_encryption_key: ENV['OTP_SECRET'],
          otp_number_of_backup_codes: 10
-  devise :omniauthable, { omniauth_providers: [:facebook] }
+  devise :omniauthable, { omniauth_providers: [:facebook , :github] }
 
   belongs_to :account, inverse_of: :user, required: true
   accepts_nested_attributes_for :account
@@ -36,19 +36,17 @@ class User < ApplicationRecord
     uid = auth['uid']
     provider = auth['provider']
     email = auth['info']['email'] || ''
-    display_name = auth['info']['name']
+
+    username = omniauth_username provider, uid
+    display_name = auth['info']['name'] || auth['info']['nickname'] || username
+
     user = find_or_create_by(provider: provider, uid: uid) do |user|
       password = Devise.friendly_token[0,20]
-      user.build_account if user.account.nil?
-      user.account.username = "fb#{auth.uid}" # assuming the user model has a name
-      user.account.display_name = auth.info.name
       user.email = email
       user.password = password
       user.password_confirmation = password
       user.skip_confirmation!
-      unless user.save
-        return nil
-      end
+      user.create_account(username: username, display_name: display_name)
     end
     user
   end
@@ -63,5 +61,18 @@ class User < ApplicationRecord
   
   def setting_auto_play_gif
     settings.auto_play_gif
+  end
+
+  private_class_method
+
+  def self.omniauth_username(provider, uid)
+    name_prefix =
+      case provider
+        when 'facebook' then 'fb'
+        when 'github' then 'gh'
+        else nil
+      end
+    return nil unless name_prefix
+    "#{name_prefix}#{uid}"
   end
 end
