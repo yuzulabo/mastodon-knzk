@@ -36,6 +36,7 @@ class User < ApplicationRecord
     uid = auth['uid']
     provider = auth['provider']
     email = auth['info']['email'] || ''
+    avator_url = auth['info']['image'] || ''
 
     username = omniauth_username provider, uid
     display_name = auth['info']['name'] || auth['info']['nickname'] || username
@@ -47,6 +48,7 @@ class User < ApplicationRecord
       user.password_confirmation = password
       user.skip_confirmation!
       user.create_account(username: username, display_name: display_name)
+      user.account.avatar_remote_url = avator_url if avator_url
     end
     user
   end
