@@ -41,13 +41,17 @@
 
   %h3= "ソーシャルログイン"
   .oauth-signup
-    = link_to button_tag("facebook", class: "facebook-login-button"), user_facebook_omniauth_authorize_path
+    %div.login-buttons-box
+      %ul.login-button-list
+        %li
+          = link_to button_tag("facebook", class: "facebook-login-button")  , user_facebook_omniauth_authorize_path
+        %li
+          = link_to button_tag("github", class: "github-login-button")  , user_github_omniauth_authorize_path
+    認証するだけで、自動で会員登録できます。
+    %brタイムラインに無断で投稿することはありません。
     %br
     %span{class: 'r18-warning'} 18歳未満の登録は禁止しています。
-    %br
-    facebook認証するだけで、自動で会員登録できます。
-    %br
-    facebookのタイムラインに無断で投稿することはありません。
+
   %h3 このインスタンスの特徴
 
   .features-list

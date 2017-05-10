@@ -251,16 +251,16 @@ class Account < ApplicationRecord
     end
 
     def search_for(terms, limit = 10)
-      terms      = Arel.sql(connection.quote(terms.gsub(/['?\\:]/, ' ')))
+      terms      = Arel.sql(connection.quote('%' + terms.gsub(/['?\\:]/, ' ') + '%'))
       textsearch = '(setweight(to_tsvector(\'simple\', accounts.display_name), \'A\') || setweight(to_tsvector(\'simple\', accounts.username), \'B\') || setweight(to_tsvector(\'simple\', coalesce(accounts.domain, \'\')), \'C\'))'
       query      = 'to_tsquery(\'simple\', \'\'\' \' || ' + terms + ' || \' \'\'\' || \':*\')'
 
       sql = <<-SQL.squish
         SELECT
           accounts.*,
-          ts_rank_cd(#{textsearch}, #{query}, 32) AS rank
+          accounts.id AS rank
         FROM accounts
-        WHERE #{query} @@ #{textsearch}
+        WHERE accounts.username LIKE #{terms}
         ORDER BY rank DESC
         LIMIT ?
       SQL
@@ -269,23 +269,22 @@ class Account < ApplicationRecord
     end
 
     def advanced_search_for(terms, account, limit = 10)
-      terms      = Arel.sql(connection.quote(terms.gsub(/['?\\:]/, ' ')))
+      terms      = Arel.sql(connection.quote('%' + terms.gsub(/['?\\:]/, ' ') + '%'))
       textsearch = '(setweight(to_tsvector(\'simple\', accounts.display_name), \'A\') || setweight(to_tsvector(\'simple\', accounts.username), \'B\') || setweight(to_tsvector(\'simple\', coalesce(accounts.domain, \'\')), \'C\'))'
       query      = 'to_tsquery(\'simple\', \'\'\' \' || ' + terms + ' || \' \'\'\' || \':*\')'
-
       sql = <<-SQL.squish
         SELECT
           accounts.*,
-          (count(f.id) + 1) * ts_rank_cd(#{textsearch}, #{query}, 32) AS rank
+          accounts.id AS rank
         FROM accounts
         LEFT OUTER JOIN follows AS f ON (accounts.id = f.account_id AND f.target_account_id = ?) OR (accounts.id = f.target_account_id AND f.account_id = ?)
-        WHERE #{query} @@ #{textsearch}
+        WHERE accounts.username LIKE #{terms}
         GROUP BY accounts.id
         ORDER BY rank DESC
         LIMIT ?
       SQL
-
-      Account.find_by_sql([sql, account.id, account.id, limit])
+      account_id = account.id
+      Account.find_by_sql([sql, account_id, account_id, limit])
     end
 
     def following_map(target_account_ids, account_id)
