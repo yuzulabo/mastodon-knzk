@@ -62,8 +62,11 @@ gem 'browserify-rails'
 gem 'autoprefixer-rails'
 
 # Added by Kibousoft
+gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-github'
 gem 'react-rails-img'
+gem 'json'
 
 group :development, :test do
   gem 'rspec-rails'

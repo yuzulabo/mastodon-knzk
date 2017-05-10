@@ -25,7 +25,7 @@ ja:
       unlock_instructions:
         subject: 'Mastodon: アカウントのロックの解除'
     omniauth_callbacks:
-      failure: '%{reason}によって%{kind}からのアクセスを認証できませんでした。'
+      failure: '%{kind}からのアクセスを認証できませんでした。%{reason}'
       success: '%{kind}からのアクセスは正常に認証されました。'
     passwords:
       no_token: パスワード再発行のメール以外からこのページにアクセスすることはできません。 パスワード再発行のメールからアクセスしたのにもかかわらずこのメッセージが表示される場合は、アクセスしたURLが間違っていないか確認してください。

@@ -41,35 +41,24 @@
 
   %h3= "ソーシャルログイン"
   .oauth-signup
-    = link_to button_tag("facebook", class: "facebook-login-button"), user_facebook_omniauth_authorize_path
-    %br
-    facebook認証するだけで、自動で会員登録できます。
-    %br
-    facebookのタイムラインに無断で投稿することはありません。
+    %div.login-buttons-box
+      %ul.login-button-list
+        %li
+          = link_to button_tag("facebook", class: "facebook-login-button")  , user_facebook_omniauth_authorize_path
+        %li
+          = link_to button_tag("github", class: "github-login-button")  , user_github_omniauth_authorize_path
+    認証するだけで、自動で会員登録できます。
+    %brタイムラインに無断で投稿することはありません。
+
   %h3 このインスタンスの特徴
 
   .features-list
     .features-list__column
       %ul.fa-ul
-        %li
-          = fa_icon('li check-square')
-          日本国内法人運営
-        %li
-          = fa_icon('li check-square')
-          = link_to "利用規約", about_more_path(anchor: "legal")
-          を定義
-        %li
-          = fa_icon('li check-square')
-          Amazon Web Services上で運用
-        %li
-          = fa_icon('li check-square')
-          Amazon Aurora DBを採用（脱PostgreSQL）
-        %li
-          = fa_icon('li check-square')
-          Facebookログイン可能
-        %li
-          = fa_icon('li check-square')
-          さらなる独自の機能追加を予定
+        - @explaine.each do |a|
+          %li
+            = fa_icon('li check-square')
+            = a
 
   - unless @instance_presenter.site_description.blank?
     %h3= t('about.description_headline', domain: site_hostname)

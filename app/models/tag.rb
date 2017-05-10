@@ -13,16 +13,17 @@ class Tag < ApplicationRecord
 
   class << self
     def search_for(terms, limit = 5)
-      terms      = Arel.sql(connection.quote(terms.gsub(/['?\\:]/, ' ')))
+      terms      = Arel.sql(connection.quote('%' + terms.gsub(/['?\\:]/, ' ') + '%'))
       textsearch = 'to_tsvector(\'simple\', tags.name)'
       query      = 'to_tsquery(\'simple\', \'\'\' \' || ' + terms + ' || \' \'\'\' || \':*\')'
+
 
       sql = <<-SQL.squish
         SELECT
           tags.*,
-          ts_rank_cd(#{textsearch}, #{query}) AS rank
+          tags.id AS rank
         FROM tags
-        WHERE #{query} @@ #{textsearch}
+        WHERE tags.name LIKE #{terms}
         ORDER BY rank DESC
         LIMIT ?
       SQL
