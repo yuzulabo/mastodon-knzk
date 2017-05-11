@@ -183,7 +183,7 @@ Rails.application.routes.draw do
 
   get '/about',      to: 'about#show'
   get '/about/more', to: 'about#more'
-  get ENV['PRIVACY_POLICY_PATH'],      to: 'about#terms'
+  get '/terms',      to: 'about#terms'
 
   root 'home#index'
 
