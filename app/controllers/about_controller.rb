@@ -4,6 +4,7 @@ class AboutController < ApplicationController
   before_action :set_body_classes
   before_action :set_instance_presenter, only: [:show, :more]
   before_action :set_explaine
+
   def show; end
 
   def more; end
@@ -32,5 +33,8 @@ class AboutController < ApplicationController
     end
   end
 
-
+  def terms # terms_url　にしてもだめ
+     redirect_to ENV['PRIVACY_POLICY_PATH'];
+  end
+  # helper_method :terms_url
 end

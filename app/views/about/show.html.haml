@@ -66,6 +66,8 @@
 
   .actions
     .info
+      = link_to 'terms and conditions', terms_url
+      ·
       = link_to t('about.terms'), ENV['PRIVACY_POLICY_PATH']
       ·
       = link_to t('about.apps'), 'https://github.com/tootsuite/documentation/blob/master/Using-Mastodon/Apps.md'
