@@ -33,8 +33,4 @@ class AboutController < ApplicationController
     end
   end
 
-  def terms # terms_url　にしてもだめ
-     redirect_to ENV['PRIVACY_POLICY_PATH'];
-  end
-  # helper_method :terms_url
 end

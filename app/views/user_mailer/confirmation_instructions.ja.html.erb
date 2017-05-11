@@ -6,6 +6,6 @@
 
 <p><%= link_to 'メールアドレスの確認', confirmation_url(@resource, confirmation_token: @token) %></p>
 
-<p>また、インスタンスの<%= link_to '利用規約', terms_url %>についてもご確認ください。</p>
+<p>また、インスタンスの<%= link_to '利用規約', ENV['PRIVACY_POLICY_PATH'] %>についてもご確認ください。</p>
 
 <p><%= @instance %> チーム</p>
