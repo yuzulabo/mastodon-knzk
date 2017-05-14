@@ -61,6 +61,9 @@ class Account < ApplicationRecord
   has_many :reports
   has_many :targeted_reports, class_name: 'Report', foreign_key: :target_account_id
 
+  default_value_for :note, value: '', allows_nil: false # MySQL can not have default to text
+  default_value_for :public_key, value: '', allows_nil: false # MySQL can not have default to text
+
   scope :remote, -> { where.not(domain: nil) }
   scope :local, -> { where(domain: nil) }
   scope :without_followers, -> { where('(select count(f.id) from follows as f where f.target_account_id = accounts.id) = 0') }

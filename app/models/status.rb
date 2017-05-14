@@ -31,6 +31,9 @@ class Status < ApplicationRecord
   validates_with StatusLengthValidator
   validates :reblog, uniqueness: { scope: :account }, if: 'reblog?'
 
+  default_value_for :text, value: '', allows_nil: false # MySQL can not have default to text
+  default_value_for :spoiler_text, value: '', allows_nil: false # MySQL can not have default to text
+
   default_scope { order('id desc') }
 
   scope :remote, -> { where.not(uri: nil) }
