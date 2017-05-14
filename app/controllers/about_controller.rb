@@ -4,6 +4,7 @@ class AboutController < ApplicationController
   before_action :set_body_classes
   before_action :set_instance_presenter, only: [:show, :more]
   before_action :set_explaine
+
   def show; end
 
   def more; end
@@ -31,6 +32,5 @@ class AboutController < ApplicationController
       @explaine = JSON.parse(jsonArray)
     end
   end
-
 
 end
