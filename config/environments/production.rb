@@ -108,6 +108,9 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = ENV.fetch('SMTP_DELIVERY_METHOD', 'smtp').to_sym
 
+  # S/MIME
+  config.smime_sign_private_key_path = ENV['SMTP_SMIME_PRIVATE_KEY'],
+  config.smime_sign_certificate_path = ENV['SMTP_SMIME_CERTIFICATE'],
 
   config.react.variant = :production
 

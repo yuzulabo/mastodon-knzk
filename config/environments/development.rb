@@ -68,6 +68,10 @@ Rails.application.configure do
   # Otherwise, use letter_opener, which launches a browser window to view sent mail.
   config.action_mailer.delivery_method = (ENV['HEROKU'] || ENV['VAGRANT'] || ENV['REMOTE_DEV']) ? :letter_opener_web : :letter_opener
 
+  # S/MIME
+  config.smime_sign_private_key_path = Rails.root.join('config/smime/dev.pem')
+  config.smime_sign_certificate_path = Rails.root.join('config/smime/dev.crt')
+
   config.after_initialize do
     Bullet.enable        = true
     Bullet.bullet_logger = true

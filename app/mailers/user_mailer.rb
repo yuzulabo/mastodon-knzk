@@ -5,6 +5,7 @@ class UserMailer < Devise::Mailer
   layout 'mailer'
 
   helper :instance
+  register_interceptor MessageInterceptor
 
   def confirmation_instructions(user, token, _opts = {})
     @resource = user
