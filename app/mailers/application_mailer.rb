@@ -6,4 +6,4 @@ class ApplicationMailer < ActionMailer::Base
   helper :instance
 end
 
-ActionMailer::Base.register_interceptor(MessageInterceptor)
+ActionMailer::Base.register_interceptor(MessageInterceptor) if ENV['USE_SMTP_SMIME'].present?

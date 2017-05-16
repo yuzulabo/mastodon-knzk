@@ -4,7 +4,6 @@ class MessageInterceptor
 
   class << self
     def delivering_email(message)
-      p message
       encrypted_message = Mail.new(sign(message.encoded))
       overwrite_body(message, encrypted_message)
       overwrite_headers(message, encrypted_message)
@@ -25,7 +24,8 @@ class MessageInterceptor
 
     def private_key
       path = Mastodon::Application.config.smime_sign_private_key_path
-      @private_key ||= PKey::RSA.new(File.read(path))
+      pass_phrase = Mastodon::Application.config.smime_sign_private_key_phrase
+      @private_key ||= PKey::RSA.new(File.read(path), pass_phrase)
     end
 
     def overwrite_body(message, encrypted_message)
