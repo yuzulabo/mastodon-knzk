@@ -126,7 +126,11 @@ class Formatter
           :html_open => '<span class="fa fa-spin">', :html_close => '</span>',
           :description => 'Make text spin',
           :example => 'This is [spin]spin[/spin].'},
-      }, :enable, :i, :b, :color, :quote, :code, :size, :u, :s, :spin)
+        :pulse => {
+          :html_open => '<span class="pulse-loading">', :html_close => '</span>',
+          :description => 'Make text pulse',
+          :example => 'This is [pulse]pulse[/pulse].'},
+      }, :enable, :i, :b, :color, :quote, :code, :size, :u, :s, :spin, :pulse)
     rescue Exception => e
     end
     html
