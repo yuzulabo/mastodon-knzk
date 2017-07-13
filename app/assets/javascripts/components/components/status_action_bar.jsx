@@ -112,6 +112,7 @@ const StatusActionBar = React.createClass({
         <div style={{ float: 'left', marginRight: '18px'}}><IconButton disabled={status.get('visibility') === 'private' || status.get('visibility') === 'direct'} active={status.get('reblogged')} title={intl.formatMessage(messages.reblog)} icon={reblogIcon} onClick={this.handleReblogClick} /></div>
         <div style={{ float: 'left', marginRight: '18px'}}><IconButton animate={true} active={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} activeStyle={{ color: '#ca8f04' }} /></div>
         <div style={{ float: 'left', marginRight: '18px'}}><a href={"https://twitter.com/intent/tweet?text=" + encodeURIComponent(status.get('url'))} target="_blank" rel="noreferrer noopener"><img src={Img.assetPath("twitter_icon.png")}/></a></div>
+        <div style={{ float: 'left', marginRight: '18px'}}><a href={"https://mastoshare.net/post.php?text=" + encodeURIComponent(status.get('url'))} target="_blank" rel="noreferrer noopener"><img src={Img.assetPath("mastoshare_icon.png")}/></a></div>
         <div style={{ width: '18px', height: '18px', float: 'left' }}>
           <DropdownMenu items={menu} icon='ellipsis-h' size={18} direction="right" />
         </div>
