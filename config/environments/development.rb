@@ -56,6 +56,10 @@ Rails.application.configure do
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
 
+  # Do not fallback to assets pipeline if a precompiled asset is missed.
+  config.assets.compile = true
+  config.assets.digest = false
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
@@ -67,6 +71,12 @@ Rails.application.configure do
   # use letter_opener_web, accessible at  /letter_opener.
   # Otherwise, use letter_opener, which launches a browser window to view sent mail.
   config.action_mailer.delivery_method = (ENV['HEROKU'] || ENV['VAGRANT'] || ENV['REMOTE_DEV']) ? :letter_opener_web : :letter_opener
+
+  # S/MIME
+  config.smime_sign = true
+  config.smime_sign_certificate_path = Rails.root.join('config/smime/dev.crt')
+  config.smime_sign_private_key_path = Rails.root.join('config/smime/dev.pem')
+  config.smime_sign_private_key_phrase = 'pass_phrase'
 
   config.after_initialize do
     Bullet.enable        = true
