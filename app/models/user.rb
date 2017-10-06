@@ -46,6 +46,7 @@ class User < ApplicationRecord
 
   devise :two_factor_backupable,
          otp_number_of_backup_codes: 10
+  devise :omniauthable, { omniauth_providers: [:facebook , :github] }
 
   devise :registerable, :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
@@ -213,6 +214,10 @@ class User < ApplicationRecord
     @invite_code = code
   end
 
+  def setting_auto_play_gif
+    settings.auto_play_gif
+  end
+
   protected
 
   def send_devise_notification(notification, *args)
@@ -243,5 +248,18 @@ class User < ApplicationRecord
 
   def needs_feed_update?
     last_sign_in_at < ACTIVE_DURATION.ago
+  end
+
+  private_class_method
+
+  def self.omniauth_username(provider, uid)
+    name_prefix =
+      case provider
+        when 'facebook' then 'fb'
+        when 'github' then 'gh'
+        else nil
+      end
+    return nil unless name_prefix
+    "#{name_prefix}#{uid}"
   end
 end
