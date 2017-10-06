@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     registrations:      'auth/registrations',
     passwords:          'auth/passwords',
     confirmations:      'auth/confirmations',
+    omniauth_callbacks: 'auth/omniauth_callbacks',
   }
 
   get '/users/:username', to: redirect('/@%{username}'), constraints: { format: :html }

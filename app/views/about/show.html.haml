@@ -23,7 +23,6 @@
 
   .screenshot-with-signup
     .mascot= image_tag 'fluffy-elephant-friend.png'
-
     - if @instance_presenter.open_registrations
       = render 'registration'
     - else
@@ -38,6 +37,18 @@
           = link_to t('about.other_instances'), 'https://github.com/tootsuite/documentation/blob/master/Using-Mastodon/List-of-Mastodon-instances.md'
           ·
           = link_to t('about.about_this'), about_more_path
+
+
+  %h3= "ソーシャルログイン"
+  .oauth-signup
+    %div.login-buttons-box
+      %ul.login-button-list
+        %li
+          = link_to button_tag("facebook", class: "facebook-login-button")  , user_facebook_omniauth_authorize_path
+        %li
+          = link_to button_tag("github", class: "github-login-button")  , user_github_omniauth_authorize_path
+    認証するだけで、自動で会員登録できます。
+    %brタイムラインに無断で投稿することはありません。
 
   %h3= t('about.features_headline')
 
@@ -81,6 +92,6 @@
       ·
       = link_to t('about.apps'), 'https://github.com/tootsuite/documentation/blob/master/Using-Mastodon/Apps.md'
       ·
-      = link_to t('about.source_code'), 'https://github.com/tootsuite/mastodon'
+      = link_to t('about.source_code'), 'https://github.com/kibousoft/mastodon'
       ·
       = link_to t('about.other_instances'), 'https://github.com/tootsuite/documentation/blob/master/Using-Mastodon/List-of-Mastodon-instances.md'
