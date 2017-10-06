@@ -8,9 +8,6 @@
 
 .landing-page
   .header-wrapper
-    .mascot-container
-      = image_tag asset_pack_path('elephant-fren.png'), alt: '', role: 'presentation', class: 'mascot'
-
     .header
       .container.links
         .brand
@@ -30,10 +27,6 @@
               %i.fa.fa-external-link{ style: 'padding-left: 5px;' }
 
       .container.hero
-        .floats
-          %div{ role: 'presentation', class: 'float-1' }
-          %div{ role: 'presentation', class: 'float-2' }
-          %div{ role: 'presentation', class: 'float-3' }
         .heading
           %h1
             = @instance_presenter.site_title
