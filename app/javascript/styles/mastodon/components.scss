@@ -1,16 +1,5 @@
 @import 'variables';
 
-@for $i from 2 through 5 {
-  .fa-#{$i}x > .emojione {
-    width: #{18 * $i}px !important;
-    height:  #{18 * $i}px !important;
-  }
-}
-
-.fa-star:before {
-  content: "\f0f3" !important;
-}
-
 .app-body {
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
@@ -234,7 +223,7 @@
 }
 
 .dropdown--active::after {
-  @media screen and (min-width: 1025px) {
+  @media screen and (min-width: 631px) {
     content: "";
     display: block;
     position: absolute;
@@ -521,7 +510,6 @@
   font-weight: 400;
   overflow: hidden;
   white-space: pre-wrap;
-  padding-top: 5px;
 
   &.status__content--with-spoiler {
     white-space: normal;
@@ -532,9 +520,8 @@
   }
 
   .emojione {
-    width: 20px;
-    height: 20px;
-	margin: -5px 0 0;
+    width: 18px;
+    height: 18px;
   }
 
   p {
@@ -632,6 +619,12 @@
   min-height: 48px;
   border-bottom: 1px solid lighten($ui-base-color, 8%);
   cursor: default;
+
+  @supports (-ms-overflow-style: -ms-autohiding-scrollbar) {
+    // Add margin to avoid Edge auto-hiding scrollbar appearing over content.
+    // On Edge 16 this is 16px and Edge <=15 it's 12px, so aim for 16px.
+    padding-right: 26px; // 10px + 16px
+  }
 
   @keyframes fade {
     0% { opacity: 0; }
@@ -764,7 +757,7 @@
 .status__action-bar {
   align-items: center;
   display: flex;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
 .status__action-bar-button {
@@ -795,9 +788,8 @@
     line-height: 24px;
 
     .emojione {
-      width: 24px;
-      height: 24px;
-	  margin: -5px 0 0;
+      width: 22px;
+      height: 22px;
     }
   }
 
@@ -2294,6 +2286,7 @@ button.icon-button.active i.fa-retweet {
 }
 
 .column-header {
+  display: flex;
   padding: 15px;
   font-size: 16px;
   background: lighten($ui-base-color, 4%);
@@ -2319,12 +2312,10 @@ button.icon-button.active i.fa-retweet {
 }
 
 .column-header__buttons {
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 100%;
-  display: flex;
   height: 48px;
+  display: flex;
+  margin: -15px;
+  margin-left: 0;
 }
 
 .column-header__button {
@@ -2390,6 +2381,14 @@ button.icon-button.active i.fa-retweet {
       padding-right: 0;
     }
   }
+}
+
+.column-header__title {
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  flex: 1;
 }
 
 .text-btn {
@@ -2595,7 +2594,7 @@ button.icon-button.active i.fa-retweet {
   color: $primary-text-color;
   position: absolute;
   top: 10px;
-  right: 10px;
+  left: 10px;
   opacity: 0.7;
   display: inline-block;
   vertical-align: top;
@@ -2610,7 +2609,7 @@ button.icon-button.active i.fa-retweet {
 .account--action-button {
   position: absolute;
   top: 10px;
-  left: 20px;
+  right: 20px;
 }
 
 .setting-toggle {
@@ -2693,20 +2692,6 @@ button.icon-button.active i.fa-retweet {
 
 .pulse-loading {
   animation: heartbeat 1.5s ease-in-out infinite both;
-}
-
-@keyframes pulse {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.5;
-  }
-}
-
-.bbcode-pulse-loading {
-  animation: pulse 1s ease-in-out infinite;
-  animation-direction: alternate;
 }
 
 .emoji-picker-dropdown__menu {
@@ -3036,21 +3021,21 @@ button.icon-button.active i.fa-retweet {
   }
 
   .fa-search {
-    transform: translateZ(0) rotate(90deg);
+    transform: rotate(90deg);
 
     &.active {
       pointer-events: none;
-      transform: translateZ(0) rotate(0deg);
+      transform: rotate(0deg);
     }
   }
 
   .fa-times-circle {
     top: 11px;
-    transform: translateZ(0) rotate(0deg);
+    transform: rotate(0deg);
     cursor: pointer;
 
     &.active {
-      transform: translateZ(0) rotate(90deg);
+      transform: rotate(90deg);
     }
 
     &:hover {
@@ -3082,64 +3067,6 @@ button.icon-button.active i.fa-retweet {
   }
 }
 
-.announcements {
-  padding: 5px;
-
-  li {
-    display: flex;
-    padding: 10px;
-    color: $ui-base-color;
-    background: darken($white, 10%);
-    border-radius: 4px;
-
-    & + li {
-      margin-top: 10px;
-    }
-  }
-}
-
-.announcements__admin {
-  width: 100%;
-  position: relative;
-
-  p {
-    padding: 0 5px;
-    font-size: 14px;
-  }
-}
-
-.announcements__icon {
-  display: inline-block;
-  position: absolute;
-  margin: -5px 5px;
-  right: 10px;
-}
-
-.announcements__body {
-  width: 100%;
-  position: relative;
-
-  p {
-    padding: 0 5px;
-    font-size: 14px;
-  }
-
-  a {
-    display: inline-block;
-    float: right;
-    clear: both;
-    color: $ui-base-color;
-    background: darken($white, 5%);
-    text-decoration: none;
-    padding: 1px 10px 0;
-    border: solid 1px $ui-base-color;
-    font-size: 10px;
-    font-weight: 600;
-    border-radius: 4px;
-    margin-top: 5px;
-  }
-}
-
 .modal-root {
   transition: opacity 0.3s linear;
   will-change: opacity;
@@ -3153,7 +3080,6 @@ button.icon-button.active i.fa-retweet {
   right: 0;
   bottom: 0;
   background: rgba($base-overlay-background, 0.7);
-  transform: translateZ(0);
 }
 
 .modal-root__container {
@@ -3451,7 +3377,7 @@ button.icon-button.active i.fa-retweet {
 }
 
 .onboarding-modal__page-one__elephant-friend {
-  background: url('../images/elephant-friend-1.png') no-repeat center center / contain;
+  background: url('../images/elephant-friend.png') no-repeat center center / contain;
   width: 155px;
   height: 193px;
   margin-right: 15px;
@@ -4422,8 +4348,4 @@ noscript {
       border: 0;
     }
   }
-}
-
-.status__wrapper.pinned {
-  background: rgba(lighten($ui-base-color, 4%), 0.9);
 }

@@ -31,7 +31,7 @@ const messages = defineMessages({
 });
 
 const hashtags = Immutable.fromJS([
-  '神崎ドン自己紹介',
+  '#自己紹介',
 ]);
 
 class Announcements extends React.PureComponent {

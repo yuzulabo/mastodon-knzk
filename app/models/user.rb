@@ -3,9 +3,7 @@
 #
 # Table name: users
 #
-#  id                        :integer          not null, primary key
 #  email                     :string           default(""), not null
-#  account_id                :integer          not null
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  encrypted_password        :string           default(""), not null
@@ -30,7 +28,11 @@
 #  otp_required_for_login    :boolean          default(FALSE), not null
 #  last_emailed_at           :datetime
 #  otp_backup_codes          :string           is an Array
+#  provider                  :string
+#  uid                       :string
 #  filtered_languages        :string           default([]), not null, is an Array
+#  account_id                :integer          not null
+#  id                        :integer          not null, primary key
 #
 
 class User < ApplicationRecord

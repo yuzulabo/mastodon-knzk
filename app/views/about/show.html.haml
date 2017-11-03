@@ -12,7 +12,7 @@
 .landing-page
   .header-wrapper
     .mascot-container
-      = image_tag asset_pack_path('elephant-fren.png'), alt: '', role: 'presentation', class: 'mascot'
+      = image_tag asset_pack_path('elephant-friend.png'), alt: '', role: 'presentation', class: 'mascot'
 
     .header
       .container.links
@@ -45,26 +45,26 @@
       = render 'registration'
     - else
       .closed-registrations-message
-            %div
-        - if @instance_presenter.closed_registrations_message.blank?
-          %p= t('about.closed_registrations')
-        - else
-          = @instance_presenter.closed_registrations_message.html_safe
+        %div
+          - if @instance_presenter.closed_registrations_message.blank?
+            %p= t('about.closed_registrations')
+          - else
+            = @instance_presenter.closed_registrations_message.html_safe
             = link_to t('about.find_another_instance'), 'https://joinmastodon.org/', class: 'button button-alternative button--block'
 
   .about-short
     .container
-       %h3= "ソーシャルログイン"
-         .oauth-signup
-           %div.login-buttons-box
-           %ul.login-button-list
-             %li
-               = link_to button_tag("facebook", class: "facebook-login-button")  , user_facebook_omniauth_authorize_path
-             %li
-               = link_to button_tag("github", class: "github-login-button")  , user_github_omniauth_authorize_path
-      %p= 認証するだけで、自動で会員登録できます。
-      %p= タイムラインに無断で投稿することはありません。
-    %h3= t('about.description_headline', domain: site_hostname)
+      %h3= "ソーシャルログイン"
+      .oauth-signup
+      %div.login-buttons-box
+        %ul.login-button-list
+          %li
+            = link_to button_tag("facebook", class: "facebook-login-button")  , user_facebook_omniauth_authorize_path
+          %li
+            = link_to button_tag("github", class: "github-login-button")  , user_github_omniauth_authorize_path
+      %p= "認証するだけで、自動で会員登録できます。"
+      %p= "タイムラインに無断で投稿することはありません。"
+      %h3= t('about.description_headline', domain: site_hostname)
       %p= @instance_presenter.site_description.html_safe.presence || t('about.generic_description', domain: site_hostname)
 
   .features
