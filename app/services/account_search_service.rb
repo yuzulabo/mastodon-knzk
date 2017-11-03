@@ -15,12 +15,12 @@ class AccountSearchService < BaseService
   private
 
   def search_service_results
-    return [] if query_blank_or_hashtag?
+    return [] if query_blank_or_hashtag? || limit < 1
 
     if resolving_non_matching_remote_account?
-      [FollowRemoteAccountService.new.call("#{query_username}@#{query_domain}")]
+      [ResolveRemoteAccountService.new.call("#{query_username}@#{query_domain}")].compact
     else
-      search_results_and_exact_match.compact.uniq
+      search_results_and_exact_match.compact.uniq.slice(0, limit)
     end
   end
 
@@ -29,7 +29,9 @@ class AccountSearchService < BaseService
   end
 
   def search_results_and_exact_match
-    [exact_match] + search_results.to_a
+    exact = [exact_match]
+    return exact if !exact[0].nil? && limit == 1
+    exact + search_results.to_a
   end
 
   def query_blank_or_hashtag?
@@ -57,14 +59,22 @@ class AccountSearchService < BaseService
   end
 
   def exact_match
-    @_exact_match ||= Account.find_remote(query_username, query_domain)
+    @_exact_match ||= begin
+      if domain_is_local?
+        Account.find_local(query_username)
+      else
+        Account.find_remote(query_username, query_domain)
+      end
+    end
   end
 
   def search_results
-    @_search_results ||= if account
-      advanced_search_results
-    else
-      simple_search_results
+    @_search_results ||= begin
+      if account
+        advanced_search_results
+      else
+        simple_search_results
+      end
     end
   end
 

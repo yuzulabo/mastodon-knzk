@@ -1,3 +1,35 @@
+Warden::Manager.after_set_user except: :fetch do |user, warden|
+  if user.session_active?(warden.cookies.signed['_session_id'] || warden.raw_session['auth_id'])
+    session_id = warden.cookies.signed['_session_id'] || warden.raw_session['auth_id']
+  else
+    session_id = user.activate_session(warden.request)
+  end
+
+  warden.cookies.signed['_session_id'] = {
+    value: session_id,
+    expires: 1.year.from_now,
+    httponly: true,
+  }
+end
+
+Warden::Manager.after_fetch do |user, warden|
+  if user.session_active?(warden.cookies.signed['_session_id'] || warden.raw_session['auth_id'])
+    warden.cookies.signed['_session_id'] = {
+      value: warden.cookies.signed['_session_id'] || warden.raw_session['auth_id'],
+      expires: 1.year.from_now,
+      httponly: true,
+    }
+  else
+    warden.logout
+    throw :warden, message: :unauthenticated
+  end
+end
+
+Warden::Manager.before_logout do |_, warden|
+  SessionActivation.deactivate warden.cookies.signed['_session_id']
+  warden.cookies.delete('_session_id')
+end
+
 Devise.setup do |config|
   config.warden do |manager|
     manager.default_strategies(scope: :user).unshift :two_factor_authenticatable
@@ -9,7 +41,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` on Rails 4+ applications as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '2f86974c4dd7735170fd70fbf399f7a477ffd635ef240d07a22cf4bd7cd13dbae17c4383a2996d0c1e79a991ec18a91a17424c53e4771adb75a8b21904bd1403'
+  config.secret_key = '84236f7cbf594cd8ccd18d392a6eac97b662356cd20c61742c807e662bc02b917f5218a18c2fbd565907391c3b6e0afe4a2b859292e18441892e84b2058c4deb'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -122,7 +154,7 @@ Devise.setup do |config|
   # their account can't be confirmed with the token any more.
   # Default is nil, meaning there is no restriction on how long a user can take
   # before confirming their account.
-  # config.confirm_within = 3.days
+  config.confirm_within = 2.days
 
   # If true, requires any email changes to be confirmed (exactly the same way as
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
@@ -135,7 +167,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
-  # config.remember_for = 2.weeks
+  config.remember_for = 1.year
 
   # Invalidates all the remember me tokens when the user signs out.
   config.expire_all_remember_me_on_sign_out = true
@@ -145,7 +177,7 @@ Devise.setup do |config|
 
   # Options to be passed to the created cookie. For instance, you can set
   # secure: true in order to force SSL only cookies.
-  # config.rememberable_options = {}
+  config.rememberable_options = { secure: true }
 
   # ==> Configuration for :validatable
   # Range for password length.

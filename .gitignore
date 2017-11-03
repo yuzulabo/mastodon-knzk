@@ -19,10 +19,13 @@
 coverage
 public/system
 public/assets
+public/packs
+public/packs-test
+public/500.html
 .env
 .env.production
 node_modules/
-neo4j/
+build/
 
 # Ignore Vagrant files
 .vagrant/
@@ -32,6 +35,7 @@ config/deploy/*
 
 # Ignore IDE files
 .vscode/
+.idea/
 
 # Ignore postgres + redis volume optionally created by docker-compose
 postgres
@@ -43,4 +47,14 @@ redis
 # Ignore vim files
 *~
 *.swp
-/.idea
+
+# Ignore npm debug log
+npm-debug.log
+
+# Ignore yarn log files
+yarn-error.log
+yarn-debug.log
+
+# Ignore Docker option files
+docker-compose.override.yml
+
