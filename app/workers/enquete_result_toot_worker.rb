@@ -45,7 +45,7 @@ class EnqueteResultTootWorker
 
   def build_enquete_result_status(question, items, ratios, ratios_text)
     question_frame = "\n━━━━━━━━━━━━\n"
-    status = 'knzk.me  アンケート(結果)' + question_frame + question + question_frame
+    status = 'アンケート(結果)' + question_frame + question + question_frame
     ratios.each_with_index do |rate, i|
       if i == ratios.length - 1
         branch_mark = '└'

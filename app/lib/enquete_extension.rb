@@ -54,7 +54,7 @@ module EnqueteExtension
 
   def build_enquete_status_text(question, items)
     question_frame = "\n━━━━━━━━━━━━\n"
-    status = 'knzk.me アンケート' + question_frame + question + question_frame
+    status = 'アンケート' + question_frame + question + question_frame
 
     items.each_with_index do |item, i|
       branch_mark = i == items.length - 1 ? '└' : '├'
