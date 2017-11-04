@@ -9,7 +9,7 @@ module Mastodon
     end
 
     def author
-      'KnzkDev'
+      'kibousoft'
     end
 
     def repository
