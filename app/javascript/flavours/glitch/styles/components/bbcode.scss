@@ -48,7 +48,7 @@ $bbcode2: lighten($black, 15%) !default;
     &__large-#{$i}x {
       font-size: #{$i}em;
 
-      > .emojione {
+      & .emojione {
         width: #{18 * $i}px !important;
         height:  #{18 * $i}px !important;
       }

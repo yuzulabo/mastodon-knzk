@@ -271,11 +271,11 @@ class Formatter
           :only_allow => [],
           :require_between => true},
         :quote => {
-          :html_open => '<span class="bbcode__quote">', :html_close => '</span>',
+          :html_open => '<div class="bbcode__quote">', :html_close => '</div>',
           :description => 'Quote',
           :example => 'This is [quote]quote[/quote].'},
         :code => {
-          :html_open => '<span class="bbcode__code">', :html_close => '</span>',
+          :html_open => '<div class="bbcode__code">', :html_close => '</div>',
           :description => 'Code',
           :example => 'This is [code]Code[/code].'},
         :u => {
