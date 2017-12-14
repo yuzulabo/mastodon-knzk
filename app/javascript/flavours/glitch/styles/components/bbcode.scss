@@ -5,13 +5,6 @@ $bbcode2: lighten($black, 15%) !default;
   display: none;
 }
 
-@for $i from 2 through 5 {
-  .fa-#{$i}x > .emojione {
-    width: #{18 * $i}px !important;
-    height:  #{18 * $i}px !important;
-  }
-}
-
 .bbcode {
   &__pulse {
     animation: pulse 1s ease-in-out infinite;
@@ -51,6 +44,11 @@ $bbcode2: lighten($black, 15%) !default;
   @for $i from 2 through 5 {
     &__large-#{$i}x {
       font-size: #{$i}em;
+
+      > .emojione {
+        width: #{18 * $i}px !important;
+        height:  #{18 * $i}px !important;
+      }
     }
   }
 
