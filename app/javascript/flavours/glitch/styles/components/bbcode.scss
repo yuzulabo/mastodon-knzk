@@ -12,6 +12,7 @@ $bbcode2: lighten($black, 15%) !default;
   }
 
   &__spin {
+    display: inline-block;
     -webkit-animation: fa-spin 2s infinite linear;
     animation: fa-spin 2s infinite linear;
   }
@@ -30,12 +31,14 @@ $bbcode2: lighten($black, 15%) !default;
   }
 
   &__flip-horizontal {
+    display: inline-block;
     -webkit-transform: scale(-1, 1);
     -ms-transform: scale(-1, 1);
     transform: scale(-1, 1);
   }
 
   &__flip-vertical {
+    display: inline-block;
     -webkit-transform: scale(1, -1);
     -ms-transform: scale(1, -1);
     transform: scale(1, -1);
@@ -95,27 +98,5 @@ $bbcode2: lighten($black, 15%) !default;
   }
   100% {
     opacity: 0.5;
-  }
-}
-
-@-webkit-keyframes fa-spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(359deg);
-    transform: rotate(359deg);
-  }
-}
-
-@keyframes fa-spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(359deg);
-    transform: rotate(359deg);
   }
 }

@@ -249,7 +249,7 @@ class Formatter
           :quick_param_format_description => 'The size parameter \'%param%\' is incorrect, a number is expected',
           :param_tokens => [{:token => :direction}]},
         :large => {
-          :html_open => '<span class="bbcode__large-%size%x">', :html_close => '</span>',
+          :html_open => '<span class="bbcode__large-%size%">', :html_close => '</span>',
           :description => 'Large text',
           :example => '[large=2x]Large text[/large]',
           :allow_quick_param => true, :allow_between_as_param => false,
