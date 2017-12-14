@@ -265,7 +265,7 @@ class Formatter
           :quick_param_format_description => 'The size parameter \'%param%\' is incorrect',
           :param_tokens => [{:token => :colorcode}]},
         :faicon => {
-          :html_open => '<span class="fa fa-%between% invisible bbcode__faicon"></span><span class="faicon_FTL">%between%</span>', :html_close => '',
+          :html_open => '<span class="fa fa-%between% bbcode__faicon" style="display: none"></span><span class="faicon_FTL">%between%</span>', :html_close => '',
           :description => 'Use Font Awesome Icons',
           :example => '[faicon]users[/faicon]',
           :only_allow => [],
