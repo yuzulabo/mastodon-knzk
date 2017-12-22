@@ -1,6 +1,6 @@
 import React from 'react';
-import Column from '../ui/components/column';
-import ColumnBackButtonSlim from '../../components/column_back_button_slim';
+import Column from 'flavours/glitch/features/ui/components/column';
+import ColumnBackButtonSlim from 'flavours/glitch/components/column_back_button_slim';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import ImmutablePureComponent from 'react-immutable-pure-component';
@@ -83,6 +83,10 @@ export default class KeyboardShortcuts extends ImmutablePureComponent {
               <tr>
                 <td><kbd>esc</kbd></td>
                 <td><FormattedMessage id='keyboard_shortcuts.unfocus' defaultMessage='to un-focus compose textarea/search' /></td>
+              </tr>
+              <tr>
+                <td><kbd>x</kbd></td>
+                <td><FormattedMessage id='keyboard_shortcuts.expand' defaultMessage='to expand a status with a content warning' /></td>
               </tr>
               <tr>
                 <td><kbd>?</kbd></td>

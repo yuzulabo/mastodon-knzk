@@ -23,11 +23,11 @@ const messages = {
   'settings.enable_collapsed': 'トゥート折りたたみを有効にする',
   'settings.general': '一般',
   'settings.image_backgrounds': '画像背景',
-  'settings.image_backgrounds_media': '折りたまれたメディア付きテゥートをプレビュー',
+  'settings.image_backgrounds_media': '折りたまれたメディア付きトゥートをプレビュー',
   'settings.image_backgrounds_users': '折りたまれたトゥートの背景を変更する',
   'settings.media': 'メディア',
   'settings.media_letterbox': 'メディアをレターボックス式で表示',
-  'settings.media_fullwidth': '全幅メディアプリビュー',
+  'settings.media_fullwidth': '全幅メディアプレビュー',
   'settings.preferences': 'ユーザー設定',
   'settings.wide_view': 'ワイドビュー(Desktopレイアウトのみ)',
   'settings.navbar_under': 'ナビを画面下部に移動させる(Mobileレイアウトのみ)',
@@ -50,6 +50,14 @@ const messages = {
   'notification_purge.btn_none': '選択\n解除',
   'notification_purge.btn_invert': '選択を\n反転',
   'notification_purge.btn_apply': '選択したものを\n削除',
+
+  'compose.attach.upload': 'ファイルをアップロード',
+  'compose.attach.doodle': '落書きをする',
+  'compose.attach': 'アタッチ...',
+
+  'advanced-options.local-only.short': 'ローカル限定',
+  'advanced-options.local-only.long': '他のインスタンスには投稿されません',
+  'advanced_options.icon_title': '高度な設定',
 };
 
 export default Object.assign({}, inherited, messages);

@@ -1254,6 +1254,15 @@
   }
 }
 
+.account__header__avatar {
+  background-size: 90px 90px;
+  display: block;
+  height: 90px;
+  margin: 0 auto 10px;
+  overflow: hidden;
+  width: 90px;
+}
+
 .account-authorize {
   padding: 14px 10px;
 
@@ -2294,6 +2303,27 @@
 
   a {
     color: $ui-base-lighter-color;
+  }
+}
+
+.keyboard-shortcuts {
+  padding: 8px 0 0;
+  overflow: hidden;
+
+  thead {
+    position: absolute;
+    left: -9999px;
+  }
+
+  td {
+    padding: 0 10px 8px;
+  }
+
+  kbd {
+    display: inline-block;
+    padding: 3px 5px;
+    background-color: lighten($ui-base-color, 8%);
+    border: 1px solid darken($ui-base-color, 4%);
   }
 }
 
