@@ -69,7 +69,13 @@ const emojify = (str, customEmojis = {}) => {
   return rtn + str;
 };
 
-export default emojify;
+const emojify_bbcode = (str, customEmojis = {}) => [
+  { re: /<span class="bbcode__colorhex" data-bbcodecolor="#([0-9a-fA-F]{6})">/g, mode: 'color', prefix: '#', suffix: '' },
+  { re: /<span class="bbcode__color" data-bbcodecolor="([a-z]+)">/g, mode: 'color', prefix: '', suffix: '' },
+  { re: /<span class="bbcode__size" data-bbcodesize="(\d+)px">/g, mode: 'font-size', prefix: '', suffix: 'px' },
+].reduce((text, e) => text.replace(e.re, m => `<span style="${e.mode}: ${e.prefix}${m}${e.suffix}">`), emojify(str, customEmojis));
+
+export default emojify_bbcode;
 
 export const buildCustomEmojis = (customEmojis) => {
   const emojis = [];
