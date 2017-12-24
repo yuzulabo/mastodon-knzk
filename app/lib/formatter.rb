@@ -257,7 +257,7 @@ class Formatter
           :quick_param_format_description => 'The size parameter \'%param%\' is incorrect, a number is expected',
           :param_tokens => [{:token => :size}]},
         :size => {
-          :html_open => '<span class="bbcode__size" data-bbcodesize="%size%">', :html_close => '</span>',
+          :html_open => '<span class="bbcode__size" data-bbcodesize="%size%px">', :html_close => '</span>',
           :description => 'Change the size of the text',
           :example => '[size=32]This is 32px[/size]',
           :allow_quick_param => true, :allow_between_as_param => false,
@@ -272,7 +272,7 @@ class Formatter
           :quick_param_format => /([a-z]+)/i,
           :param_tokens => [{:token => :color}]},
         :colorhex => {
-          :html_open => '<span class="bbcode__colorhex" data-bbcodecolor="#%colorcode%">', :html_close => '</span>',
+          :html_open => '<span class="bbcode__color" data-bbcodecolor="#%colorcode%">', :html_close => '</span>',
           :description => 'Use color code',
           :example => '[colorhex=ffffff]White text[/colorhex]',
           :allow_quick_param => true, :allow_between_as_param => false,

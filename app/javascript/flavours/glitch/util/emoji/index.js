@@ -70,10 +70,9 @@ const emojify = (str, customEmojis = {}) => {
 };
 
 const emojify_bbcode = (str, customEmojis = {}) => [
-  { re: /<span class="bbcode__colorhex" data-bbcodecolor="#([0-9a-fA-F]{6})">/g, mode: 'color', prefix: '#', suffix: '' },
-  { re: /<span class="bbcode__color" data-bbcodecolor="([a-z]+)">/g, mode: 'color', prefix: '', suffix: '' },
-  { re: /<span class="bbcode__size" data-bbcodesize="(\d+)px">/g, mode: 'font-size', prefix: '', suffix: 'px' },
-].reduce((text, e) => text.replace(e.re, m => `<span style="${e.mode}: ${e.prefix}${m}${e.suffix}">`), emojify(str, customEmojis));
+  { re: /<span class="bbcode__color" data-bbcodecolor="/g, mode: 'color' },
+  { re: /<span class="bbcode__size" data-bbcodesize="/g, mode: 'font-size' },
+].reduce((text, e) => text.replace(e.re, `<span style="${e.mode}: `), emojify(str, customEmojis));
 
 export default emojify_bbcode;
 
