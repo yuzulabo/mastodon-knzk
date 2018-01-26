@@ -95,6 +95,6 @@ Rails.application.configure do
     'X-Frame-Options'        => 'DENY',
     'X-Content-Type-Options' => 'nosniff',
     'X-XSS-Protection'       => '1; mode=block',
-    'X-Clacks-Overhead' => 'GNU Natalie Nguyen',
+    'X-Clacks-Overhead'      => 'GNU Natalie Nguyen',
   }
 end
