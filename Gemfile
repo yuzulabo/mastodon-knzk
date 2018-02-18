@@ -78,6 +78,7 @@ gem 'json-ld-preloaded', '~> 2.2.1'
 gem 'rdf-normalize', '~> 0.3.1'
 
 # Added by Kibousoft
+gem 'ruby-bbcode'
 gem 'omniauth'
 gem 'omniauth-github'
 gem 'omniauth-facebook'
