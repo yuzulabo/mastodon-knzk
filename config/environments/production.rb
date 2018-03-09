@@ -97,4 +97,6 @@ Rails.application.configure do
     'X-XSS-Protection'       => '1; mode=block',
     'X-Clacks-Overhead'      => 'GNU Natalie Nguyen',
   }
+
+  config.x.otp_secret = ENV.fetch('OTP_SECRET')
 end
