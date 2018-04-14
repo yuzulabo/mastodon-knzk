@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 20180410220657) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
 
   create_table "account_domain_blocks", force: :cascade do |t|
