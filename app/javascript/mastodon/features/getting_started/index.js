@@ -115,6 +115,8 @@ export default class GettingStarted extends ImmutablePureComponent {
       height += 34 + 48*2;
     }
 
+    const wallpaper = JSON.parse(document.getElementById("wallpaper_credit").innerText);
+
     return (
       <Column>
         {multiColumn && <div className='column-header__wrapper'>
@@ -153,6 +155,11 @@ export default class GettingStarted extends ImmutablePureComponent {
               values={{ github: <a href='https://github.com/tootsuite/mastodon' rel='noopener' target='_blank'>tootsuite/mastodon</a> }}
             />
           </p>
+
+          <p>
+          <a href={wallpaper['original_url']} target='_blank'>Wallpaper image</a> by <a href={wallpaper['author']['url']} target='_blank'>{wallpaper['author']['name']}</a>
+          </p>
+
         </div>
       </Column>
     );

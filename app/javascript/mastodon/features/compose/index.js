@@ -93,6 +93,7 @@ export default class Compose extends React.PureComponent {
         </nav>
       );
     }
+    const theme = document.querySelector('meta[name=current-theme]').content;
 
     return (
       <div className='drawer'>
@@ -104,7 +105,7 @@ export default class Compose extends React.PureComponent {
           {!isSearchPage && <div className='drawer__inner' onFocus={this.onFocus}>
             <NavigationContainer onClose={this.onBlur} />
             <ComposeFormContainer />
-            {multiColumn && (
+            {(multiColumn && theme !== 'moe') && (
               <div className='drawer__inner__mastodon'>
                 <img alt='' draggable='false' src={elephantUIPlane} />
               </div>
