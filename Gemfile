@@ -93,6 +93,8 @@ gem 'webpush'
 gem 'json-ld', '~> 2.2'
 gem 'rdf-normalize', '~> 0.3'
 
+gem 'redcarpet', "~> 3.4.0"
+
 group :development, :test do
   gem 'fabrication', '~> 2.20'
   gem 'fuubar', '~> 2.2'
