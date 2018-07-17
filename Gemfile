@@ -94,6 +94,7 @@ gem 'json-ld', '~> 2.2'
 gem 'rdf-normalize', '~> 0.3'
 
 gem 'redcarpet', "~> 3.4.0"
+gem 'ruby-bbcode'
 
 group :development, :test do
   gem 'fabrication', '~> 2.20'
