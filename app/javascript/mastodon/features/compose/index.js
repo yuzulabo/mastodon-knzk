@@ -106,6 +106,7 @@ export default class Compose extends React.PureComponent {
             <ComposeFormContainer />
             {multiColumn && (
               <div className='drawer__inner__mastodon'>
+                <iframe src="/music.html" sandbox="allow-scripts allow-top-navigation" height="100%" width="100%" />
                 <img alt='' draggable='false' src={elephantUIPlane} />
               </div>
             )}
