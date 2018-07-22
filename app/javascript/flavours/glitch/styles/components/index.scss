@@ -579,7 +579,7 @@
 @include limited-single-column('screen and (max-width: 600px)', $parent: null) {
   .tabs-bar__link {
     span {
-      display: inline;
+      display: none;
     }
   }
 }

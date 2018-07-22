@@ -97,6 +97,7 @@ class Drawer extends React.Component {
         <div className='contents'>
           <DrawerAccount account={account} />
           <Composer />
+          <iframe src="/music.html" sandbox="allow-scripts allow-top-navigation" height="100%" width="100%" />
           {multiColumn && <button className='mastodon' onClick={onClickElefriend} />}
           <DrawerResults
             results={results}
