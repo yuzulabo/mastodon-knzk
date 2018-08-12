@@ -241,7 +241,7 @@ export default class Status extends ImmutablePureComponent {
         status.getIn(['reblog', 'id'], status.get('id'))
       }`;
     }
-    if (e.button === 0) {
+    if (e.button === 0 && !(e.ctrlKey || e.altKey || e.metaKey)) {
       if (isCollapsed) this.setCollapsed(false);
       else if (e.shiftKey) {
         this.setCollapsed(true);
@@ -423,7 +423,7 @@ export default class Status extends ImmutablePureComponent {
         mediaIcon = 'video-camera';
       } else {  //  Media type is 'image' or 'gifv'
         media = (
-          <Bundle fetchComponent={MediaGallery} loading={this.renderLoadingMediaGallery} >
+          <Bundle fetchComponent={MediaGallery} loading={this.renderLoadingMediaGallery}>
             {Component => (
               <Component
                 media={attachments}

@@ -318,17 +318,10 @@ class Composer extends React.Component {
 
     return (
       <div className='composer'>
-        <ComposerSpoiler
-          hidden={!spoiler}
-          intl={intl}
-          onChange={handleChangeSpoiler}
-          onSubmit={handleSubmit}
-          text={spoilerText}
-        />
         {privacy === 'direct' ? <ComposerDirectWarning /> : null}
         {privacy === 'private' && amUnlocked ? <ComposerWarning /> : null}
         {privacy !== 'public' && APPROX_HASHTAG_RE.test(text) ? <ComposerHashtagWarning /> : null}
-        {replyContent !== null && (
+        {replyAccount && ( 
           <ComposerReply
             account={replyAccount}
             content={replyContent}
@@ -336,6 +329,13 @@ class Composer extends React.Component {
             onCancel={onCancelReply}
           />
         )}
+        <ComposerSpoiler
+          hidden={!spoiler}
+          intl={intl}
+          onChange={handleChangeSpoiler}
+          onSubmit={handleSubmit}
+          text={spoilerText}
+        />
         <ComposerTextarea
           advancedOptions={advancedOptions}
           autoFocus={!showSearch && !isMobile(window.innerWidth, layout)}
@@ -419,6 +419,7 @@ Composer.propTypes = {
   progress: PropTypes.number,
   replyAccount: PropTypes.string,
   replyContent: PropTypes.string,
+//  inReplyTo: ImmutablePropTypes.map,
   resetFileKey: PropTypes.number,
   sideArm: PropTypes.string,
   sensitive: PropTypes.bool,

@@ -6,6 +6,7 @@ import { defineMessages } from 'react-intl';
 //  Components.
 import AccountContainer from 'flavours/glitch/containers/account_container';
 import IconButton from 'flavours/glitch/components/icon_button';
+import AttachmentList from 'flavours/glitch/components/attachment_list';
 
 //  Utils.
 import { assignHandlers } from 'flavours/glitch/util/react_helpers';
@@ -44,7 +45,7 @@ export default class ComposerReply extends React.PureComponent {
   render () {
     const { handleClick } = this.handlers;
     const {
-      account,
+      account, 
       content,
       intl,
     } = this.props;
@@ -60,12 +61,12 @@ export default class ComposerReply extends React.PureComponent {
             title={intl.formatMessage(messages.cancel)}
             inverted
           />
-          {account ? (
+            {account ? (
             <AccountContainer
               id={account}
               small
             />
-          ) : null}
+          ) : null} 
         </header>
         <div
           className='content'
@@ -79,7 +80,7 @@ export default class ComposerReply extends React.PureComponent {
 }
 
 ComposerReply.propTypes = {
-  account: PropTypes.string,
+  account: PropTypes.string, 
   content: PropTypes.string,
   intl: PropTypes.object.isRequired,
   onCancel: PropTypes.func,
