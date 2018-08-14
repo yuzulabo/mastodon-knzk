@@ -25,6 +25,26 @@ import DrawerSearch from './search';
 import { me } from 'flavours/glitch/util/initial_state';
 import { wrap } from 'flavours/glitch/util/redux_helpers';
 
+// Astarte.
+import AnnouncementsContainer from '../.././containers/announcements_container';
+import Button from '../../components/button';
+
+const CustomEmojiOekaki = class extends React.PureComponent {
+
+  handleClick() {
+    window.open('https://mamemomonga.github.io/mastodon-custom-emoji-oekaki/#kirishima.cloud');
+    return false;
+  }
+
+  render () {
+    return (
+      <div class="emoji-oekaki">
+        <Button text='☆絵文字でお絵かき☆' onClick={this.handleClick} className="custom-emoji-oekaki" />
+      </div>
+    );
+  }
+};
+
 //  State mapping.
 const mapStateToProps = state => ({
   account: state.getIn(['accounts', me]),
@@ -111,6 +131,8 @@ class Drawer extends React.Component {
         <div className='contents'>
           <DrawerAccount account={account} />
           <Composer />
+          <CustomEmojiOekaki />
+          <AnnouncementsContainer /> 
           <iframe src="/music.html" sandbox="allow-scripts allow-top-navigation" height="100%" width="100%" />
           {multiColumn && <button className='mastodon' onClick={onClickElefriend} />}
           <DrawerResults
