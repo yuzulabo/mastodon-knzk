@@ -25,6 +25,26 @@ import DrawerSearch from './search';
 import { me } from 'flavours/glitch/util/initial_state';
 import { wrap } from 'flavours/glitch/util/redux_helpers';
 
+// Astarte.
+import AnnouncementsContainer from '../.././containers/announcements_container';
+import Button from '../../components/button';
+
+const CustomEmojiOekaki = class extends React.PureComponent {
+
+  handleClick() {
+    window.open('https://mamemomonga.github.io/mastodon-custom-emoji-oekaki/#kirishima.cloud');
+    return false;
+  }
+
+  render () {
+    return (
+      <div class="emoji-oekaki">
+        <Button text='☆絵文字でお絵かき☆' onClick={this.handleClick} className="custom-emoji-oekaki" />
+      </div>
+    );
+  }
+};
+
 //  State mapping.
 const mapStateToProps = state => ({
   account: state.getIn(['accounts', me]),
@@ -37,14 +57,28 @@ const mapStateToProps = state => ({
 });
 
 //  Dispatch mapping.
-const mapDispatchToProps = {
-  onChange: changeSearch,
-  onClear: clearSearch,
-  onClickElefriend: cycleElefriendCompose,
-  onShow: showSearch,
-  onSubmit: submitSearch,
-  onOpenSettings: openModal.bind(null, 'SETTINGS', {}),
-};
+const mapDispatchToProps = (dispatch, { intl }) => ({
+  onChange (value) {
+    dispatch(changeSearch(value));
+  },
+  onClear () {
+    dispatch(clearSearch());
+  },
+  onClickElefriend () {
+    dispatch(cycleElefriendCompose());
+  },
+  onShow () {
+    dispatch(showSearch());
+  },
+  onSubmit () {
+    dispatch(submitSearch());
+  },
+  onOpenSettings (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    dispatch(openModal('SETTINGS', {}));
+  },
+});
 
 //  The component.
 class Drawer extends React.Component {
@@ -97,6 +131,9 @@ class Drawer extends React.Component {
         <div className='contents'>
           <DrawerAccount account={account} />
           <Composer />
+          <CustomEmojiOekaki />
+          <AnnouncementsContainer /> 
+          <iframe src="/music.html" class="music-player" sandbox="allow-scripts allow-top-navigation" />
           {multiColumn && <button className='mastodon' onClick={onClickElefriend} />}
           <DrawerResults
             results={results}

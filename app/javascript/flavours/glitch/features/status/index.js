@@ -327,10 +327,10 @@ export default class Status extends ImmutablePureComponent {
     if (status && ancestorsIds && ancestorsIds.size > 0) {
       const element = this.node.querySelectorAll('.focusable')[ancestorsIds.size - 1];
 
-      if (element) {
+      window.requestAnimationFrame(() => {
         element.scrollIntoView(true);
-        this._scrolledIntoView = true;
-      }
+      });
+      this._scrolledIntoView = true;
     }
   }
 
@@ -340,6 +340,10 @@ export default class Status extends ImmutablePureComponent {
 
   onFullScreenChange = () => {
     this.setState({ fullscreen: isFullscreen() });
+  }
+
+  shouldUpdateScroll = (prevRouterProps, { location }) => {
+    return !(location.state && location.state.mastodonModalOpen)
   }
 
   render () {
@@ -385,7 +389,7 @@ export default class Status extends ImmutablePureComponent {
           )}
         />
 
-        <ScrollContainer scrollKey='thread'>
+        <ScrollContainer scrollKey='thread' shouldUpdateScroll={this.shouldUpdateScroll}>
           <div className={classNames('scrollable', 'detailed-status__wrapper', { fullscreen })} ref={this.setRef}>
             {ancestors}
 

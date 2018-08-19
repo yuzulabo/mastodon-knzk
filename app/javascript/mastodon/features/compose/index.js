@@ -13,6 +13,25 @@ import spring from 'react-motion/lib/spring';
 import SearchResultsContainer from './containers/search_results_container';
 import { changeComposing } from '../../actions/compose';
 import elephantUIPlane from '../../../images/elephant_ui_plane.svg';
+import AnnouncementsContainer from './containers/announcements_container';
+
+import Button from '../../components/button';
+
+const CustomEmojiOekaki = class extends React.PureComponent {
+
+  handleClick() {
+    window.open('https://mamemomonga.github.io/mastodon-custom-emoji-oekaki/#kirishima.cloud');
+    return false;
+  }
+
+  render () {
+    return (
+      <div class="emoji-oekaki">
+        <Button text='☆絵文字でお絵かき☆' onClick={this.handleClick} className="custom-emoji-oekaki" />
+      </div>
+    );
+  }
+};
 
 const messages = defineMessages({
   start: { id: 'getting_started.heading', defaultMessage: 'Getting started' },
@@ -104,11 +123,9 @@ export default class Compose extends React.PureComponent {
           {!isSearchPage && <div className='drawer__inner' onFocus={this.onFocus}>
             <NavigationContainer onClose={this.onBlur} />
             <ComposeFormContainer />
-            {multiColumn && (
-              <div className='drawer__inner__mastodon'>
-                <img alt='' draggable='false' src={elephantUIPlane} />
-              </div>
-            )}
+            <CustomEmojiOekaki />
+            <AnnouncementsContainer />
+            <iframe src="/music.html" sandbox="allow-scripts allow-top-navigation" className="music-player" />
           </div>}
 
           <Motion defaultStyle={{ x: isSearchPage ? 0 : -100 }} style={{ x: spring(showSearch || isSearchPage ? 0 : -100, { stiffness: 210, damping: 20 }) }}>

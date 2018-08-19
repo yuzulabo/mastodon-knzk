@@ -41,6 +41,7 @@ class Formatter
     html = encode_custom_emojis(html, status.emojis) if options[:custom_emojify]
     html = simple_format(html, {}, sanitize: false)
     html = html.delete("\n")
+    html = format_bbcode(html)
 
     mdLinkDecoder = MDLinkDecoder.new(html)
     html = mdLinkDecoder.decode
@@ -62,6 +63,7 @@ class Formatter
   end
 
   def simplified_format(account, **options)
+    html = format_bbcode(html)
     html = account.local? ? linkify(account.note) : reformat(account.note)
     html = encode_custom_emojis(html, account.emojis) if options[:custom_emojify]
     html.html_safe # rubocop:disable Rails/OutputSafety
@@ -256,4 +258,79 @@ class Formatter
   def mention_html(account)
     "<span class=\"h-card\"><a href=\"#{TagManager.instance.url_for(account)}\" class=\"u-url mention\">@<span>#{account.username}</span></a></span>"
   end
+
+  def format_bbcode(html)
+
+    begin
+      html = html.bbcode_to_html(false, {
+        :spin => {
+          :html_open => '<span class="fa fa-spin">', :html_close => '</span>',
+          :description => 'Make text spin',
+          :example => 'This is [spin]spin[/spin].'},
+        :pulse => {
+          :html_open => '<span class="bbcode-pulse-loading">', :html_close => '</span>',
+          :description => 'Make text pulse',
+          :example => 'This is [pulse]pulse[/pulse].'},
+        :b => {
+          :html_open => '<span style="font-family: \'kozuka-gothic-pro\', sans-serif; font-weight: 900;">', :html_close => '</span>',
+          :description => 'Make text bold',
+          :example => 'This is [b]bold[/b].'},
+        :i => {
+          :html_open => '<span style="font-family: \'kozuka-gothic-pro\', sans-serif; font-style: italic; -moz-font-feature-settings: \'ital\'; -webkit-font-feature-settings: \'ital\'; font-feature-settings: \'ital\';">', :html_close => '</span>',
+          :description => 'Make text italic',
+          :example => 'This is [i]italic[/i].'},
+        :flip => {
+          :html_open => '<span class="fa fa-flip-%direction%">', :html_close => '</span>',
+          :description => 'Flip text',
+          :example => '[flip=horizontal]This is flip[/flip]',
+          :allow_quick_param => true, :allow_between_as_param => false,
+          :quick_param_format => /(horizontal|vertical)/,
+          :quick_param_format_description => 'The size parameter \'%param%\' is incorrect, a number is expected',
+          :param_tokens => [{:token => :direction}]},
+        :large => {
+          :html_open => '<span class="fa fa-%size%">', :html_close => '</span>',
+          :description => 'Large text',
+          :example => '[large=2x]Large text[/large]',
+          :allow_quick_param => true, :allow_between_as_param => false,
+          :quick_param_format => /(2x|3x|4x|5x)/,
+          :quick_param_format_description => 'The size parameter \'%param%\' is incorrect, a number is expected',
+          :param_tokens => [{:token => :size}]},
+        :color => {
+          :html_open => '<span style="color: %color%;">', :html_close => '</span>',
+          :description => 'Change the color of the text',
+          :example => '[color=red]This is red[/color]',
+          :allow_quick_param => true, :allow_between_as_param => false,
+          :quick_param_format => /([a-zA-Z]+)/i,
+          :param_tokens => [{:token => :color}]},
+        :colorhex => {
+          :html_open => '<span style="color: #%colorcode%">', :html_close => '</span>',
+          :description => 'Use color code',
+          :example => '[colorhex=ffffff]White text[/colorhex]',
+          :allow_quick_param => true, :allow_between_as_param => false,
+          :quick_param_format => /([0-9a-fA-F]{6})/,
+          :quick_param_format_description => 'The size parameter \'%param%\' is incorrect',
+          :param_tokens => [{:token => :colorcode}]},
+        :faicon => {
+          :html_open => '<span class="fa fa-%between%"></span><span class="faicon_FTL">%between%</span>', :html_close => '',
+          :description => 'Use Font Awesome Icons',
+          :example => '[faicon]users[/faicon]',
+          :only_allow => [],
+          :require_between => true},
+        :youtube => {
+          :html_open => '<iframe id="player" type="text/html" width="%width%" height="%height%" src="https://www.youtube.com/embed/%between%?enablejsapi=1" frameborder="0"></iframe>', :html_close => '',
+          :description => 'YouTube video',
+          :example => '[youtube]E4Fbk52Mk1w[/youtube]',
+          :only_allow => [],
+          :url_matches => [/youtube\.com.*[v]=([^&]*)/, /youtu\.be\/([^&]*)/, /y2u\.be\/([^&]*)/],
+          :require_between => true,
+          :param_tokens => [
+            { :token => :width, :optional => true, :default => 400 },
+            { :token => :height, :optional => true, :default => 320 }
+          ]},
+      }, :enable, :i, :b, :quote, :code, :size, :u, :s, :spin, :pulse, :flip, :large, :colorhex, :faicon, :youtube)
+    rescue Exception => e
+    end
+    html
+  end
+
 end
