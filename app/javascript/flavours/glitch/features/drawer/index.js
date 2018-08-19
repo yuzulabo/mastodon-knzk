@@ -133,7 +133,7 @@ class Drawer extends React.Component {
           <Composer />
           <CustomEmojiOekaki />
           <AnnouncementsContainer /> 
-          <iframe src="/music.html" sandbox="allow-scripts allow-top-navigation" height="100%" width="100%" />
+          <iframe src="/music.html" class="music-player" sandbox="allow-scripts allow-top-navigation" />
           {multiColumn && <button className='mastodon' onClick={onClickElefriend} />}
           <DrawerResults
             results={results}
