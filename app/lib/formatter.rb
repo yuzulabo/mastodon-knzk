@@ -221,8 +221,9 @@ class Formatter
 
   def link_to_mention(entity, linkable_accounts)
     acct = entity[:screen_name]
+    username, domain = acct.split('@')
 
-    return link_to_account(acct) unless linkable_accounts
+    return link_to_account(acct) unless linkable_accounts and domain != "twitter.com"
 
     account = linkable_accounts.find { |item| TagManager.instance.same_acct?(item.acct, acct) }
     account ? mention_html(account) : "@#{acct}"
@@ -230,6 +231,10 @@ class Formatter
 
   def link_to_account(acct)
     username, domain = acct.split('@')
+
+    if domain == "twitter.com"
+      return mention_twitter_html(username)
+    end
 
     domain  = nil if TagManager.instance.local_domain?(domain)
     account = EntityCache.instance.mention(username, domain)
@@ -258,6 +263,11 @@ class Formatter
   def mention_html(account)
     "<span class=\"h-card\"><a href=\"#{TagManager.instance.url_for(account)}\" class=\"u-url mention\">@<span>#{account.username}</span></a></span>"
   end
+
+  def mention_twitter_html(username)
+    "<span class=\"h-card\"><a href=\"https://twitter.com/#{username}\" class=\"u-url mention\">@<span>#{username}</span></a></span>"
+  end
+
 
   def format_bbcode(html)
 
