@@ -78,6 +78,7 @@ function mapStateToProps (state) {
     preselectDate: state.getIn(['compose', 'preselectDate']),
     privacy: state.getIn(['compose', 'privacy']),
     progress: state.getIn(['compose', 'progress']),
+    inReplyTo: inReplyTo ? state.getIn(['statuses', inReplyTo]) : null,
     replyAccount: inReplyTo ? state.getIn(['statuses', inReplyTo, 'account']) : null,
     replyContent: inReplyTo ? state.getIn(['statuses', inReplyTo, 'contentHtml']) : null,
     resetFileKey: state.getIn(['compose', 'resetFileKey']),
@@ -94,28 +95,71 @@ function mapStateToProps (state) {
 };
 
 //  Dispatch mapping.
-const mapDispatchToProps = {
-  onCancelReply: cancelReplyCompose,
-  onChangeAdvancedOption: changeComposeAdvancedOption,
-  onChangeDescription: changeUploadCompose,
-  onChangeSensitivity: changeComposeSensitivity,
-  onChangeSpoilerText: changeComposeSpoilerText,
-  onChangeSpoilerness: changeComposeSpoilerness,
-  onChangeText: changeCompose,
-  onChangeVisibility: changeComposeVisibility,
-  onClearSuggestions: clearComposeSuggestions,
-  onCloseModal: closeModal,
-  onFetchSuggestions: fetchComposeSuggestions,
-  onInsertEmoji: insertEmojiCompose,
-  onMount: mountCompose,
-  onOpenActionsModal: openModal.bind(null, 'ACTIONS'),
-  onOpenDoodleModal: openModal.bind(null, 'DOODLE', { noEsc: true }),
-  onSelectSuggestion: selectComposeSuggestion,
-  onSubmit: submitCompose,
-  onUndoUpload: undoUploadCompose,
-  onUnmount: unmountCompose,
-  onUpload: uploadCompose,
-};
+const mapDispatchToProps = (dispatch) => ({
+  onCancelReply() {
+    dispatch(cancelReplyCompose());
+  },
+  onChangeAdvancedOption(option, value) {
+    dispatch(changeComposeAdvancedOption(option, value));
+  },
+  onChangeDescription(id, description) {
+    dispatch(changeUploadCompose(id, { description }));
+  },
+  onChangeSensitivity() {
+    dispatch(changeComposeSensitivity());
+  },
+  onChangeSpoilerText(text) {
+    dispatch(changeComposeSpoilerText(text));
+  },
+  onChangeSpoilerness() {
+    dispatch(changeComposeSpoilerness());
+  },
+  onChangeText(text) {
+    dispatch(changeCompose(text));
+  },
+  onChangeVisibility(value) {
+    dispatch(changeComposeVisibility(value));
+  },
+  onClearSuggestions() {
+    dispatch(clearComposeSuggestions());
+  },
+  onCloseModal() {
+    dispatch(closeModal());
+  },
+  onFetchSuggestions(token) {
+    dispatch(fetchComposeSuggestions(token));
+  },
+  onInsertEmoji(position, emoji) {
+    dispatch(insertEmojiCompose(position, emoji));
+  },
+  onMount() {
+    dispatch(mountCompose());
+  },
+  onOpenActionModal(props) {
+    dispatch(openModal('ACTIONS', props));
+  },
+  onOpenDoodleModal() {
+    dispatch(openModal('DOODLE', { noEsc: true }));
+  },
+  onOpenFocalPointModal(id) {
+    dispatch(openModal('FOCAL_POINT', { id }));
+  },
+  onSelectSuggestion(position, token, suggestion) {
+    dispatch(selectComposeSuggestion(position, token, suggestion));
+  },
+  onSubmit() {
+    dispatch(submitCompose());
+  },
+  onUndoUpload(id) {
+    dispatch(undoUploadCompose(id));
+  },
+  onUnmount() {
+    dispatch(unmountCompose());
+  },
+  onUpload(files) {
+    dispatch(uploadCompose(files));
+  },
+});
 
 //  Handlers.
 const handlers = {
@@ -298,12 +342,12 @@ class Composer extends React.Component {
       onFetchSuggestions,
       onOpenActionsModal,
       onOpenDoodleModal,
+      onOpenFocalPointModal,
       onUndoUpload,
       onUpload,
       privacy,
       progress,
-      replyAccount,
-      replyContent,
+      inReplyTo,
       resetFileKey,
       sensitive,
       showSearch,
@@ -318,6 +362,16 @@ class Composer extends React.Component {
 
     return (
       <div className='composer'>
+        {privacy === 'direct' ? <ComposerDirectWarning /> : null}
+        {privacy === 'private' && amUnlocked ? <ComposerWarning /> : null}
+        {privacy !== 'public' && APPROX_HASHTAG_RE.test(text) ? <ComposerHashtagWarning /> : null}
+        {inReplyTo && (
+          <ComposerReply
+            status={inReplyTo}
+            intl={intl}
+            onCancel={onCancelReply}
+          />
+        )}
         <ComposerSpoiler
           hidden={!spoiler}
           intl={intl}
@@ -325,17 +379,6 @@ class Composer extends React.Component {
           onSubmit={handleSubmit}
           text={spoilerText}
         />
-        {privacy === 'direct' ? <ComposerDirectWarning /> : null}
-        {privacy === 'private' && amUnlocked ? <ComposerWarning /> : null}
-        {privacy !== 'public' && APPROX_HASHTAG_RE.test(text) ? <ComposerHashtagWarning /> : null}
-        {replyContent !== null && (
-          <ComposerReply
-            account={replyAccount}
-            content={replyContent}
-            intl={intl}
-            onCancel={onCancelReply}
-          />
-        )}
         <ComposerTextarea
           advancedOptions={advancedOptions}
           autoFocus={!showSearch && !isMobile(window.innerWidth, layout)}
@@ -358,6 +401,7 @@ class Composer extends React.Component {
             intl={intl}
             media={media}
             onChangeDescription={onChangeDescription}
+            onOpenFocalPointModal={onOpenFocalPointModal}
             onRemove={onUndoUpload}
             progress={progress}
             uploading={isUploading}
@@ -417,8 +461,7 @@ Composer.propTypes = {
   preselectDate: PropTypes.instanceOf(Date),
   privacy: PropTypes.string,
   progress: PropTypes.number,
-  replyAccount: PropTypes.string,
-  replyContent: PropTypes.string,
+  inReplyTo: ImmutablePropTypes.map,
   resetFileKey: PropTypes.number,
   sideArm: PropTypes.string,
   sensitive: PropTypes.bool,

@@ -113,6 +113,12 @@ function apiStatusToTextMentions (state, status) {
   )).join('');
 }
 
+function apiStatusToTextHashtags (state, status) {
+  return ImmutableOrderedSet([]).union(status.tags.map(
+    ({ name }) => `#${name} `
+  )).join('');
+}
+
 function clearAll(state) {
   return state.withMutations(map => {
     map.set('text', '');
@@ -133,7 +139,9 @@ function clearAll(state) {
 
 function continueThread (state, status) {
   return state.withMutations(function (map) {
-    map.set('text', apiStatusToTextMentions(state, status));
+    let text = apiStatusToTextMentions(state, status);
+    text = text + apiStatusToTextHashtags(state, status);
+    map.set('text', text);
     if (status.spoiler_text) {
       map.set('spoiler', true);
       map.set('spoiler_text', status.spoiler_text);
@@ -297,6 +305,7 @@ export default function compose(state = initialState, action) {
       }
     });
   case COMPOSE_REPLY_CANCEL:
+    state = state.setIn(['advanced_options', 'threaded_mode'], false);
   case COMPOSE_RESET:
     return state.withMutations(map => {
       map.set('in_reply_to', null);
@@ -362,7 +371,7 @@ export default function compose(state = initialState, action) {
       .set('is_submitting', false)
       .update('media_attachments', list => list.map(item => {
         if (item.get('id') === action.media.id) {
-          return item.set('description', action.media.description);
+          return fromJS(action.media);
         }
 
         return item;
