@@ -38,10 +38,6 @@ export function ListEditor () {
   return import(/* webpackChunkName: "flavours/glitch/async/list_editor" */'flavours/glitch/features/list_editor');
 }
 
-export function PinnedAccountsEditor () {
-  return import(/* webpackChunkName: "flavours/glitch/async/pinned_accounts_editor" */'flavours/glitch/features/pinned_accounts_editor');
-}
-
 export function DirectTimeline() {
   return import(/* webpackChunkName: "flavours/glitch/async/direct_timeline" */'flavours/glitch/features/direct_timeline');
 }

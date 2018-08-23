@@ -394,8 +394,7 @@ class Status < ApplicationRecord
 
     def account_silencing_filter(account)
       if account.silenced?
-        including_myself = left_outer_joins(:account).where(account_id: account.id).references(:accounts)
-        excluding_silenced_accounts.or(including_myself)
+        including_silenced_accounts
       else
         excluding_silenced_accounts
       end
