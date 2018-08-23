@@ -88,6 +88,10 @@ class Formatter_Markdown
             %(<h#{header_level}>#{encode(mdContentsRemoved)}</h#{header_level}>\n)
         end
 
+        def block_code(code, language)
+            %(<br>#{code.strip})
+        end
+
         def codespan(code)
             urlRemoved = "#{remove_url(code)}"
             escapedCode = "#{escape_bbcode(urlRemoved)}"
