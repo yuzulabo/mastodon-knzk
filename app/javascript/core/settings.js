@@ -9,7 +9,7 @@ delegate(document, '#account_display_name', 'input', ({ target }) => {
   const name        = document.querySelector('.card .display-name strong');
 
   if (nameCounter) {
-    nameCounter.textContent = 30 - length(target.value);
+    nameCounter.textContent = 70 - length(target.value);
   }
 
   if (name) {
