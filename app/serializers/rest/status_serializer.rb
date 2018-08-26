@@ -3,7 +3,7 @@
 class REST::StatusSerializer < ActiveModel::Serializer
   attributes :id, :created_at, :in_reply_to_id, :in_reply_to_account_id,
              :sensitive, :spoiler_text, :visibility, :language,
-             :uri, :content, :url, :replies_count, :reblogs_count,
+             :uri, :content, :original_content, :url, :replies_count, :reblogs_count,
              :favourites_count
 
   attribute :favourited, if: :current_user?
@@ -43,6 +43,10 @@ class REST::StatusSerializer < ActiveModel::Serializer
 
   def content
     Formatter.instance.format(object)
+  end
+
+  def original_content
+    Formatter.instance.format(object, no_deco: true)
   end
 
   def url
