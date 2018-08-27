@@ -32,6 +32,7 @@ class Formatter
     linkable_accounts << status.account
 
     html = raw_content
+    return html.html_safe if options[:no_deco]
 
     mdFormatter = Formatter_Markdown.new(html)
     html = mdFormatter.formatted
