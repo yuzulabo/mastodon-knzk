@@ -84,12 +84,9 @@ class BackupService < BaseService
 
     actor[:icon][:url]  = 'avatar' + File.extname(actor[:icon][:url])  if actor[:icon]
     actor[:image][:url] = 'header' + File.extname(actor[:image][:url]) if actor[:image]
-<<<<<<< HEAD
-=======
     actor[:outbox]      = 'outbox.json'
     actor[:likes]       = 'likes.json'
     actor[:bookmarks]   = 'bookmarks.json'
->>>>>>> master
 
     download_to_tar(tar, account.avatar, 'avatar' + File.extname(account.avatar.path)) if account.avatar.exists?
     download_to_tar(tar, account.header, 'header' + File.extname(account.header.path)) if account.header.exists?
