@@ -106,6 +106,7 @@ class Drawer extends React.Component {
       searchHidden,
       searchValue,
       submitted,
+      isSearchPage,
     } = this.props;
     const computedClass = classNames('drawer', `mbstobon-${elefriend}`);
 
@@ -119,26 +120,27 @@ class Drawer extends React.Component {
             onSettingsClick={onOpenSettings}
           />
         ) : null}
-        <DrawerSearch
-          intl={intl}
-          onChange={onChange}
-          onClear={onClear}
-          onShow={onShow}
-          onSubmit={onSubmit}
-          submitted={submitted}
-          value={searchValue}
-        />
+        {(multiColumn || isSearchPage) && <DrawerSearch
+            intl={intl}
+            onChange={onChange}
+            onClear={onClear}
+            onShow={onShow}
+            onSubmit={onSubmit}
+            submitted={submitted}
+            value={searchValue}
+          /> }
         <div className='contents'>
-          <DrawerAccount account={account} />
-          <Composer />
-          <CustomEmojiOekaki />
-          <AnnouncementsContainer /> 
-          <iframe src="/music.html" class="music-player" sandbox="allow-scripts allow-top-navigation" />
+          {!isSearchPage && <DrawerAccount account={account} />}
+          {!isSearchPage && <Composer />}
+          {!isSearchPage && <CustomEmojiOekaki />}
+          {!isSearchPage && <AnnouncementsContainer />}
+          {!isSearchPage && <iframe src="/music.html" class="music-player" sandbox="allow-scripts allow-top-navigation" />}
           {multiColumn && <button className='mastodon' onClick={onClickElefriend} />}
-          <DrawerResults
-            results={results}
-            visible={submitted && !searchHidden}
-          />
+          {(multiColumn || isSearchPage) &&
+            <DrawerResults
+              results={results}
+              visible={submitted && !searchHidden}
+            />}
         </div>
       </div>
     );
@@ -149,6 +151,7 @@ class Drawer extends React.Component {
 //  Props.
 Drawer.propTypes = {
   intl: PropTypes.object.isRequired,
+  isSearchPage: PropTypes.bool,
   multiColumn: PropTypes.bool,
 
   //  State props.

@@ -26,14 +26,21 @@ ar:
     learn_more: تعلم المزيد
     other_instances: خوادم أخرى
     source_code: الشفرة المصدرية
-    status_count_after: منشورا
+    status_count_after:
+      one: منشور
+      other: منشورات
     status_count_before: نشروا
-    user_count_after: مستخدم
+    terms: شروط الخدمة
+    user_count_after:
+      one: مستخدِم
+      other: مستخدِمين
     user_count_before: يستضيف
     what_is_mastodon: ما هو ماستدون ؟
   accounts:
     follow: إتبع
-    followers: متابِعون
+    followers:
+      one: متابِع
+      other: متابِعون
     following: يتابعون
     media: الوسائط
     moved_html: "%{name} إنتقلَ إلى %{new_profile_link} :"
@@ -41,7 +48,12 @@ ar:
     nothing_here: لا يوجد أي شيء هنا !
     people_followed_by: الأشخاص الذين يتبعهم %{name}
     people_who_follow: الأشخاص الذين يتبعون %{name}
-    posts: منشورات
+    pin_errors:
+      following: يجب أن تكون مِن متابعي حساب الشخص الذي تريد إبرازه
+    posts:
+      one: تبويق
+      other: تبويقات
+    posts_tab_heading: تبويقات
     posts_with_replies: التبويقات و الردود
     reserved_username: إسم المستخدم محجوز
     roles:
@@ -272,6 +284,7 @@ ar:
     relays:
       add_new: إضافة مُرحّل جديد
       inbox_url: رابط المُرحّل
+      pending: في انتظار تسريح المُرحِّل
       setup: إعداد اتصال بمُرحّل
       status: الحالة
       title: المُرحّلات
@@ -326,6 +339,9 @@ ar:
       contact_information:
         email: البريد الإلكتروني المهني
         username: الإتصال بالمستخدِم
+      custom_css:
+        desc_html: يقوم بتغيير المظهر بواسطة سي أس أس يُحمَّل على كافة الصفحات
+        title: سي أس أس مخصص
       hero:
         desc_html: معروض على الصفحة الأولى. لا يقل عن 600 × 100 بكسل. عند عدم التعيين ، تعود الصورة إلى النسخة المصغرة على سبيل المثال
         title: الصورة الرأسية
@@ -387,6 +403,10 @@ ar:
       last_delivery: آخر إيداع
       title: WebSub
       topic: الموضوع
+    suspensions:
+      hint_html: 'لتأكيد إجراء تعليق الحساب، يُرجى إدخال %{value} في الحقل التالي:'
+      proceed: مواصلة
+      title: تعليق الحساب %{acct}
     title: الإدارة
   admin_mailer:
     new_report:
@@ -746,11 +766,16 @@ ar:
       title: المغادرة بأرشيف الحساب
     welcome:
       edit_profile_action: تهيئة الملف الشخصي
+      edit_profile_step: يُمكنك·كي تخصيص ملفك الشخصي عن طريق تحميل صورة رمزية ورأسية و بتعديل  إسمك·كي العلني وأكثر. و إن أردت·تي معاينة المتابِعين و المتابعات الجُدد قبيل السماح لهم·ن بمتابَعتك فيمكنك·كي تأمين حسابك·كي.
       explanation: ها هي بعض النصائح قبل بداية الإستخدام
       final_action: اشرَع في النشر
       full_handle: عنوانك الكامل
       review_preferences_action: تعديل التفضيلات
       subject: أهلًا بك على ماستدون
+      tip_bridge_html: إن كنت قادما مِن تويتر، باستطاعتك العثور على أصدقائك على ماستدون باستخدام <a href="%{bridge_url}">تطبيق الجسر</a> بشرط أن يكون أصدقاؤك قد سجلوا حساباتهم على الجسر مِن قبل، و إلّا فلن تنجح العملية !
+      tip_federated_timeline: الخيط الزمني الفديرالي هو بمثابة شبه نظرة شاملة على شبكة ماستدون. غير أنه لا يشمل إلا على الأشخاص المتابَعين مِن طرف جيرانك و جاراتك، لذا فهذا الخيط لا يعكس كافة الشبكة برُمّتها.
+      tip_following: أنت تتبع تلقائيا مديري و مديرات الخادم. للعثور على أشخاص مميزين أو قد تهمك حساباتهم بإمكانك الإطلاع على الخيوط المحلية و كذا الفدرالية.
+      tip_local_timeline: الخيط الزمني المحلي هو بمثابة نظرة سريعة على الأشخاص المتواجدين على %{instance} يمكن اعتبارهم كجيرانك وجاراتك الأقرب إليك!
       tips: نصائح
       title: أهلاً بك، %{name} !
   users:
