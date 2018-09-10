@@ -172,6 +172,12 @@ export default class GettingStarted extends ImmutablePureComponent {
                 </a>&nbsp;•&nbsp;
                 <a href='https://github.com/tootsuite/documentation/blob/master/Using-Mastodon/Apps.md' rel='noopener' target='_blank'>
                   <FormattedMessage id='getting_started.appsshort' defaultMessage='Apps' />
+                </a>&nbsp;•&nbsp;
+                <a href='https://thedesk.top' rel='noopener' target='_blank'>
+                  <FormattedMessage id='getting_started.thedeskshort' defaultMessage='TheDesk' />
+                </a>&nbsp;•&nbsp;
+                <a href='https://astarte.thedesk.top' rel='noopener' target='_blank'>
+                  <FormattedMessage id='getting_started.hima_humanshort' defaultMessage='暇人ランキング' />
                 </a>
               </p>
               <p>
