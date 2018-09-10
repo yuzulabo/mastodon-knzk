@@ -1,35 +1,89 @@
 .status__content {
 
     font-family: inherit;
-  
+
     h1{
-      font-size: 195%;
-      border-bottom: 2px solid #ff3333;
+      color: #ec840d;
+      font-weight: bold;
+      font-size: 1.6em;
+      padding: 0.5em;
+      display: inline-bloc;
+      line-height: 1.3;
+      background: #dbebf8;
+      vertical-align: middle;
+      border-radius: 25px 25px 25px 25px;
+      text-align: center;
+      border-bottom: solid 3px #ff0000;
     }
   
     h2{
-      font-size: 180%;
-      border-bottom: 2px solid #ff3333;
+      color: #ec840d;
+      font-weight: bold;
+      font-size: 1.5em;
+      padding: 0.5em;
+      display: inline-bloc;
+      line-height: 1.3;
+      background: #dbebf8;
+      vertical-align: middle;
+      border-radius: 25px 25px 25px 25px;
+      text-align: center;
+      border-bottom: solid 3px #fffb00;
     }
   
     h3{
-      font-size: 165%;
-      border-bottom: 2px solid #ff3333;
+      color: #ec840d;
+      font-weight: bold;
+      font-size: 1.4em;
+      padding: 0.5em;
+      display: inline-bloc;
+      line-height: 1.3;
+      background: #dbebf8;
+      vertical-align: middle;
+      border-radius: 25px 25px 25px 25px;
+      text-align: center;
+      border-bottom: solid 3px #2bff00;
     }
   
     h4{
-      font-size: 150%;
-      border-bottom: 2px solid #ff3333;
+      color: #ec840d;
+      font-weight: bold;
+      font-size: 1.3em;
+      padding: 0.5em;
+      display: inline-bloc;
+      line-height: 1.3;
+      background: #dbebf8;
+      vertical-align: middle;
+      border-radius: 25px 25px 25px 25px;
+      text-align: center;
+      border-bottom: solid 3px #00ffea;
     }
   
     h5{
-      font-size: 135%;
-      border-bottom: 2px solid #ff3333;
+      color: #ec840d;
+      font-weight: bold;
+      font-size: 1.2em;
+      padding: 0.5em;
+      display: inline-bloc;
+      line-height: 1.3;
+      background: #dbebf8;
+      vertical-align: middle;
+      border-radius: 25px 25px 25px 25px;
+      text-align: center;
+      border-bottom: solid 3px #0004ff;
     }
   
     h6{
-      font-size: 120%;
-      border-bottom: 2px solid #ff3333;
+      color: #ec840d;
+      font-weight: bold;
+      font-size: 1.1em;
+      padding: 0.5em;
+      display: inline-bloc;
+      line-height: 1.3;
+      background: #dbebf8;
+      vertical-align: middle;
+      border-radius: 25px 25px 25px 25px;
+      text-align: center;
+      border-bottom: solid 3px #7700ff;
     }
   
     em{
@@ -72,51 +126,42 @@
         border-left: 4px solid $classic-highlight-color;
     }
   
-    ul{
-      list-style: inside;
-      br{
-        display: none;
-      }
+    ul {
+      border: double 4px #21b384;
+      padding: 0.5em 1em 0.5em 2.3em;
+      position: relative;
     }
-  
-    ul>ul{
-      br{
-        display: none;
-      }
+    ul li {
+      line-height: 1.5;
+      padding: 0.2em 0;
+      list-style-type: none!important;/*ポチ消す*/
     }
-  
-    ul>li>ul{
-      padding-left: 1em;
-      list-style: inside circle;
+    ul li:before {
+      font-family: FontAwesome;
+      content: "\f0a4";
+      position: absolute;
+      left : 1em; /*左端からのアイコンまで*/
+      color: #21b384; /*アイコン色*/
     }
-  
-    ul>li{
-      padding-left: 1em;
-      list-style: inside circle;
-    }
-  
-    ul>br>li{
-      padding-left: 1em;
-      list-style: inside circle;
-    }
-  
-    ul>ul>li{
-      padding-left: 2em;
-      list-style: inside circle;
-    }
-  
-    ul>br>ul>br>li{
-      padding-left: 2em;
-      list-style: inside circle;
-    }
-  
-    ol{
+
+    ol {
+      border: double 4px #ff954f;
+      padding: 0.5em 1em 0.5em 1em;
+      position: relative;
       list-style: inside decimal;
     }
-  
-    ol>li>ol{
-      padding-left: 1em;
+
+    ol li {
+      line-height: 1.5;
+      padding: 0.2em 0;
     }
+
+    hr {
+      border-width: 2px 0px 0px 0px;
+      border-style: dashed;
+      border-color: #ff7676;
+      height: 1px;
+      }
   
     p>a>img{
       width: 100%;
