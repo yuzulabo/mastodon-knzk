@@ -104,6 +104,18 @@
     margin-bottom: 5px;
     margin-left: 5px;
     background-color: #000000;
+
+    .positive{
+      color: #5bda57;
+    }
+
+    .negative{
+      color: #ff4949;
+    }
+
+    .function{
+      color: #ba7eff;
+    }
   }
 
   pre{
@@ -126,32 +138,32 @@
       border-left: 4px solid $classic-highlight-color;
   }
 
-  ul {
+  ul.md-contents {
     border: double 4px #21b384;
     padding: 0.5em 1em 0.5em 2.3em;
     position: relative;
   }
-  ul li {
+  ul li.md-contents {
     line-height: 1.5;
     padding: 0.2em 0;
-    list-style-type: none!important;/*ポチ消す*/
+    list-style-type: none!important;
   }
-  ul li:before {
+  ul li.md-contents:before {
     font-family: FontAwesome;
     content: "\f0a4";
     position: absolute;
-    left : 1em; /*左端からのアイコンまで*/
-    color: #21b384; /*アイコン色*/
+    left : 1em;
+    color: #21b384;
   }
 
-  ol {
+  ol.md-contents {
     border: double 4px #ff954f;
     padding: 0.5em 1em 0.5em 1em;
     position: relative;
     list-style: inside decimal;
   }
 
-  ol li {
+  ol li.md-contents {
     line-height: 1.5;
     padding: 0.2em 0;
   }
