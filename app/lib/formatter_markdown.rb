@@ -228,13 +228,13 @@ class Formatter_Markdown
 
         #code内の一部を色分けするための変更
         def code_contents(string)
-            simple = string.gsub(/(true|error|false|failed|def|put|end|fn|let|mut|String|println!)/ ,
+            simple = string.gsub(/(true|error|false|failed|def|puts|end|fn|let|mut|String|println!)/ ,
                 "true" => "<span class='positive'>#{:true}</span>",
                 "error" => "<span class='negative'>#{:error}</span>",
                 "false" => "<span class='negative'>#{:false}</span>",
                 "failed" => "<span class='negative'>#{:failed}</span>",
                 "def" => "<span class='ruby-func'>#{:def}</span>",
-                "put" => "<span class='ruby-func'>#{:put}</span>",
+                "puts" => "<span class='ruby-func'>#{:puts}</span>",
                 "end" => "<span class='ruby-func'>#{:end}</span>",
                 "fn" => "<span class='rust-fanc'>#{:fn}</span>",
                 "let" => "<span class='rust-fanc'>#{:let}</span>",
