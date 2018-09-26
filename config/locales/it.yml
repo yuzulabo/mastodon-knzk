@@ -280,6 +280,8 @@ it:
         expired: Scaduto
         title: Filtro
       title: Inviti
+    relays:
+      add_new: Aggiungi ripetitore
       description_html: Un <strong>ripetitore di federazione</strong> è un server che fa da intermediario e scambia grandi quantità di toot pubblici tra server che si collegano e pubblicano su di esso. <strong>Può aiutare server piccoli e medi a ottenere contenuti dal fediverse</strong>, che altrimenti riceverebbero solo se i loro utenti locali seguissero altre persone su server remoti.
       enable_hint: Dopo l'attivazione, il vostro server riceverà tutti i toot pubblici da questo ripetitore, e inizierà a inviargli i suoi toot pubblici.
       inbox_url: Url Relay
