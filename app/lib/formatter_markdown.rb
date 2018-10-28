@@ -211,7 +211,7 @@ class Formatter_Markdown
 
         #前々から要望があったcode内でBBCodeを無効化するための奴
         def escape_bbcode(string)
-            string.gsub(/\[/){ "［" }
+            string.gsub(/\[/){ "&#091;" }
         end
 
         #markdownの中でmarkdownを展開させないためのエスケープする奴
