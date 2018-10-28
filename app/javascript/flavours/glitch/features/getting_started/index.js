@@ -165,18 +165,20 @@ export default class GettingStarted extends ImmutablePureComponent {
           <div className='getting-started__footer'>
             <div className='static-content getting-started'>
               <p>
-                <a href='https://docs.joinmastodon.org' target='_blank'>
-                  <FormattedMessage id='getting_started.documentation' defaultMessage='Documentation' />
-                </a>&nbsp;•&nbsp;
-                <a href='https://joinmastodon.org/apps' target='_blank' rel='noopener'>
-                  <FormattedMessage id='getting_started.appsshort' defaultMessage='Apps' />
-                </a>&nbsp;•&nbsp;
-                <a href='https://thedesk.top' rel='noopener' target='_blank'>
-                  <FormattedMessage id='getting_started.thedeskshort' defaultMessage='TheDesk' />
-                </a>&nbsp;•&nbsp;
-                <a href='https://astarte.thedesk.top' rel='noopener' target='_blank'>
-                  <FormattedMessage id='getting_started.hima_humanshort' defaultMessage='暇人ランキング' />
-                </a>
+                <ul class="description">
+                  <li class="description">•&nbsp;<a href='https://docs.joinmastodon.org' target='_blank'>
+                    <FormattedMessage id='getting_started.documentation' defaultMessage='Documentation' />
+                  </a></li>
+                  <li class="description">•&nbsp;<a href='https://joinmastodon.org/apps' target='_blank' rel='noopener'>
+                    <FormattedMessage id='getting_started.appsshort' defaultMessage='Apps' />
+                  </a></li>
+                  <li class="description">•&nbsp;<a href='https://thedesk.top' rel='noopener' target='_blank'>
+                    <FormattedMessage id='getting_started.thedeskshort' defaultMessage='TheDesk' />
+                  </a></li>
+                  <li class="description">•&nbsp;<a href='https://astarte.thedesk.top' rel='noopener' target='_blank'>
+                    <FormattedMessage id='getting_started.hima_humanshort' defaultMessage='暇人ランキング' />
+                  </a></li>
+                </ul>&nbsp;
               </p>
               <p>
                 <FormattedMessage
