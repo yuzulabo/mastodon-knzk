@@ -350,8 +350,24 @@
     padding-right: 1px;
   }
 
-  .status__visibility-icon {
+  .status__visibility-icon.fa.fa-fw.fa-globe{
     padding-left: 4px;
+    color: #3fe1fd;
+  }
+
+  .status__visibility-icon.fa.fa-fw.fa-unlock-alt{
+    padding-left: 4px;
+    color: #3ffd4f;
+  }
+  
+  .status__visibility-icon.fa.fa-fw.fa-lock{
+    padding-left: 4px;
+    color: #f8e115;
+  }
+
+  .status__visibility-icon.fa.fa-fw.fa-envelope{
+    padding-left: 4px;
+    color: #ff3d3d;
   }
 }
 
