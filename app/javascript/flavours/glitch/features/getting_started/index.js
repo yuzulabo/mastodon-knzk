@@ -178,7 +178,7 @@ export default class GettingStarted extends ImmutablePureComponent {
                   <li class="description">•&nbsp;<a href='https://astarte.thedesk.top' rel='noopener' target='_blank'>
                     <FormattedMessage id='getting_started.hima_humanshort' defaultMessage='暇人ランキング' />
                   </a></li>
-                </ul>&nbsp;
+                </ul>
               </p>
               <p>
                 <FormattedMessage
