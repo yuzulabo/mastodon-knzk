@@ -311,7 +311,7 @@ class Formatter
           :description => 'Large text',
           :example => '[large=2x]Large text[/large]',
           :allow_quick_param => true, :allow_between_as_param => false,
-          :quick_param_format => /(2x|3x|4x|5x)/,
+          :quick_param_format => /(2x|3x|4x|5x|ex)/,
           :quick_param_format_description => 'The size parameter \'%param%\' is incorrect, a number is expected',
           :param_tokens => [{:token => :size}]},
         :color => {
