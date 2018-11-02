@@ -8,7 +8,7 @@ import { openModal } from 'flavours/glitch/actions/modal';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import { me } from 'flavours/glitch/util/initial_state';
+import { me, invitesEnabled, version } from 'flavours/glitch/util/initial_state';
 import { fetchFollowRequests } from 'flavours/glitch/actions/accounts';
 import { List as ImmutableList } from 'immutable';
 import { createSelector } from 'reselect';
@@ -166,11 +166,21 @@ export default class GettingStarted extends ImmutablePureComponent {
             <div className='static-content getting-started'>
               <p>
                 <ul class="description">
+                  <li class="description">•&nbsp;<a href='https://bridge.joinmastodon.org/' target='_blank'>
+                  <FormattedMessage id='getting_started.find_friends' defaultMessage='Find friends from Twitter' />
+                  </a></li>
+                  {invitesEnabled && <li><a href='/invites' target='_blank'><FormattedMessage id='getting_started.invite' defaultMessage='Invite people' /></a> · </li>}
                   <li class="description">•&nbsp;<a href='https://docs.joinmastodon.org' target='_blank'>
                     <FormattedMessage id='getting_started.documentation' defaultMessage='Documentation' />
                   </a></li>
                   <li class="description">•&nbsp;<a href='https://joinmastodon.org/apps' target='_blank' rel='noopener'>
                     <FormattedMessage id='getting_started.appsshort' defaultMessage='Apps' />
+                  </a></li>
+                  <li class="description">•&nbsp;<a href='/about/more' target='_blank'>
+                  <FormattedMessage id='navigation_bar.info' defaultMessage='About this instance' />
+                  </a></li>
+                  <li class="description">•&nbsp;<a href='/terms' target='_blank'>
+                  <FormattedMessage id='getting_started.terms' defaultMessage='Terms of service' />
                   </a></li>
                   <li class="description">•&nbsp;<a href='https://thedesk.top' rel='noopener' target='_blank'>
                     <FormattedMessage id='getting_started.thedeskshort' defaultMessage='TheDesk' />
@@ -180,6 +190,7 @@ export default class GettingStarted extends ImmutablePureComponent {
                   </a></li>
                 </ul>
               </p>
+              <br />
               <p>
                 <FormattedMessage
                   id='getting_started.open_source_notice'
