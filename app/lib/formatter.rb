@@ -346,7 +346,7 @@ class Formatter
             { :token => :width, :optional => true, :default => 400 },
             { :token => :height, :optional => true, :default => 320 }
           ]},
-      }, :enable, :i, :b, :quote, :code, :size, :u, :s, :spin, :pulse, :flip, :large, :colorhex, :faicon, :youtube)
+      }, :enable, :i, :b, :quote, :code, :u, :s, :spin, :pulse, :flip, :large, :colorhex, :faicon, :youtube)
     rescue Exception => e
     end
     html
