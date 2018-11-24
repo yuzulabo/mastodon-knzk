@@ -90,7 +90,7 @@ class Announcements extends React.PureComponent {
 
   musicTogglePlay() {
     if (musicPlayer.paused) {
-      if (musicPlayer.dataset.name) music.play();
+      if (musicPlayer.dataset.name) musicPlayer.play();
       else this.musicChangeSrc(0);
     } else {
       musicPlayer.pause();
