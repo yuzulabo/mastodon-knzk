@@ -127,7 +127,7 @@ class Announcements extends React.PureComponent {
               <br />
 			  アスタルテと関連のサービス<br />
 			  <br />
-			  ・MINECRAFT Server<br />
+			  ・MINECRAFT Server(停止中)<br />
 			  [address] mc.kirishima.cloud <br />
 			  [URL] http://mc.kirishima.cloud:8123 <br />
         <a href="http://mc.kirishima.cloud:8123" target="_blank">マップを開く</a><br /><br />
@@ -167,7 +167,7 @@ class Announcements extends React.PureComponent {
           </div>
         </li>
         <li>
-          <Collapsable isVisible={this.state.showId === 'bbcode'} fullHeight={380} minHeight={20} >
+          <Collapsable isVisible={this.state.showId === 'bbcode'} fullHeight={360} minHeight={20} >
             <div className='announcements__body'>
               <p>{ this.nl2br(intl.formatMessage(messages.bbcode, { domain: document.title }))}<br />
               <br />
@@ -180,7 +180,6 @@ class Announcements extends React.PureComponent {
 			  [i]斜体[/i]<br />
 			  [u]アンダーライン[/u]<br />
 			  [s]取り消し線[/s]<br />
-			  [size=5]サイズ変更[/size]<br />
 			  [colorhex=A55A4A]色変更02[/colorhex]<br />
 			  [code]コード[/code]<br />
 			  [quote]引用[/quote]<br />
