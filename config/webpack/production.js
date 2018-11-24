@@ -1,7 +1,8 @@
 // Note: You must restart bin/webpack-dev-server for changes to take effect
 
 const merge = require('webpack-merge');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+//const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const sharedConfig = require('./shared.js');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -50,21 +51,7 @@ module.exports = merge(sharedConfig, {
   optimization: {
     minimize: true,
     minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: true,
-
-        uglifyOptions: {
-          compress: {
-            warnings: false,
-          },
-
-          output: {
-            comments: false,
-          },
-        },
-      }),
+      new TerserPlugin(),
     ],
   },
 
