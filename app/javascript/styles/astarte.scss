@@ -66,9 +66,15 @@
     }
   }
   
-  .music-player {
-    width: auto;
-    margin: 10px 10px 0 10px;
+  .musicList {
+    width: 100%;
+
+    li {
+      padding: 0;
+      width: 100%;
+      border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
   }
 
   iframe.discord {
