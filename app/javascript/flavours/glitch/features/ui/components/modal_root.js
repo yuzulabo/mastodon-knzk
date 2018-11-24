@@ -19,6 +19,8 @@ import {
   SettingsModal,
   EmbedModal,
   ListEditor,
+  ListAdder,
+  PinnedAccountsEditor,
 } from 'flavours/glitch/util/async-components';
 
 const MODAL_COMPONENTS = {
@@ -35,6 +37,7 @@ const MODAL_COMPONENTS = {
   'ACTIONS': () => Promise.resolve({ default: ActionsModal }),
   'EMBED': EmbedModal,
   'LIST_EDITOR': ListEditor,
+  'LIST_ADDER':ListAdder,
   'FOCAL_POINT': () => Promise.resolve({ default: FocalPointModal }),
 };
 
