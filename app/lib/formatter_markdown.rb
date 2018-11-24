@@ -175,7 +175,7 @@ class Formatter_Markdown
             if imgcheck !~ /\Ahttps:\/\/[^<>"\[\] 　]+\z/
                 %(#{encode(alt_text)})
             else
-                %(<img src="#{URI.encode_www_form_component(link)}">)
+                %(<span class="img_FTL">画像が添付されています。</span><img src="#{URI.encode_www_form_component(link)}">)
             end
         end
 
@@ -306,7 +306,8 @@ class MDExtractor
             extractByHTMLTagName("br", false, true),
             extractByHTMLTagName("a"),
             extractByHTMLTagName("img", false, true),
-            extractByHTMLTagName("s")
+            extractByHTMLTagName("s"),
+            extractByHTMLTagName("span")
         ].flatten.compact
     end
 
