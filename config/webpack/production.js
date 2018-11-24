@@ -10,15 +10,16 @@ const { publicPath } = require('./configuration.js');
 const path = require('path');
 const { URL } = require('url');
 
-let compressionAlgorithm;
-try {
-  const zopfli = require('node-zopfli');
-  compressionAlgorithm = (content, options, fn) => {
-    zopfli.gzip(content, options, fn);
-  };
-} catch (error) {
-  compressionAlgorithm = 'gzip';
-}
+let compressionAlgorithm = 'gzip';
+// let compressionAlgorithm;
+// try {
+//   const zopfli = require('node-zopfli');
+//   compressionAlgorithm = (content, options, fn) => {
+//     zopfli.gzip(content, options, fn);
+//   };
+// } catch (error) {
+//   compressionAlgorithm = 'gzip';
+// }
 
 let attachmentHost;
 
