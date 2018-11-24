@@ -127,7 +127,6 @@ class Compose extends React.PureComponent {
             <ComposeFormContainer />
             <CustomEmojiOekaki />
             <AnnouncementsContainer />
-            <iframe src="/music.html" sandbox="allow-scripts allow-top-navigation" className="music-player" />
             {multiColumn && (
               <div className='drawer__inner__mastodon'>
                 <img alt='' draggable='false' src={mascot || elephantUIPlane} />

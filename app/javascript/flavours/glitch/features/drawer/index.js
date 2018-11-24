@@ -146,7 +146,6 @@ class Drawer extends React.Component {
           {!isSearchPage && <Composer />}
           {!isSearchPage && <CustomEmojiOekaki />}
           {!isSearchPage && <AnnouncementsContainer />}
-          {!isSearchPage && <iframe src="/music.html" class="music-player" sandbox="allow-scripts allow-top-navigation" />}
           {multiColumn && <button className='mastodon' onClick={onClickElefriend} />}
           {(multiColumn || isSearchPage) &&
             <DrawerResults
