@@ -28,6 +28,7 @@ const messages = {
   'settings.enable_collapsed': 'トゥート折りたたみを有効にする',
   'settings.enable_content_warnings_auto_unfold': 'コンテンツワーニング指定されている投稿を常に表示する',
   'settings.general': '一般',
+  'settings.inline_preview_cards':'外部リンクのインラインプレビューを有効にする',
   'settings.image_backgrounds': '画像背景',
   'settings.image_backgrounds_media': '折りたまれたメディア付きトゥートをプレビュー',
   'settings.image_backgrounds_users': '折りたまれたトゥートの背景を変更する',
