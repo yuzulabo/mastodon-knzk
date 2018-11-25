@@ -1,7 +1,8 @@
 // Note: You must restart bin/webpack-dev-server for changes to take effect
 
 const merge = require('webpack-merge');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+//const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const sharedConfig = require('./shared.js');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -10,15 +11,16 @@ const { publicPath } = require('./configuration.js');
 const path = require('path');
 const { URL } = require('url');
 
-let compressionAlgorithm;
-try {
-  const zopfli = require('node-zopfli');
-  compressionAlgorithm = (content, options, fn) => {
-    zopfli.gzip(content, options, fn);
-  };
-} catch (error) {
-  compressionAlgorithm = 'gzip';
-}
+let compressionAlgorithm = 'gzip';
+// let compressionAlgorithm;
+// try {
+//   const zopfli = require('node-zopfli');
+//   compressionAlgorithm = (content, options, fn) => {
+//     zopfli.gzip(content, options, fn);
+//   };
+// } catch (error) {
+//   compressionAlgorithm = 'gzip';
+// }
 
 let attachmentHost;
 
@@ -49,21 +51,7 @@ module.exports = merge(sharedConfig, {
   optimization: {
     minimize: true,
     minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: true,
-
-        uglifyOptions: {
-          compress: {
-            warnings: false,
-          },
-
-          output: {
-            comments: false,
-          },
-        },
-      }),
+      new TerserPlugin(),
     ],
   },
 
