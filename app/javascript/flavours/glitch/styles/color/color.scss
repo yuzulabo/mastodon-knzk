@@ -1,0 +1,63 @@
+.status__info__icons {
+
+    .status__visibility-icon.fa.fa-fw.fa-globe{
+        padding-left: 4px;
+        color: #3fe1fd;
+    }
+    
+      .status__visibility-icon.fa.fa-fw.fa-unlock-alt{
+        padding-left: 4px;
+        color: #3ffd4f;
+    }
+      
+      .status__visibility-icon.fa.fa-fw.fa-lock{
+        padding-left: 4px;
+        color: #f8e115;
+    }
+    
+      .status__visibility-icon.fa.fa-fw.fa-envelope{
+        padding-left: 4px;
+        color: #ff3d3d;
+    }
+
+}
+
+div.account__avatar[data-avatar-of="@Kirishimalab21"]{
+    border-left: 2px solid red;
+    border-right: 2px solid red;
+}
+   
+a.status__display-name[href="https://kirishima.cloud/@Kirishimalab21"]{
+    color: #FF8C00;
+}
+   
+div.account__avatar[data-avatar-of="@mopopo"]{
+    border-left: 2px solid aqua;
+    border-right: 2px solid aqua;
+}
+   
+a.status__display-name[href="https://kirishima.cloud/@mopopo"]{
+    color: #41d9f4;
+}
+   
+div.account__avatar[data-avatar-of="@Cutls"]{
+    border-left: 2px solid aqua;
+    border-right: 2px solid aqua;
+}
+   
+a.status__display-name[href="https://kirishima.cloud/@Cutls"]{
+    color: #41d9f4;
+}
+   
+div.account__avatar[data-avatar-of="@naokisz"]{
+    border-left: 2px solid aqua;
+    border-right: 2px solid aqua;
+}
+   
+a.status__display-name[href="https://kirishima.cloud/@naokisz"]{
+    color: #41d9f4;
+}
+   
+aside.notification__message span a.status__display-name b{
+    color: #efa0ff;
+}

@@ -1,0 +1,15 @@
+.status-unlisted {
+    background: #325632;
+}
+  
+.status-private {
+    background: #374988;
+}
+  
+.status__action-bar .fa-lock::before {
+    color: #F0C1FA;
+}
+  
+.status__action-bar .fa-envelope::before {
+    color: #EEAA7B;
+}
