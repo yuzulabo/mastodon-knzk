@@ -53,6 +53,10 @@ class Rack::Attack
     req.ip if req.api_request?
   end
 
+  throttle('throttle_status', limit: (ENV['STATUS_API_LIMIT'] || 100).to_i, period: (ENV['STATUS_API_PERIOD'] || 20).to_i.minutes) do |req|
+    req.authenticated_user_id if req.post? && req.path.start_with?('/api/v1/statuses')
+  end
+
   throttle('throttle_media', limit: 30, period: 30.minutes) do |req|
     req.authenticated_user_id if req.post? && req.path.start_with?('/api/v1/media')
   end
