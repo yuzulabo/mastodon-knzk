@@ -79,6 +79,8 @@ const emojify_astarte = (str, customEmojis = {}) => [
   {re: /バジリスク\s*タイム/g, file: 'basilisktime.svg', attrs: 'style="height: 2.5em;"'},
   {re: /欲しい！/g, file: 'hosii.svg', attrs: 'style="height: 1.7em;"'},
   {re: /ささやき(たいまー|タイマー)/g, file: 'in_to_the_dark.svg', attrs: 'style="width: 100%;"'},
+  {re: /:ロケット:/g, file: 'rocket.gif', attrs: 'style="width: 100%;"'},
+  {re: /:おはよう:/g, file: 'morning.gif', attrs: 'style="width: 100%;"'},
 ].reduce((text, e) => text.replace(e.re, m => `<img alt="${m}" src="/emoji/${e.file}" ${e.attrs}/>`), emojify(str, customEmojis));
 
 export default emojify_astarte;
