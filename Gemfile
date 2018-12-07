@@ -6,7 +6,7 @@ ruby '>= 2.3.0', '< 2.6.0'
 gem 'pkg-config', '~> 1.3'
 
 gem 'puma', '~> 3.12'
-gem 'rails', '~> 5.2.1'
+gem 'rails', '~> 5.2.2'
 gem 'thor', '~> 0.20'
 
 gem 'hamlit-rails', '~> 0.2'
@@ -15,7 +15,7 @@ gem 'makara', '~> 0.4'
 gem 'pghero', '~> 2.2'
 gem 'dotenv-rails', '~> 2.5'
 
-gem 'aws-sdk-s3', '~> 1.23', require: false
+gem 'aws-sdk-s3', '~> 1.27', require: false
 gem 'fog-core', '<= 2.1.0'
 gem 'fog-openstack', '~> 0.3', require: false
 gem 'paperclip', '~> 6.0'
@@ -77,20 +77,21 @@ gem 'sanitize', '~> 5.0'
 gem 'sidekiq', '~> 5.2'
 gem 'sidekiq-scheduler', '~> 3.0'
 gem 'sidekiq-unique-jobs', '~> 5.0'
-gem 'sidekiq-bulk', '~>0.1.1'
+gem 'sidekiq-bulk', '~>0.2.0'
 gem 'simple-navigation', '~> 4.0'
-gem 'simple_form', '~> 4.0'
+gem 'simple_form', '~> 4.1'
 gem 'sprockets-rails', '~> 3.2', require: 'sprockets/railtie'
 gem 'stoplight', '~> 2.1.3'
 gem 'strong_migrations', '~> 0.3'
 gem 'tty-command', '~> 0.8', require: false
-gem 'tty-prompt', '~> 0.17', require: false
+gem 'tty-prompt', '~> 0.18', require: false
 gem 'twitter-text', '~> 1.14'
 gem 'tzinfo-data', '~> 1.2018'
 gem 'webpacker', '~> 3.5'
 gem 'webpush'
 
 gem 'json-ld', '~> 2.2'
+gem 'json-ld-preloaded', '~> 2.2'
 gem 'rdf-normalize', '~> 0.3'
 
 gem 'redcarpet', "~> 3.4.0"
@@ -110,7 +111,7 @@ group :production, :test do
 end
 
 group :test do
-  gem 'capybara', '~> 3.10'
+  gem 'capybara', '~> 3.12'
   gem 'climate_control', '~> 0.2'
   gem 'faker', '~> 1.9'
   gem 'microformats', '~> 4.0'
@@ -130,7 +131,7 @@ group :development do
   gem 'letter_opener', '~> 1.4'
   gem 'letter_opener_web', '~> 1.3'
   gem 'memory_profiler'
-  gem 'rubocop', '~> 0.60', require: false
+  gem 'rubocop', '~> 0.61', require: false
   gem 'brakeman', '~> 4.3', require: false
   gem 'bundler-audit', '~> 0.6', require: false
   gem 'scss_lint', '~> 0.57', require: false
