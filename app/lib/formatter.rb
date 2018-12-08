@@ -330,13 +330,13 @@ class Formatter
           :quick_param_format_description => 'The size parameter \'%param%\' is incorrect',
           :param_tokens => [{:token => :colorcode}]},
         :faicon => {
-          :html_open => '<span class="fa fa-%between%"></span><span class="faicon_FTL">%between%</span>', :html_close => '',
+          :html_open => '<span class="fa fa-%between%"></span><span class="bbcode_FTL">%between%</span>', :html_close => '',
           :description => 'Use Font Awesome Icons',
           :example => '[faicon]users[/faicon]',
           :only_allow => [],
           :require_between => true},
         :youtube => {
-          :html_open => '<iframe id="player" type="text/html" width="%width%" height="%height%" src="https://www.youtube.com/embed/%between%?enablejsapi=1" frameborder="0"></iframe>', :html_close => '',
+          :html_open => '<span class="bbcode_FTL">https://www.youtube.com/watch?v=%between%</span><iframe id="player" type="text/html" width="%width%" height="%height%" src="https://www.youtube.com/embed/%between%?enablejsapi=1" frameborder="0"></iframe>', :html_close => '',
           :description => 'YouTube video',
           :example => '[youtube]E4Fbk52Mk1w[/youtube]',
           :only_allow => [],
