@@ -34,6 +34,8 @@ class Formatter
     html = raw_content
     return html.html_safe if options[:no_deco]
 
+    html = konami_code(html)
+
     mdFormatter = Formatter_Markdown.new(html)
     html = mdFormatter.formatted
 
@@ -275,6 +277,22 @@ class Formatter
 
   def mention_twitter_html(username)
     "<span class=\"h-card\"><a href=\"https://twitter.com/#{username}\" class=\"u-url mention\">@<span>#{username}</span></a></span>"
+  end
+
+  def konami_code(html)
+
+    if hexadecimal = html.match(/上上下下左右左右BA"([^"]*)"/)
+      s = hexadecimal[1].unpack('H*')
+      html.gsub!(/(\n|\A)上上下下左右左右BA"[^"]*"(\n|\z)/) { "#{$1}(´へεへ`*) ＜ #{s} #{$2}" }
+      html.gsub!(/"([0-9a-f]*)"]/) { "#{$1}" }
+    elsif html.match(/(¥|\\)上上下下左右左右BA/)
+      html.gsub!(/(¥|\\)上上下下左右左右BA/) { "上上下下左右左右BA" }
+    else
+      html.gsub!(/(上上下下左右左右BA)/) {"#{$1} ☝( ◠‿◠ )☝ 「使い方が違うぞ！」"}
+    end
+
+    html
+
   end
 
 
