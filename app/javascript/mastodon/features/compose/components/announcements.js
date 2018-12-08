@@ -29,6 +29,7 @@ const messages = defineMessages({
   welcome: { id: 'welcome.message', defaultMessage: '{domain}へようこそ!' },
   info: { id: 'info.list', defaultMessage: 'アスタルテについて' },
   donation: { id: 'donation.list', defaultMessage: '寄付について' },
+  stamp: { id: 'stamp.list', defaultMessage: 'スタンプ一覧' },
   bbcode: { id: 'bbcode.list', defaultMessage: 'BBCode一覧' },
   markdown: { id: 'markdown.list', defaultMessage: 'markdown一覧' },
 });
@@ -164,6 +165,26 @@ class Announcements extends React.PureComponent {
           </Collapsable>
           <div className='announcements__icon'>
             <IconButton title={intl.formatMessage(messages.toggle_visible)} icon='caret-up' onClick={() => this.onClick('donation', this.state)} size={20} animate active={this.state.showId === 'donation'} />
+          </div>
+        </li>
+        <li>
+          <Collapsable isVisible={this.state.showId === 'stamp'} fullHeight={180} minHeight={22} >
+            <div className='announcements__body'>
+              <p>{ this.nl2br(intl.formatMessage(messages.stamp, { domain: document.title }))}<br />
+                <br />
+                  5000兆円<br />
+                  欲しい！<br />
+                  熱盛<br />
+                  バジリスクタイム<br />
+                  ささやきタイマー<br />
+                  :おはよう:<br />
+                  :ロケット:<br />
+                  :ヘディング:<br />
+        			</p>
+            </div>
+          </Collapsable>
+          <div className='announcements__icon'>
+            <IconButton title={intl.formatMessage(messages.toggle_visible)} icon='caret-up' onClick={() => this.onClick('stamp', this.state)} size={20} animate active={this.state.showId === 'stamp'} />
           </div>
         </li>
         <li>
