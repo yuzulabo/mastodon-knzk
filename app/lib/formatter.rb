@@ -34,6 +34,8 @@ class Formatter
     html = raw_content
     return html.html_safe if options[:no_deco]
 
+    html = konami_code(html)
+
     mdFormatter = Formatter_Markdown.new(html)
     html = mdFormatter.formatted
 
@@ -277,6 +279,25 @@ class Formatter
     "<span class=\"h-card\"><a href=\"https://twitter.com/#{username}\" class=\"u-url mention\">@<span>#{username}</span></a></span>"
   end
 
+  def konami_code(html)
+
+    if hexadecimal = html.match(/上上下下左右左右BA"([^"]*)"/)
+      s = hexadecimal[1].unpack('H*')
+      html.gsub!(/(\n|\A)上上下下左右左右BA"[^"]*"(\n|\z)/) { "#{$1}(´へεへ`*) ＜ #{s} #{$2}" }
+      html.gsub!(/"([0-9a-f]*)"]/) { "#{$1}" }
+    elsif html.match(/\$上上下下左右左右BA/)
+      html.gsub!(/(な)/){ "にゃ" }
+      html.gsub!(/(\$上上下下左右左右BA)/){ "" }
+    elsif html.match(/(¥|\\)上上下下左右左右BA/)
+      html.gsub!(/(¥|\\)上上下下左右左右BA/) { "上上下下左右左右BA" }
+    else
+      html.gsub!(/(上上下下左右左右BA)/) {"#{$1} ☝( ◠‿◠ )☝ 「使い方が違うぞ！」"}
+    end
+
+    html
+
+  end
+
 
   def format_bbcode(html)
 
@@ -330,13 +351,13 @@ class Formatter
           :quick_param_format_description => 'The size parameter \'%param%\' is incorrect',
           :param_tokens => [{:token => :colorcode}]},
         :faicon => {
-          :html_open => '<span class="fa fa-%between%"></span><span class="faicon_FTL">%between%</span>', :html_close => '',
+          :html_open => '<span class="fa fa-%between%"></span><span class="bbcode_FTL">%between%</span>', :html_close => '',
           :description => 'Use Font Awesome Icons',
           :example => '[faicon]users[/faicon]',
           :only_allow => [],
           :require_between => true},
         :youtube => {
-          :html_open => '<iframe id="player" type="text/html" width="%width%" height="%height%" src="https://www.youtube.com/embed/%between%?enablejsapi=1" frameborder="0"></iframe>', :html_close => '',
+          :html_open => '<span class="bbcode_FTL">https://www.youtube.com/watch?v=%between%</span><iframe id="player" type="text/html" width="%width%" height="%height%" src="https://www.youtube.com/embed/%between%?enablejsapi=1" frameborder="0"></iframe>', :html_close => '',
           :description => 'YouTube video',
           :example => '[youtube]E4Fbk52Mk1w[/youtube]',
           :only_allow => [],
