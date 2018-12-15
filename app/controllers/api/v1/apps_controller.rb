@@ -2,8 +2,16 @@
 
 class Api::V1::AppsController < Api::BaseController
   def create
-    @app = Doorkeeper::Application.create!(application_options)
-    render json: @app, serializer: REST::ApplicationSerializer
+    
+    option = application_options
+
+    if option[:name].downcase.include?("tootdon")
+      render json: {},status: 403
+    else
+      @app = Doorkeeper::Application.create!(application_options)
+      render json: @app, serializer: REST::ApplicationSerializer
+    end
+
   end
 
   private
