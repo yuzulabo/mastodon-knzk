@@ -243,8 +243,8 @@ class Formatter_Markdown
                 "String" => "<span class='rust-macro'>#{:String}</span>",
                 "println!" => "<span class='rust-macro'>#{:println!}</span>",
             )
-            simple.gsub(/(&quot;[a-zA-Z0-9_ ,]+&quot;)/){ "<span class='contents'>#{$1}</span>" }
-#                "" => "<span class=''>#{:}</span>",
+#            simple.gsub(/(&quot;[a-zA-Z0-9_ ,]+&quot;)/){ "<span class='contents'>#{$1}</span>" }
+
         end
 
         #テストで書きなぐった奴
