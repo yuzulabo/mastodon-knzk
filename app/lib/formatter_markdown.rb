@@ -95,8 +95,11 @@ class Formatter_Markdown
         def codespan(code)
             urlRemoved = "#{remove_url(code)}"
             escapedCode = "#{escape_bbcode(urlRemoved)}"
-            encoded = "#{encode(escapedCode)}"
-            %(<code>#{code_contents(encoded)}</code>)
+            %(<code>#{encode(escapedCode)}</code>)
+
+#            encoded = "#{encode(escapedCode)}"
+#            %(<code>#{code_contents(encoded)}</code>)
+
         end
 
         def list(contents, list_type)
@@ -243,7 +246,7 @@ class Formatter_Markdown
                 "String" => "<span class='rust-macro'>#{:String}</span>",
                 "println!" => "<span class='rust-macro'>#{:println!}</span>",
             )
-#            simple.gsub(/(&quot;[a-zA-Z0-9_ ,]+&quot;)/){ "<span class='contents'>#{$1}</span>" }
+#            simple.gsub(/(&quot;[a-zA-Z0-9_ ,:;]+&quot;)/){ "<span class='contents'>#{$1}</span>" }
 
         end
 
