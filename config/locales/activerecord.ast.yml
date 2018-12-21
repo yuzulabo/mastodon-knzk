@@ -1,9 +1,0 @@
----
-ast:
-  activerecord:
-    errors:
-      models:
-        account:
-          attributes:
-            username:
-              invalid: namái lletres, númberos y guiones baxos
