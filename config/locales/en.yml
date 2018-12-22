@@ -100,6 +100,7 @@ en:
       followers: Followers
       followers_url: Followers URL
       follows: Follows
+      header: Header
       inbox_url: Inbox URL
       ip: IP
       location:
@@ -130,6 +131,7 @@ en:
       push_subscription_expires: PuSH subscription expires
       redownload: Refresh avatar
       remove_avatar: Remove avatar
+      remove_header: Remove header
       resend_confirmation:
         already_confirmed: This user is already confirmed
         send: Resend confirmation email
@@ -364,6 +366,9 @@ en:
       hero:
         desc_html: Displayed on the frontpage. At least 600x100px recommended. When not set, falls back to instance thumbnail
         title: Hero image
+      hide_followers_count:
+        desc_html: Do not show followers count on user profiles
+        title: Hide followers count
       mascot:
         desc_html: Displayed on multiple pages. At least 293×205px recommended. When not set, falls back to default mascot
         title: Mascot image
