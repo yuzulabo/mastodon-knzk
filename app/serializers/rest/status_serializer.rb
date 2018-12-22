@@ -114,6 +114,10 @@ class REST::StatusSerializer < ActiveModel::Serializer
       %w(public unlisted).include?(object.visibility)
   end
 
+  def emojis
+    object.emojis + object.avatar_emojis
+  end
+
   def ordered_mentions
     object.active_mentions.to_a.sort_by(&:id)
   end
