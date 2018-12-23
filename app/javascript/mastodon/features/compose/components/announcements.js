@@ -154,9 +154,9 @@ class Announcements extends React.PureComponent {
 			  ・欲しいものリスト<br />
 			  [URL] http://amzn.asia/hJLmEbc <br />
         <a href="http://amzn.asia/hJLmEbc" target="_blank">欲しいものリストを開く</a><br />
-        ・Enty <br />
-			  [URL] https://enty.jp/fTVgWyCFuAkK?src=creator <br />
-        <a href="https://enty.jp/fTVgWyCFuAkK?src=creator" target="_blank">Entyのページを開く</a><br />
+        ・FanBox <br />
+			  [URL] https://www.pixiv.net/fanbox/creator/13015144 <br />
+        <a href="https://www.pixiv.net/fanbox/creator/13015144" target="_blank">FanBoxのページを開く</a><br />
 			  寄付していただいた場合<br />
 			  お名前を寄付一覧に載せます。<br />
 			  強制ではありませんのでDMでご連絡ください<br />
@@ -168,7 +168,7 @@ class Announcements extends React.PureComponent {
           </div>
         </li>
         <li>
-          <Collapsable isVisible={this.state.showId === 'stamp'} fullHeight={220} minHeight={22} >
+          <Collapsable isVisible={this.state.showId === 'stamp'} fullHeight={260} minHeight={22} >
             <div className='announcements__body'>
               <p>{ this.nl2br(intl.formatMessage(messages.stamp, { domain: document.title }))}<br />
                 <br />
@@ -182,6 +182,7 @@ class Announcements extends React.PureComponent {
                   :ヘディング:<br />
                   :ふたば_おはよう:(_は入力しなくても可)<br />
                   :じゃんけん:<br />
+                  :おやすみ:<br />
         			</p>
             </div>
           </Collapsable>
