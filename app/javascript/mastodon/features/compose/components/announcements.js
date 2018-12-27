@@ -168,7 +168,7 @@ class Announcements extends React.PureComponent {
           </div>
         </li>
         <li>
-          <Collapsable isVisible={this.state.showId === 'stamp'} fullHeight={260} minHeight={22} >
+          <Collapsable isVisible={this.state.showId === 'stamp'} fullHeight={280} minHeight={22} >
             <div className='announcements__body'>
               <p>{ this.nl2br(intl.formatMessage(messages.stamp, { domain: document.title }))}<br />
                 <br />
@@ -183,6 +183,7 @@ class Announcements extends React.PureComponent {
                   :ふたば_おはよう:(_は入力しなくても可)<br />
                   :じゃんけん:<br />
                   :おやすみ:<br />
+                  :ごはん:<br />
         			</p>
             </div>
           </Collapsable>
