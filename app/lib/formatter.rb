@@ -284,7 +284,7 @@ class Formatter
     if hexadecimal = html.match(/上上下下左右左右BA"([^"]*)"/)
       s = hexadecimal[1].unpack('H*')
       html.gsub!(/(\n|\A)上上下下左右左右BA"[^"]*"(\n|\z)/) { "#{$1}(´へεへ`*) ＜ #{s} #{$2}" }
-      html.gsub!(/"([0-9a-f]*)"]/) { "#{$1}" }
+      html.gsub!(/\["([0-9a-f]*)"\]/) { "#{$1}" }
     elsif html.match(/\$上上下下左右左右BA/)
       html.gsub!(/(な)/){ "にゃ" }
       html.gsub!(/(\$上上下下左右左右BA)/){ "" }
