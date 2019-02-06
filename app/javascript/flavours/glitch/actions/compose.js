@@ -134,7 +134,7 @@ export function submitCompose(routerHistory) {
       status,
       in_reply_to_id: getState().getIn(['compose', 'in_reply_to'], null),
       media_ids: media.map(item => item.get('id')),
-      sensitive: getState().getIn(['compose', 'sensitive']) || spoilerText.length > 0,
+      sensitive: getState().getIn(['compose', 'sensitive']) || (spoilerText.length > 0 && media.size !== 0),
       spoiler_text: spoilerText,
       visibility: getState().getIn(['compose', 'privacy']),
     }, {
@@ -142,6 +142,12 @@ export function submitCompose(routerHistory) {
         'Idempotency-Key': getState().getIn(['compose', 'idempotencyKey']),
       },
     }).then(function (response) {
+      if (routerHistory && routerHistory.location.pathname === '/statuses/new'
+          && window.history.state
+          && !getState().getIn(['compose', 'advanced_options', 'threaded_mode'])) {
+        routerHistory.goBack();
+      }
+
       dispatch(insertIntoTagHistory(response.data.tags, status));
       dispatch(submitComposeSuccess({ ...response.data }));
 
@@ -157,12 +163,6 @@ export function submitCompose(routerHistory) {
           dispatch(updateTimeline(timelineId, { ...response.data }));
         }
       };
-
-      if (routerHistory && routerHistory.location.pathname === '/statuses/new'
-          && window.history.state
-          && !getState().getIn(['compose', 'advanced_options', 'threaded_mode'])) {
-        routerHistory.goBack();
-      }
 
       insertIfOnline('home');
 
