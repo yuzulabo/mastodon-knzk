@@ -86,6 +86,7 @@ const emojify_astarte = (str, customEmojis = {}) => [
   {re: /:じゃんけん:/g, file: 'janken.gif', attrs: 'style="width: 100%;"'},
   {re: /:おやすみ:/g, file: 'good_night.gif', attrs: 'style="width: 100%;"'},
   {re: /:ごはん:/g, file: 'gohan.png', attrs: 'style="width: 100%;"'},
+  {re: /:おそよう:/g, file: 'osoyou.png', attrs: 'style="width: 100%;"'},
 ].reduce((text, e) => text.replace(e.re, m => `<img alt="${m}" src="/emoji/${e.file}" ${e.attrs}/>`), emojify(str, customEmojis));
 
 export default emojify_astarte;
