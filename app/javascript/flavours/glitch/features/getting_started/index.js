@@ -164,49 +164,26 @@ export default class GettingStarted extends ImmutablePureComponent {
           </div>
 
           <div className='getting-started__footer'>
-            <div className='static-content getting-started'>
-              <p>
-                <ul class="description">
-                  <li class="description">•&nbsp;<a href='https://bridge.joinmastodon.org/' target='_blank'>
-                  <FormattedMessage id='getting_started.find_friends' defaultMessage='Find friends from Twitter' />
-                  </a></li>
-                  {invitesEnabled && <li><a href='/invites' target='_blank'><FormattedMessage id='getting_started.invite' defaultMessage='Invite people' /></a> · </li>}
-                  <li class="description">•&nbsp;<a href='https://docs.joinmastodon.org' target='_blank'>
-                    <FormattedMessage id='getting_started.documentation' defaultMessage='Documentation' />
-                  </a></li>
-                  <li class="description">•&nbsp;<a href='https://joinmastodon.org/apps' target='_blank' rel='noopener'>
-                    <FormattedMessage id='getting_started.appsshort' defaultMessage='Apps' />
-                  </a></li>
-                  <li class="description">•&nbsp;<a href='/about/more' target='_blank'>
-                  <FormattedMessage id='navigation_bar.info' defaultMessage='About this instance' />
-                  </a></li>
-                  <li class="description">•&nbsp;<a href='/terms' target='_blank'>
-                  <FormattedMessage id='getting_started.terms' defaultMessage='Terms of service' />
-                  </a></li>
-                  <li class="description">•&nbsp;<a href='https://thedesk.top' rel='noopener' target='_blank'>
-                    <FormattedMessage id='getting_started.thedeskshort' defaultMessage='TheDesk' />
-                  </a></li>
-                  <li class="description">•&nbsp;<a href='https://astarte.thedesk.top' rel='noopener' target='_blank'>
-                    <FormattedMessage id='getting_started.hima_humanshort' defaultMessage='暇人ランキング' />
-                  </a></li>
-                </ul>
-              </p>
-              <br />
-              <p>
-                <FormattedMessage
-                  id='getting_started.open_source_notice'
-                  defaultMessage='Glitchsoc is open source software, a friendly fork of {Mastodon}. You can contribute or report issues on GitHub at {github}.'
-                  values={{
-                    astarte: <a href='https://github.com/Kirishima21/mastodon' rel='noopener' target='_blank'>Kirishima21/mastodon</a>,
-                    github: <a href='https://github.com/glitch-soc/mastodon' rel='noopener' target='_blank'>glitch-soc/mastodon</a>,
-                    Mastodon: <a href='https://github.com/tootsuite/mastodon' rel='noopener' target='_blank'>Mastodon</a>,
-                  }}
-                />
-              </p>
-              <p>
-                <iframe src="https://discordapp.com/widget?id=481529935039561748&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" class="discord"></iframe>
-              </p>
-            </div>
+            <ul>
+              {invitesEnabled && <li><a href='/invites' target='_blank'><FormattedMessage id='getting_started.invite' defaultMessage='Invite people' /></a> · </li>}
+              <li><a href='/about/more' target='_blank'><FormattedMessage id='navigation_bar.info' defaultMessage='About this instance' /></a> · </li>
+              <li><a href='https://joinmastodon.org/apps' target='_blank'><FormattedMessage id='navigation_bar.apps' defaultMessage='Mobile apps' /></a> · </li>
+              <li><a href='/terms' target='_blank'><FormattedMessage id='getting_started.terms' defaultMessage='Terms of service' /></a> · </li>
+              <li><a href='https://docs.joinmastodon.org' target='_blank'><FormattedMessage id='getting_started.documentation' defaultMessage='Documentation' /></a></li>
+              <li class="description">•&nbsp;<a href='https://thedesk.top' rel='noopener' target='_blank'><FormattedMessage id='getting_started.thedeskshort' defaultMessage='TheDesk' /></a></li>
+              <li class="description">•&nbsp;<a href='https://astarte.thedesk.top' rel='noopener' target='_blank'><FormattedMessage id='getting_started.hima_humanshort' defaultMessage='暇人ランキング' /></a></li>
+            </ul>
+
+            <p>
+              <FormattedMessage
+                id='getting_started.open_source_notice'
+                defaultMessage='Glitchsoc is open source software, a friendly fork of {Mastodon}. You can contribute or report issues on GitHub at {github}.'
+                values={{
+                  astarte: <a href='https://github.com/Kirishima21/mastodon' rel='noopener' target='_blank'>Kirishima21/mastodon</a>,
+                  github: <span><a href='https://github.com/glitch-soc/mastodon' rel='noopener' target='_blank'>glitch-soc/mastodon</a> (v{version})</span>,
+                  Mastodon: <a href='https://github.com/tootsuite/mastodon' rel='noopener' target='_blank'>Mastodon</a> }}
+              />
+            </p>
           </div>
         </div>
       </Column>

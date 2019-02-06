@@ -29,7 +29,7 @@
                   = number_to_human account.statuses_count, strip_insignificant_zeros: true
                   %small= t('accounts.posts', count: account.statuses_count).downcase
                 %td.accounts-table__count.optional
-                  = hide_followers_count(account) ? '-' : (number_to_human account.followers_count, strip_insignificant_zeros: true)
+                  = hide_followers_count?(account) ? '-' : (number_to_human account.followers_count, strip_insignificant_zeros: true)
                   %small= t('accounts.followers', count: account.followers_count).downcase
                 %td.accounts-table__count
                   - if account.last_status_at.present?
@@ -41,8 +41,22 @@
       = paginate @accounts
 
   .column-1
-    - if @tags.empty?
-      .nothing-here.nothing-here--flexible
+    - if user_signed_in?
+      .box-widget.notice-widget
+        - if current_account.discoverable?
+          - if current_account.followers_count < Account::MIN_FOLLOWERS_DISCOVERY
+            %p= t('directories.enabled_but_waiting', min_followers: Account::MIN_FOLLOWERS_DISCOVERY)
+          - else
+            %p= t('directories.enabled')
+        - else
+          %p= t('directories.how_to_enable')
+
+          = link_to settings_profile_path do
+            = t('settings.edit_profile')
+            = fa_icon 'chevron-right fw'
+
+    - if @tags.empty? && !user_signed_in?
+      .nothing-here
     - else
       - @tags.each do |tag|
         .directory__tag{ class: tag.id == @tag&.id ? 'active' : nil }

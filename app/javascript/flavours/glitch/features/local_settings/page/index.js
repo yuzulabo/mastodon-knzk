@@ -116,12 +116,20 @@ export default class LocalSettingsPage extends React.PureComponent {
           >
             <FormattedMessage id='settings.navbar_under' defaultMessage='Navbar at the bottom (Mobile only)' />
           </LocalSettingsPageItem>
+          <LocalSettingsPageItem
+            settings={settings}
+            item={['swipe_to_change_columns']}
+            id='mastodon-settings--swipe_to_change_columns'
+            onChange={onChange}
+          >
+            <FormattedMessage id='settings.swipe_to_change_columns' defaultMessage='Allow swiping to change columns (Mobile only)' />
+          </LocalSettingsPageItem>
         </section>
       </div>
     ),
     ({ intl, onChange, settings }) => (
       <div className='glitch local-settings__page compose_box_opts'>
-        <h1><FormattedMessage id='settings.compose_box_opts' defaultMessage='Compose box options' /></h1>
+        <h1><FormattedMessage id='settings.compose_box_opts' defaultMessage='Compose box' /></h1>
         <LocalSettingsPageItem
           settings={settings}
           item={['always_show_spoilers_field']}
