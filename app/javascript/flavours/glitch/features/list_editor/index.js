@@ -7,8 +7,6 @@ import { injectIntl } from 'react-intl';
 import { setupListEditor, clearListSuggestions, resetListEditor } from 'flavours/glitch/actions/lists';
 import Account from './components/account';
 import Search from './components/search';
-import AccountContainer from './containers/account_container';
-import SearchContainer from './containers/search_container';
 import EditListForm from './components/edit_list_form';
 import Motion from 'flavours/glitch/util/optional_motion';
 import spring from 'react-motion/lib/spring';
