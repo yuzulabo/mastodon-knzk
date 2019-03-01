@@ -26,7 +26,7 @@ export default class DetailedStatus extends ImmutablePureComponent {
     settings: ImmutablePropTypes.map.isRequired,
     onOpenMedia: PropTypes.func.isRequired,
     onOpenVideo: PropTypes.func.isRequired,
-    onToggleHidden: PropTypes.func.isRequired,
+    onToggleHidden: PropTypes.func,
     expanded: PropTypes.bool,
     measureHeight: PropTypes.bool,
     onHeightChange: PropTypes.func,
@@ -79,6 +79,10 @@ export default class DetailedStatus extends ImmutablePureComponent {
     this._measureHeight(prevState.height !== this.state.height);
   }
 
+  handleChildUpdate = () => {
+    this._measureHeight();
+  }
+
   handleModalLink = e => {
     e.preventDefault();
 
@@ -94,7 +98,7 @@ export default class DetailedStatus extends ImmutablePureComponent {
   }
 
   render () {
-    const status = this.props.status.get('reblog') ? this.props.status.get('reblog') : this.props.status;
+    const status = (this.props.status && this.props.status.get('reblog')) ? this.props.status.get('reblog') : this.props.status;
     const { expanded, onToggleHidden, settings } = this.props;
     const outerStyle = { boxSizing: 'border-box' };
     const { compact } = this.props;
@@ -218,6 +222,7 @@ export default class DetailedStatus extends ImmutablePureComponent {
             collapsed={false}
             onExpandedToggle={onToggleHidden}
             parseClick={this.parseClick}
+            onUpdate={this.handleChildUpdate}
           />
 
           <div className='detailed-status__meta'>
