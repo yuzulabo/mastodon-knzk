@@ -70,19 +70,6 @@
     width: 100%;
     height: 500px;
   }
-  ul.description {
-    width: 100%;
-    list-style: none outside;
-    overflow:hidden;
-  }
-
-  li.description {
-    width: 50%;
-    float: left;
-    padding: 0;
-    font-size: 0.5vw;
-    margin-bottom: 12px
-  }
 
   .musicList {
     width: 100%;
@@ -93,4 +80,19 @@
       border-bottom: solid 1px rgba(0, 0, 0, 0.1);
       cursor: pointer;
     }
+  }
+  .getting-started__footer {
+
+    ul{
+      color: #ffffff;
+      border: dotted #ffffff 1px;/*ドット 色 太さ*/
+      padding: 0.5em 0.5em 0.5em 2em;
+    }
+
+    li{
+      line-height: 1.5;
+      padding: 1.5em 0;
+      margin-top: 1.5em;
+    }
+
   }
