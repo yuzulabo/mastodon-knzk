@@ -20,6 +20,10 @@ class StatusesController < ApplicationController
   before_action :set_cache_headers
   before_action :set_replies, only: [:replies]
 
+  content_security_policy only: :embed do |p|
+    p.frame_ancestors(false)
+  end
+
   def show
     respond_to do |format|
       format.html do

@@ -599,6 +599,7 @@ export default class Status extends ImmutablePureComponent {
               {...other}
               status={status}
               account={status.get('account')}
+              showReplyCount={settings.get('show_reply_count')}
             />
           ) : null}
           {notification ? (
