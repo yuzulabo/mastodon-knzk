@@ -4,8 +4,8 @@ class REST::InstanceSerializer < ActiveModel::Serializer
   include RoutingHelper
 
   attributes :uri, :title, :description, :email,
-             :version, :urls, :stats, :thumbnail, :max_toot_chars,
-             :languages
+             :version, :urls, :stats, :thumbnail, :max_toot_chars, :poll_limits,
+             :languages, :registrations
 
   has_one :contact_account, serializer: REST::AccountSerializer
 
@@ -39,6 +39,15 @@ class REST::InstanceSerializer < ActiveModel::Serializer
     StatusLengthValidator::MAX_CHARS
   end
 
+  def poll_limits
+    {
+      max_options: PollValidator::MAX_OPTIONS,
+      max_option_chars: PollValidator::MAX_OPTION_CHARS,
+      min_expiration: PollValidator::MIN_EXPIRATION,
+      max_expiration: PollValidator::MAX_EXPIRATION,
+    }
+  end
+
   def stats
     {
       user_count: instance_presenter.user_count,
@@ -53,6 +62,10 @@ class REST::InstanceSerializer < ActiveModel::Serializer
 
   def languages
     [I18n.default_locale]
+  end
+
+  def registrations
+    Setting.open_registrations && !Rails.configuration.x.single_user_mode
   end
 
   private

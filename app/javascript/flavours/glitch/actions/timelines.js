@@ -1,3 +1,4 @@
+import { importFetchedStatus, importFetchedStatuses } from './importer';
 import api, { getLinks } from 'flavours/glitch/util/api';
 import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
 
@@ -11,13 +12,16 @@ export const TIMELINE_EXPAND_FAIL    = 'TIMELINE_EXPAND_FAIL';
 
 export const TIMELINE_SCROLL_TOP = 'TIMELINE_SCROLL_TOP';
 
+export const TIMELINE_CONNECT    = 'TIMELINE_CONNECT';
 export const TIMELINE_DISCONNECT = 'TIMELINE_DISCONNECT';
 
 export function updateTimeline(timeline, status, accept) {
-  return (dispatch, getState) => {
+  return dispatch => {
     if (typeof accept === 'function' && !accept(status)) {
       return;
     }
+
+    dispatch(importFetchedStatus(status));
 
     dispatch({
       type: TIMELINE_UPDATE,
@@ -77,6 +81,7 @@ export function expandTimeline(timelineId, path, params = {}, done = noOp) {
 
     api(getState).get(path, { params }).then(response => {
       const next = getLinks(response).refs.find(link => link.rel === 'next');
+      dispatch(importFetchedStatuses(response.data));
       dispatch(expandTimelineSuccess(timelineId, response.data, next ? next.uri : null, response.code === 206, isLoadingRecent, isLoadingMore));
       done();
     }).catch(error => {
@@ -138,6 +143,13 @@ export function scrollTopTimeline(timeline, top) {
     type: TIMELINE_SCROLL_TOP,
     timeline,
     top,
+  };
+};
+
+export function connectTimeline(timeline) {
+  return {
+    type: TIMELINE_CONNECT,
+    timeline,
   };
 };
 
