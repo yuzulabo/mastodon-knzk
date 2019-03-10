@@ -19,7 +19,7 @@
 .landing-page__short-description p a,
 .status__content a,
 .reply-indicator__content a {
-  color: lighten($ui-highlight-color, 12%);
+  color: #1FBFF9;
   text-decoration: underline;
 
   &.mention {
