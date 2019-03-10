@@ -245,6 +245,7 @@ class Account < ApplicationRecord
   def fields_attributes=(attributes)
     fields     = []
     old_fields = self[:fields] || []
+    old_fields = [] if old_fields.is_a?(Hash)
 
     if attributes.is_a?(Hash)
       attributes.each_value do |attr|
@@ -267,6 +268,7 @@ class Account < ApplicationRecord
     return if fields.size >= MAX_FIELDS
 
     tmp = self[:fields] || []
+    tmp = [] if tmp.is_a?(Hash)
 
     (MAX_FIELDS - tmp.size).times do
       tmp << { name: '', value: '' }

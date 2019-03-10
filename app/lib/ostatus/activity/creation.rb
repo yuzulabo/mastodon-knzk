@@ -1,3 +1,4 @@
+
 # frozen_string_literal: true
 
 class OStatus::Activity::Creation < OStatus::Activity::Base
@@ -7,7 +8,7 @@ class OStatus::Activity::Creation < OStatus::Activity::Base
       return [nil, false]
     end
 
-    return [nil, false] if @account.suspended?
+    return [nil, false] if @account.suspended? || invalid_origin?
 
     RedisLock.acquire(lock_options) do |lock|
       if lock.acquired?
@@ -202,6 +203,15 @@ class OStatus::Activity::Creation < OStatus::Activity::Base
     else
       Account.where(uri: href).or(Account.where(url: href)).first || FetchRemoteAccountService.new.call(href)
     end
+  end
+
+  def invalid_origin?
+    return false unless id.start_with?('http') # Legacy IDs cannot be checked
+
+    needle = Addressable::URI.parse(id).normalized_host
+
+    !(needle.casecmp(@account.domain).zero? ||
+      needle.casecmp(Addressable::URI.parse(@account.remote_url.presence || @account.uri).normalized_host).zero?)
   end
 
   def lock_options
