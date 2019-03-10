@@ -37,6 +37,16 @@ const messages = defineMessages({
   copy: { id: 'status.copy', defaultMessage: 'Copy link to status' },
 });
 
+const obfuscatedCount = count => {
+  if (count < 0) {
+    return 0;
+  } else if (count <= 1) {
+    return count;
+  } else {
+    return '1+';
+  }
+};
+
 @injectIntl
 export default class StatusActionBar extends ImmutablePureComponent {
 
@@ -60,6 +70,7 @@ export default class StatusActionBar extends ImmutablePureComponent {
     onPin: PropTypes.func,
     onBookmark: PropTypes.func,
     withDismiss: PropTypes.bool,
+    showReplyCount: PropTypes.bool,
     intl: PropTypes.object.isRequired,
   };
 
@@ -68,6 +79,7 @@ export default class StatusActionBar extends ImmutablePureComponent {
   updateOnProps = [
     'status',
     'withDismiss',
+    'showReplyCount',
   ]
 
   handleReplyClick = () => {
@@ -173,7 +185,7 @@ export default class StatusActionBar extends ImmutablePureComponent {
   }
 
   render () {
-    const { status, intl, withDismiss } = this.props;
+    const { status, intl, withDismiss, showReplyCount } = this.props;
 
     const mutingConversation = status.get('muted');
     const anonymousAccess    = !me;
@@ -263,7 +275,7 @@ export default class StatusActionBar extends ImmutablePureComponent {
 
     return (
       <div className='status__action-bar'>
-        <IconButton className='status__action-bar-button' disabled={anonymousAccess} title={replyTitle} icon={replyIcon} onClick={this.handleReplyClick} />
+        {replyButton}
         <IconButton className='status__action-bar-button' disabled={reblogDisabled} active={status.get('reblogged')} pressed={status.get('reblogged')} title={reblogDisabled ? intl.formatMessage(messages.cannot_reblog) : intl.formatMessage(reblogMessage)} icon={reblogIcon} onClick={this.handleReblogClick} />
         <IconButton className='status__action-bar-button star-icon' animate active={status.get('favourited')} pressed={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} />
         {shareButton}
