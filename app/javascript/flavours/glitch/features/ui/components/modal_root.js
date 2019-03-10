@@ -39,6 +39,7 @@ const MODAL_COMPONENTS = {
   'LIST_EDITOR': ListEditor,
   'LIST_ADDER':ListAdder,
   'FOCAL_POINT': () => Promise.resolve({ default: FocalPointModal }),
+  'PINNED_ACCOUNTS_EDITOR': PinnedAccountsEditor,
 };
 
 export default class ModalRoot extends React.PureComponent {

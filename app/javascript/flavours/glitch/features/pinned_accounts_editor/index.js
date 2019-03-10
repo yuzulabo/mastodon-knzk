@@ -3,43 +3,42 @@ import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import { injectIntl } from 'react-intl';
-import { setupListEditor, clearListSuggestions, resetListEditor } from 'flavours/glitch/actions/lists';
+import { injectIntl, FormattedMessage } from 'react-intl';
+import { fetchPinnedAccounts, clearPinnedAccountsSuggestions, resetPinnedAccountsEditor } from 'flavours/glitch/actions/accounts';
 import AccountContainer from './containers/account_container';
 import SearchContainer from './containers/search_container';
-import EditListForm from './components/edit_list_form';
 import Motion from 'flavours/glitch/util/optional_motion';
 import spring from 'react-motion/lib/spring';
 
 const mapStateToProps = state => ({
-  accountIds: state.getIn(['listEditor', 'accounts', 'items']),
-  searchAccountIds: state.getIn(['listEditor', 'suggestions', 'items']),
+  accountIds: state.getIn(['pinnedAccountsEditor', 'accounts', 'items']),
+  searchAccountIds: state.getIn(['pinnedAccountsEditor', 'suggestions', 'items']),
 });
 
 const mapDispatchToProps = dispatch => ({
-  onInitialize: listId => dispatch(setupListEditor(listId)),
-  onClear: () => dispatch(clearListSuggestions()),
-  onReset: () => dispatch(resetListEditor()),
+  onInitialize: () => dispatch(fetchPinnedAccounts()),
+  onClear: () => dispatch(clearPinnedAccountsSuggestions()),
+  onReset: () => dispatch(resetPinnedAccountsEditor()),
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-export default class ListEditor extends ImmutablePureComponent {
+export default class PinnedAccountsEditor extends ImmutablePureComponent {
 
   static propTypes = {
-    listId: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
     onInitialize: PropTypes.func.isRequired,
     onClear: PropTypes.func.isRequired,
     onReset: PropTypes.func.isRequired,
+    title: PropTypes.string.isRequired,
     accountIds: ImmutablePropTypes.list.isRequired,
     searchAccountIds: ImmutablePropTypes.list.isRequired,
   };
 
   componentDidMount () {
-    const { onInitialize, listId } = this.props;
-    onInitialize(listId);
+    const { onInitialize } = this.props;
+    onInitialize();
   }
 
   componentWillUnmount () {
@@ -53,7 +52,7 @@ export default class ListEditor extends ImmutablePureComponent {
 
     return (
       <div className='modal-root__modal list-editor'>
-        <EditListForm />
+        <h4><FormattedMessage id='endorsed_accounts_editor.endorsed_accounts' defaultMessage='Featured accounts' /></h4>
 
         <SearchContainer />
 
