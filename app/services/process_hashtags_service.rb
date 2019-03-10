@@ -11,7 +11,7 @@ class ProcessHashtagsService < BaseService
       status.tags << tag
       records << tag
 
-      TrendingTags.record_use!(tag, status.account, status.created_at) if status.public_visibility?
+      TrendingTags.record_use!(tag, status.account, status.created_at) if status.public_visibility? || status.unlisted_visibility?
     end
 
     return unless status.public_visibility? || status.unlisted_visibility?
