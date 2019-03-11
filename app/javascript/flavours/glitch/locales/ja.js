@@ -21,6 +21,7 @@ const messages = {
   'settings.auto_collapse_replies': '返信',
   'settings.close': '閉じる',
   'settings.collapsed_statuses': 'トゥート',
+  'settings.confirm_before_clearing_draft': '入力中の投稿が上書きされる前に、確認のダイアログを表示する',
   'settings.confirm_missing_media_description': '画像に対する補助記載がないときに投稿前の警告を表示する',
   'settings.content_warnings': 'コンテンツワーニング',
   'settings.content_warnings_filter': '説明に指定した文字が含まれているものを自動で展開しないようにする',
@@ -60,6 +61,7 @@ const messages = {
   'settings.layout_opts': 'レイアウトの設定',
   'status.collapse': '折りたたむ',
   'status.uncollapse': '折りたたみを解除',
+  'settings.swipe_to_change_columns': '画面を横にスワイプしたときカラムが切り替わるのを許可する(モバイル　レイアウト)',
 
   'confirmations.missing_media_description.message': '少なくとも1つの画像に視聴覚障害者のための画像説明が付与されていません。すべての画像に対して説明を付与することを望みます。',
   'confirmations.missing_media_description.confirm': 'このまま投稿',
@@ -92,7 +94,12 @@ const messages = {
 
   'navigation_bar.direct': 'ダイレクトメッセージ',
   'navigation_bar.bookmarks': 'ブックマーク',
-  'column.bookmarks': 'ブックマーク'
+  'column.bookmarks': 'ブックマーク',
+
+  'lists.replies_policy.title': 'リストにおける返信の表示設定',
+  'lists.replies_policy.all_replies': 'すべての返信を表示する',
+  'lists.replies_policy.list_replies': 'リストに登録されたユーザーのみ表示する',
+  'lists.replies_policy.no_replies': 'すべての返信を表示しない',
 };
 
 export default Object.assign({}, inherited, messages);
