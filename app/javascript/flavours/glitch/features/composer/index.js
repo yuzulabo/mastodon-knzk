@@ -443,7 +443,7 @@ class Composer extends React.Component {
       <div className='composer'>
         {privacy === 'direct' ? <ComposerDirectWarning /> : null}
         {privacy === 'private' && amUnlocked ? <ComposerWarning /> : null}
-        {privacy !== 'public' && APPROX_HASHTAG_RE.test(text) ? <ComposerHashtagWarning /> : null}
+        {privacy === ('private' || 'direct') && APPROX_HASHTAG_RE.test(text) ? <ComposerHashtagWarning /> : null}
         {inReplyTo && (
           <ComposerReply
             status={inReplyTo}
