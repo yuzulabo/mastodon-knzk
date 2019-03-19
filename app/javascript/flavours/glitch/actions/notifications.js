@@ -7,6 +7,7 @@ import {
   importFetchedStatus,
   importFetchedStatuses,
 } from './importer';
+import { saveSettings } from './settings';
 import { defineMessages } from 'react-intl';
 import { List as ImmutableList } from 'immutable';
 import { unescapeHTML } from 'flavours/glitch/util/html';
@@ -106,7 +107,7 @@ const excludeTypesFromSettings = state => state.getIn(['settings', 'notification
 
 
 const excludeTypesFromFilter = filter => {
-  const allTypes = ImmutableList(['follow', 'favourite', 'reblog', 'mention']);
+  const allTypes = ImmutableList(['follow', 'favourite', 'reblog', 'mention', 'poll']);
   return allTypes.filterNot(item => item === filter).toJS();
 };
 
@@ -286,5 +287,6 @@ export function setFilter (filterType) {
       value: filterType,
     });
     dispatch(expandNotifications());
+    dispatch(saveSettings());
   };
 };
