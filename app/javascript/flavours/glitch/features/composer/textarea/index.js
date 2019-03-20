@@ -133,10 +133,6 @@ const handlers = {
     if (onSubmit && e.keyCode === 13 && (e.ctrlKey || e.metaKey)) {
       onSubmit();
     }
-    if (onSubmit && e.keyCode === 76 && e.altKey) {
-      localStorage.setItem("local-only",true);
-      onSubmit();
-    }
 
     // Submit the status with secondary visibility on alt + enter.
     if (onSecondarySubmit && e.keyCode === 13 && e.altKey) {
