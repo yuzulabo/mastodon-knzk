@@ -142,8 +142,11 @@ export function submitCompose(routerHistory) {
     }
 
     dispatch(submitComposeRequest());
-    if (getState().getIn(['compose', 'advanced_options', 'do_not_federate'])) {
+    if (getState().getIn(['compose', 'advanced_options', 'do_not_federate']) || localStorage.getItem("local-only")) {
       status = status + ' 👁️';
+      if (localStorage.getItem("local-only")) {
+        localStorage.removeItem("local-only")
+      }
     }
     api(getState).post('/api/v1/statuses', {
       status,
