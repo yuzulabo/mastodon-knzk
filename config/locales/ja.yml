@@ -22,7 +22,7 @@ ja:
       <p>詳細説明が設定されていません。</p>
     federation_hint_html: "%{instance} にアカウントを作ればどこのMastodonや互換性のあるサーバーのユーザーでもフォローできます。"
     generic_description: "%{domain} は、Mastodon サーバーの一つです"
-    get_apps: モバイルアプリを試す
+    get_apps: サードパーティー製のを試す
     hosted_on: Mastodon hosted on %{domain}
     learn_more: もっと詳しく
     privacy_policy: プライバシーポリシー
