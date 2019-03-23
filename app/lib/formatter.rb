@@ -39,6 +39,7 @@ class Formatter
     return html.html_safe if options[:no_deco]
 
     html = konami_code(html)
+    html = avoid_bbcode(html)
 
     mdFormatter = Formatter_Markdown.new(html)
     html = mdFormatter.formatted
@@ -355,6 +356,17 @@ class Formatter
 
   end
 
+  def avoid_bbcode(html)
+
+    if html.match(/\[(spin|pulse|large|flip=vertical|flip=horizontal|b|i|u|s)\]/)
+      s = html
+      start = s.gsub!(/\]/) { "\]​" }
+      stop = start.gsub!(/\[/) { "​\[" }
+    end
+
+    html
+
+  end
 
   def format_bbcode(html)
 
