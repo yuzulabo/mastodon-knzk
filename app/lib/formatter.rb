@@ -360,8 +360,9 @@ class Formatter
 
     if html.match(/\[(spin|pulse|large|flip=vertical|flip=horizontal|b|i|u|s)\]/)
       s = html
-      start = s.gsub!(/\]/) { "\]​" }
+      start = s.gsub!(/\[(spin|pulse|large|flip=vertical|flip=horizontal|b|i|u|s)\]/) { "\[#{$1}\]​" }
       stop = start.gsub!(/\[/) { "​\[" }
+      
     end
 
     html
