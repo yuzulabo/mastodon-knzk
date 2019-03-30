@@ -397,6 +397,14 @@ class Formatter
           :quick_param_format => /(horizontal|vertical)/,
           :quick_param_format_description => 'The size parameter \'%param%\' is incorrect, a number is expected',
           :param_tokens => [{:token => :direction}]},
+        :marq => {
+          :html_open => '<span class="bbcode-marq-%vector%">', :html_close => '</span>',
+          :description => 'Make text marquee',
+          :example => '[marq=lateral]marquee[/marq].',
+          :allow_quick_param => true, :allow_between_as_param => false,
+          :quick_param_format => /(lateral|vertical)/,
+          :quick_param_format_description => 'The size parameter \'%param%\' is incorrect, a number is expected',
+          :param_tokens => [{:token => :vector}]},
         :large => {
           :html_open => '<span class="fa fa-%size%">', :html_close => '</span>',
           :description => 'Large text',
@@ -437,7 +445,7 @@ class Formatter
             { :token => :width, :optional => true, :default => 400 },
             { :token => :height, :optional => true, :default => 320 }
           ]},
-      }, :enable, :i, :b, :quote, :code, :u, :s, :spin, :pulse, :flip, :large, :colorhex, :faicon, :youtube)
+      }, :enable, :i, :b, :quote, :code, :u, :s, :spin, :pulse, :flip, :large, :colorhex, :faicon, :youtube, :marq)
     rescue Exception => e
     end
     html
