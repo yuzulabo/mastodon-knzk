@@ -39,6 +39,7 @@ class Formatter
     return html.html_safe if options[:no_deco]
 
     html = konami_code(html)
+    html = avoid_bbcode(html)
 
     mdFormatter = Formatter_Markdown.new(html)
     html = mdFormatter.formatted
@@ -82,6 +83,12 @@ class Formatter
 
   def format_spoiler(status, **options)
     html = encode(status.spoiler_text)
+    html = encode_custom_emojis(html, status.emojis, options[:autoplay])
+    html.html_safe # rubocop:disable Rails/OutputSafety
+  end
+
+  def format_poll_option(status, option, **options)
+    html = encode(option.title)
     html = encode_custom_emojis(html, status.emojis, options[:autoplay])
     html.html_safe # rubocop:disable Rails/OutputSafety
   end
@@ -349,6 +356,18 @@ class Formatter
 
   end
 
+  def avoid_bbcode(html)
+
+    if html.match(/\[(spin|pulse|large|flip=vertical|flip=horizontal|b|i|u|s)\]/)
+      s = html
+      start = s.gsub!(/\[(spin|pulse|large|flip=vertical|flip=horizontal|b|i|u|s)\]/) { "\[#{$1}\]​" }
+      stop = start.gsub!(/\[/) { "​\[" }
+      
+    end
+
+    html
+
+  end
 
   def format_bbcode(html)
 
@@ -378,6 +397,14 @@ class Formatter
           :quick_param_format => /(horizontal|vertical)/,
           :quick_param_format_description => 'The size parameter \'%param%\' is incorrect, a number is expected',
           :param_tokens => [{:token => :direction}]},
+        :marq => {
+          :html_open => '<span class="bbcode-marq-%vector%">', :html_close => '</span>',
+          :description => 'Make text marquee',
+          :example => '[marq=lateral]marquee[/marq].',
+          :allow_quick_param => true, :allow_between_as_param => false,
+          :quick_param_format => /(lateral|vertical)/,
+          :quick_param_format_description => 'The size parameter \'%param%\' is incorrect, a number is expected',
+          :param_tokens => [{:token => :vector}]},
         :large => {
           :html_open => '<span class="fa fa-%size%">', :html_close => '</span>',
           :description => 'Large text',
@@ -418,7 +445,7 @@ class Formatter
             { :token => :width, :optional => true, :default => 400 },
             { :token => :height, :optional => true, :default => 320 }
           ]},
-      }, :enable, :i, :b, :quote, :code, :u, :s, :spin, :pulse, :flip, :large, :colorhex, :faicon, :youtube)
+      }, :enable, :i, :b, :quote, :code, :u, :s, :spin, :pulse, :flip, :large, :colorhex, :faicon, :youtube, :marq)
     rescue Exception => e
     end
     html
