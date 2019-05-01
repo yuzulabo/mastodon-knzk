@@ -14,6 +14,26 @@ import { me, mascot } from 'flavours/glitch/util/initial_state';
 import { cycleElefriendCompose } from 'flavours/glitch/actions/compose';
 import HeaderContainer from './containers/header_container';
 
+// Astarte.
+import AnnouncementsContainer from '../.././containers/announcements_container';
+import Button from '../../components/button';
+
+const CustomEmojiOekaki = class extends React.PureComponent {
+
+  handleClick() {
+    window.open('https://mamemomonga.github.io/mastodon-custom-emoji-oekaki/#kirishima.cloud');
+    return false;
+  }
+
+  render () {
+    return (
+      <div class="emoji-oekaki">
+        <Button text='☆絵文字でお絵かき☆' onClick={this.handleClick} className="custom-emoji-oekaki" />
+      </div>
+    );
+  }
+};
+
 const messages = defineMessages({
   compose: { id: 'navigation_bar.compose', defaultMessage: 'Compose new toot' },
 });
@@ -62,6 +82,8 @@ class Compose extends React.PureComponent {
           {!isSearchPage && <div className='drawer__inner'>
             <NavigationContainer />
             <ComposeFormContainer />
+            <CustomEmojiOekaki />
+            <AnnouncementsContainer /> 
             {multiColumn && (
               <div className='drawer__inner__mastodon'>
                 {mascot ? <img alt='' draggable='false' src={mascot} /> : <button className='mastodon' onClick={onClickElefriend} />}
