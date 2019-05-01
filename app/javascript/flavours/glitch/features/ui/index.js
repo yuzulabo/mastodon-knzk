@@ -19,7 +19,7 @@ import ColumnsAreaContainer from './containers/columns_area_container';
 import classNames from 'classnames';
 import Favico from 'favico.js';
 import {
-  Drawer,
+  Compose,
   Status,
   GettingStarted,
   KeyboardShortcuts,
@@ -68,6 +68,7 @@ const mapStateToProps = state => ({
   dropdownMenuIsOpen: state.getIn(['dropdown_menu', 'openId']) !== null,
   unreadNotifications: state.getIn(['notifications', 'unread']),
   showFaviconBadge: state.getIn(['local_settings', 'notifications', 'favicon_badge']),
+  hicolorPrivacyIcons: state.getIn(['local_settings', 'hicolor_privacy_icons']),
 });
 
 const keyMap = {
@@ -98,6 +99,8 @@ const keyMap = {
   goToMuted: 'g m',
   goToRequests: 'g r',
   toggleSpoiler: 'x',
+  bookmark: 'd',
+  toggleCollapse: 'shift+x',
 };
 
 @connect(mapStateToProps)
@@ -341,11 +344,16 @@ export default class UI extends React.Component {
   handleHotkeyFocusColumn = e => {
     const index  = (e.key * 1) + 1; // First child is drawer, skip that
     const column = this.node.querySelector(`.column:nth-child(${index})`);
+    if (!column) return;
+    const container = column.querySelector('.scrollable');
 
-    if (column) {
-      const status = column.querySelector('.focusable');
+    if (container) {
+      const status = container.querySelector('.focusable');
 
       if (status) {
+        if (container.scrollTop > status.offsetTop) {
+          status.scrollIntoView(true);
+        }
         status.focus();
       }
     }
@@ -439,6 +447,7 @@ export default class UI extends React.Component {
       'wide': isWide,
       'system-font': this.props.systemFontUi,
       'navbar-under': navbarUnder,
+      'hicolor-privacy-icons': this.props.hicolorPrivacyIcons,
     });
 
     const handlers = {
@@ -483,9 +492,9 @@ export default class UI extends React.Component {
               <WrappedRoute path='/bookmarks' component={BookmarkedStatuses} content={children} />
               <WrappedRoute path='/pinned' component={PinnedStatuses} content={children} />
 
-              <WrappedRoute path='/search' component={Drawer} content={children} componentParams={{ isSearchPage: true }} />
+              <WrappedRoute path='/search' component={Compose} content={children} componentParams={{ isSearchPage: true }} />
 
-              <WrappedRoute path='/statuses/new' component={Drawer} content={children} />
+              <WrappedRoute path='/statuses/new' component={Compose} content={children} />
               <WrappedRoute path='/statuses/:statusId' exact component={Status} content={children} />
               <WrappedRoute path='/statuses/:statusId/reblogs' component={Reblogs} content={children} />
               <WrappedRoute path='/statuses/:statusId/favourites' component={Favourites} content={children} />

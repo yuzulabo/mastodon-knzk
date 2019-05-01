@@ -53,6 +53,7 @@ export default class Status extends ImmutablePureComponent {
     onReply: PropTypes.func,
     onFavourite: PropTypes.func,
     onReblog: PropTypes.func,
+    onBookmark: PropTypes.func,
     onDelete: PropTypes.func,
     onDirect: PropTypes.func,
     onMention: PropTypes.func,
@@ -295,7 +296,11 @@ export default class Status extends ImmutablePureComponent {
       else if (e.shiftKey) {
         this.setCollapsed(true);
         document.getSelection().removeAllRanges();
-      } else router.history.push(destination);
+      } else {
+        let state = {...router.history.location.state};
+        state.mastodonBackSteps = (state.mastodonBackSteps || 0) + 1;
+        router.history.push(destination, state);
+      }
       e.preventDefault();
     }
   }
@@ -304,7 +309,9 @@ export default class Status extends ImmutablePureComponent {
     if (this.context.router && e.button === 0) {
       const id = e.currentTarget.getAttribute('data-id');
       e.preventDefault();
-      this.context.router.history.push(`/accounts/${id}`);
+      let state = {...this.context.router.history.location.state};
+      state.mastodonBackSteps = (state.mastodonBackSteps || 0) + 1;
+      this.context.router.history.push(`/accounts/${id}`, state);
     }
   }
 
@@ -331,17 +338,25 @@ export default class Status extends ImmutablePureComponent {
     this.props.onReblog(this.props.status, e);
   }
 
+  handleHotkeyBookmark = e => {
+    this.props.onBookmark(this.props.status, e);
+  }
+
   handleHotkeyMention = e => {
     e.preventDefault();
     this.props.onMention(this.props.status.get('account'), this.context.router.history);
   }
 
   handleHotkeyOpen = () => {
-    this.context.router.history.push(`/statuses/${this.props.status.get('id')}`);
+    let state = {...this.context.router.history.location.state};
+    state.mastodonBackSteps = (state.mastodonBackSteps || 0) + 1;
+    this.context.router.history.push(`/statuses/${this.props.status.get('id')}`, state);
   }
 
   handleHotkeyOpenProfile = () => {
-    this.context.router.history.push(`/accounts/${this.props.status.getIn(['account', 'id'])}`);
+    let state = {...this.context.router.history.location.state};
+    state.mastodonBackSteps = (state.mastodonBackSteps || 0) + 1;
+    this.context.router.history.push(`/accounts/${this.props.status.getIn(['account', 'id'])}`, state);
   }
 
   handleHotkeyMoveUp = e => {
@@ -351,6 +366,14 @@ export default class Status extends ImmutablePureComponent {
   handleHotkeyMoveDown = e => {
     this.props.onMoveDown(this.props.containerId || this.props.id, e.target.getAttribute('data-featured'));
   }
+
+  handleHotkeyCollapse = e => {
+    if (!this.props.settings.getIn(['collapsed', 'enabled']))
+      return;
+
+    this.setCollapsed(!this.state.isCollapsed);
+  }
+
 
   handleRef = c => {
     this.node = c;
@@ -540,6 +563,8 @@ export default class Status extends ImmutablePureComponent {
       moveUp: this.handleHotkeyMoveUp,
       moveDown: this.handleHotkeyMoveDown,
       toggleSpoiler: this.handleExpandedToggle,
+      bookmark: this.handleHotkeyBookmark,
+      toggleCollapse: this.handleHotkeyCollapse,
     };
 
     const computedClass = classNames('status', `status-${status.get('visibility')}`, {

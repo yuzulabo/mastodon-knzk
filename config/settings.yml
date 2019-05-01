@@ -31,6 +31,7 @@ defaults: &defaults
   system_font_ui: false
   noindex: false
   hide_followers_count: false
+  enable_keybase: true
   flavour: 'glitch'
   skin: 'default'
   aggregate_reblogs: true
@@ -42,6 +43,7 @@ defaults: &defaults
     follow_request: true
     digest: true
     report: true
+    pending_account: true
   interactions:
     must_be_follower: false
     must_be_following: false
