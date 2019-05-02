@@ -9,7 +9,7 @@
   line-height: 20px;
   word-wrap: break-word;
   font-weight: 400;
-  overflow: hidden;
+  overflow: visible;
   padding-top: 5px;
 
   &:focus {
@@ -32,6 +32,9 @@
   }
 
   .status__content__text {
+
+    overflow: hidden;
+
     h1, h2, h3, h4, h5 {
       margin-top: 20px;
       margin-bottom: 20px;
