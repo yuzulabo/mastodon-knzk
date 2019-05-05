@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { changeColumnParams } from 'flavours/glitch/actions/columns';
 import ColumnSettings from '../components/column_settings';
 import { changeSetting } from 'flavours/glitch/actions/settings';
 
