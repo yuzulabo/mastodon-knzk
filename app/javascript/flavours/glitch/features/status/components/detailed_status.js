@@ -42,7 +42,9 @@ export default class DetailedStatus extends ImmutablePureComponent {
   handleAccountClick = (e) => {
     if (e.button === 0 && !(e.ctrlKey || e.altKey || e.metaKey) && this.context.router) {
       e.preventDefault();
-      this.context.router.history.push(`/accounts/${this.props.status.getIn(['account', 'id'])}`);
+      let state = {...this.context.router.history.location.state};
+      state.mastodonBackSteps = (state.mastodonBackSteps || 0) + 1;
+      this.context.router.history.push(`/accounts/${this.props.status.getIn(['account', 'id'])}`, state);
     }
 
     e.stopPropagation();
@@ -51,7 +53,9 @@ export default class DetailedStatus extends ImmutablePureComponent {
   parseClick = (e, destination) => {
     if (e.button === 0 && !(e.ctrlKey || e.altKey || e.metaKey) && this.context.router) {
       e.preventDefault();
-      this.context.router.history.push(destination);
+      let state = {...this.context.router.history.location.state};
+      state.mastodonBackSteps = (state.mastodonBackSteps || 0) + 1;
+      this.context.router.history.push(destination, state);
     }
 
     e.stopPropagation();
@@ -121,6 +125,7 @@ export default class DetailedStatus extends ImmutablePureComponent {
 
     if (status.get('poll')) {
       media = <PollContainer pollId={status.get('poll')} />;
+      mediaIcon = 'tasks';
     } else if (status.get('media_attachments').size > 0) {
       if (status.get('media_attachments').some(item => item.get('type') === 'unknown')) {
         media = <AttachmentList media={status.get('media_attachments')} />;
@@ -157,7 +162,10 @@ export default class DetailedStatus extends ImmutablePureComponent {
         );
         mediaIcon = 'picture-o';
       }
-    } else media = <Card onOpenMedia={this.props.onOpenMedia} card={status.get('card', null)} />;
+    } else {
+      media = <Card onOpenMedia={this.props.onOpenMedia} card={status.get('card', null)} />;
+      mediaIcon = 'link';
+    }
 
     if (status.get('application')) {
       applicationLink = <span> · <a className='detailed-status__application' href={status.getIn(['application', 'website'])} target='_blank' rel='noopener'>{status.getIn(['application', 'name'])}</a></span>;
@@ -228,6 +236,7 @@ export default class DetailedStatus extends ImmutablePureComponent {
             onExpandedToggle={onToggleHidden}
             parseClick={this.parseClick}
             onUpdate={this.handleChildUpdate}
+            disabled
           />
 
           <div className='detailed-status__meta'>

@@ -352,6 +352,7 @@
     border-radius: 50%;
     position: relative;
     margin-left: -10px;
+    background: darken($ui-base-color, 8%);
     border: 2px solid $ui-base-color;
 
     &:nth-child(1) {
@@ -374,6 +375,10 @@
   .account {
     padding: 0;
     border: 0;
+  }
+
+  strong {
+    font-weight: 700;
   }
 
   thead th {
@@ -411,6 +416,11 @@
       font-weight: 400;
       font-size: 14px;
     }
+  }
+
+  &__comment {
+    width: 50%;
+    vertical-align: initial !important;
   }
 
   @media screen and (max-width: $no-gap-breakpoint) {

@@ -12,11 +12,14 @@ import HeaderContainer from './containers/header_container';
 import { List as ImmutableList } from 'immutable';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { FormattedMessage } from 'react-intl';
+import { fetchAccountIdentityProofs } from '../../actions/identity_proofs';
+import MissingIndicator from 'flavours/glitch/components/missing_indicator';
 
 const mapStateToProps = (state, { params: { accountId }, withReplies = false }) => {
   const path = withReplies ? `${accountId}:with_replies` : accountId;
 
   return {
+    isAccount: !!state.getIn(['accounts', accountId]),
     statusIds: state.getIn(['timelines', `account:${path}`, 'items'], ImmutableList()),
     featuredStatusIds: withReplies ? ImmutableList() : state.getIn(['timelines', `account:${accountId}:pinned`, 'items'], ImmutableList()),
     isLoading: state.getIn(['timelines', `account:${path}`, 'isLoading']),
@@ -35,12 +38,14 @@ export default class AccountTimeline extends ImmutablePureComponent {
     isLoading: PropTypes.bool,
     hasMore: PropTypes.bool,
     withReplies: PropTypes.bool,
+    isAccount: PropTypes.bool,
   };
 
   componentWillMount () {
     const { params: { accountId }, withReplies } = this.props;
 
     this.props.dispatch(fetchAccount(accountId));
+    this.props.dispatch(fetchAccountIdentityProofs(accountId));
     if (!withReplies) {
       this.props.dispatch(expandAccountFeaturedTimeline(accountId));
     }
@@ -50,6 +55,7 @@ export default class AccountTimeline extends ImmutablePureComponent {
   componentWillReceiveProps (nextProps) {
     if ((nextProps.params.accountId !== this.props.params.accountId && nextProps.params.accountId) || nextProps.withReplies !== this.props.withReplies) {
       this.props.dispatch(fetchAccount(nextProps.params.accountId));
+      this.props.dispatch(fetchAccountIdentityProofs(nextProps.params.accountId));
       if (!nextProps.withReplies) {
         this.props.dispatch(expandAccountFeaturedTimeline(nextProps.params.accountId));
       }
@@ -70,7 +76,15 @@ export default class AccountTimeline extends ImmutablePureComponent {
   }
 
   render () {
-    const { statusIds, featuredStatusIds, isLoading, hasMore } = this.props;
+    const { statusIds, featuredStatusIds, isLoading, hasMore, isAccount } = this.props;
+
+    if (!isAccount) {
+      return (
+        <Column>
+          <MissingIndicator />
+        </Column>
+      );
+    }
 
     if (!statusIds && isLoading) {
       return (

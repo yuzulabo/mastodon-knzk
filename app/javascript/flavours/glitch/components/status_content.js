@@ -91,9 +91,9 @@ export default class StatusContent extends React.PureComponent {
   }
 
   handleMouseUp = (e) => {
-    const { parseClick } = this.props;
+    const { parseClick, disabled } = this.props;
 
-    if (!this.startXY) {
+    if (disabled || !this.startXY) {
       return;
     }
 
@@ -198,7 +198,7 @@ export default class StatusContent extends React.PureComponent {
           <p
             style={{ marginBottom: hidden && status.get('mentions').isEmpty() ? '0px' : null }}
           >
-            <span dangerouslySetInnerHTML={spoilerContent} />
+            <span dangerouslySetInnerHTML={spoilerContent} lang={status.get('language')} />
             {' '}
             <button tabIndex='0' className='status__content__spoiler-link' onClick={this.handleSpoilerClick}>
               {toggleText}
@@ -213,6 +213,8 @@ export default class StatusContent extends React.PureComponent {
               style={directionStyle}
               tabIndex={!hidden ? 0 : null}
               dangerouslySetInnerHTML={content}
+              className='status__content__text'
+              lang={status.get('language')}
             />
             {media}
           </div>
@@ -231,6 +233,8 @@ export default class StatusContent extends React.PureComponent {
           <div
             ref={this.setRef}
             dangerouslySetInnerHTML={content}
+            lang={status.get('language')}
+            className='status__content__text'
             tabIndex='0'
           />
           {media}
@@ -243,7 +247,7 @@ export default class StatusContent extends React.PureComponent {
           style={directionStyle}
           tabIndex='0'
         >
-          <div ref={this.setRef} dangerouslySetInnerHTML={content} tabIndex='0' />
+          <div ref={this.setRef} className='status__content__text' dangerouslySetInnerHTML={content} lang={status.get('language')} tabIndex='0' />
           {media}
         </div>
       );

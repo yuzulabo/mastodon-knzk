@@ -146,11 +146,13 @@ export default class StatusActionBar extends ImmutablePureComponent {
   }
 
   handleBlockClick = () => {
-    this.props.onBlock(this.props.status.get('account'));
+    this.props.onBlock(this.props.status);
   }
 
   handleOpen = () => {
-    this.context.router.history.push(`/statuses/${this.props.status.get('id')}`);
+    let state = {...this.context.router.history.location.state};
+    state.mastodonBackSteps = (state.mastodonBackSteps || 0) + 1;
+    this.context.router.history.push(`/statuses/${this.props.status.get('id')}`, state);
   }
 
   handleEmbed = () => {

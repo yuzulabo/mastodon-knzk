@@ -54,6 +54,7 @@ const messages = defineMessages({
   detailedStatus: { id: 'status.detailed_status', defaultMessage: 'Detailed conversation view' },
   replyConfirm: { id: 'confirmations.reply.confirm', defaultMessage: 'Reply' },
   replyMessage: { id: 'confirmations.reply.message', defaultMessage: 'Replying now will overwrite the message you are currently composing. Are you sure you want to proceed?' },
+  blockAndReport: { id: 'confirmations.block.block_and_report', defaultMessage: 'Block & Report' },
   tootHeading: { id: 'column.toot', defaultMessage: 'Toots and replies' },
 });
 
@@ -279,13 +280,19 @@ export default class Status extends ImmutablePureComponent {
     this.setState({ isExpanded: !isExpanded, threadExpanded: !isExpanded });
   }
 
-  handleBlockClick = (account) => {
+  handleBlockClick = (status) => {
     const { dispatch, intl } = this.props;
+    const account = status.get('account');
 
     dispatch(openModal('CONFIRM', {
       message: <FormattedMessage id='confirmations.block.message' defaultMessage='Are you sure you want to block {name}?' values={{ name: <strong>@{account.get('acct')}</strong> }} />,
       confirm: intl.formatMessage(messages.blockConfirm),
       onConfirm: () => dispatch(blockAccount(account.get('id'))),
+      secondary: intl.formatMessage(messages.blockAndReport),
+      onSecondary: () => {
+        dispatch(blockAccount(account.get('id')));
+        dispatch(initReport(account, status));
+      },
     }));
   }
 
@@ -318,28 +325,34 @@ export default class Status extends ImmutablePureComponent {
     this.handleReblogClick(this.props.status);
   }
 
+  handleHotkeyBookmark = () => {
+    this.handleBookmarkClick(this.props.status);
+  }
+
   handleHotkeyMention = e => {
     e.preventDefault();
     this.handleMentionClick(this.props.status);
   }
 
   handleHotkeyOpenProfile = () => {
-    this.context.router.history.push(`/accounts/${this.props.status.getIn(['account', 'id'])}`);
+    let state = {...this.context.router.history.location.state};
+    state.mastodonBackSteps = (state.mastodonBackSteps || 0) + 1;
+    this.context.router.history.push(`/accounts/${this.props.status.getIn(['account', 'id'])}`, state);
   }
 
   handleMoveUp = id => {
     const { status, ancestorsIds, descendantsIds } = this.props;
 
     if (id === status.get('id')) {
-      this._selectChild(ancestorsIds.size - 1);
+      this._selectChild(ancestorsIds.size - 1, true);
     } else {
       let index = ancestorsIds.indexOf(id);
 
       if (index === -1) {
         index = descendantsIds.indexOf(id);
-        this._selectChild(ancestorsIds.size + index);
+        this._selectChild(ancestorsIds.size + index, true);
       } else {
-        this._selectChild(index - 1);
+        this._selectChild(index - 1, true);
       }
     }
   }
@@ -348,23 +361,29 @@ export default class Status extends ImmutablePureComponent {
     const { status, ancestorsIds, descendantsIds } = this.props;
 
     if (id === status.get('id')) {
-      this._selectChild(ancestorsIds.size + 1);
+      this._selectChild(ancestorsIds.size + 1, false);
     } else {
       let index = ancestorsIds.indexOf(id);
 
       if (index === -1) {
         index = descendantsIds.indexOf(id);
-        this._selectChild(ancestorsIds.size + index + 2);
+        this._selectChild(ancestorsIds.size + index + 2, false);
       } else {
-        this._selectChild(index + 1);
+        this._selectChild(index + 1, false);
       }
     }
   }
 
-  _selectChild (index) {
-    const element = this.node.querySelectorAll('.focusable')[index];
+  _selectChild (index, align_top) {
+    const container = this.node;
+    const element = container.querySelectorAll('.focusable')[index];
 
     if (element) {
+      if (align_top && container.scrollTop > element.offsetTop) {
+        element.scrollIntoView(true);
+      } else if (!align_top && container.scrollTop + container.clientHeight < element.offsetTop + element.offsetHeight) {
+        element.scrollIntoView(false);
+      }
       element.focus();
     }
   }
@@ -454,6 +473,7 @@ export default class Status extends ImmutablePureComponent {
       reply: this.handleHotkeyReply,
       favourite: this.handleHotkeyFavourite,
       boost: this.handleHotkeyBoost,
+      bookmark: this.handleHotkeyBookmark,
       mention: this.handleHotkeyMention,
       openProfile: this.handleHotkeyOpenProfile,
       toggleSpoiler: this.handleExpandedToggle,

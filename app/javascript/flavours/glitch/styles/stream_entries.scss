@@ -109,6 +109,23 @@
     }
   }
 
+  &:disabled,
+  &.disabled {
+    svg path:last-child {
+      fill: $ui-primary-color;
+    }
+
+    &:active,
+    &:focus,
+    &:hover {
+      background: $ui-primary-color;
+
+      svg path:last-child {
+        fill: $ui-primary-color;
+      }
+    }
+  }
+
   &.button--destructive {
     &:active,
     &:focus,
@@ -192,6 +209,7 @@
     .status__info .status__display-name {
       display: block;
       max-width: 100%;
+      padding: 6px 0;
       padding-right: 25px;
       margin: initial;
 

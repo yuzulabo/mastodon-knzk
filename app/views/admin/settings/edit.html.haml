@@ -2,6 +2,7 @@
   = t('admin.settings.title')
 
 = simple_form_for @admin_settings, url: admin_settings_path, html: { method: :patch } do |f|
+  = render 'shared/error_messages', object: @admin_settings
 
   .fields-group
     = f.input :site_title, wrapper: :with_label, label: t('admin.settings.site_title')
@@ -67,6 +68,15 @@
 
   .fields-group
     = f.input :hide_followers_count, as: :boolean, wrapper: :with_label, label: t('admin.settings.hide_followers_count.title'), hint: t('admin.settings.hide_followers_count.desc_html')
+
+  .fields-group
+    = f.input :enable_keybase, as: :boolean, wrapper: :with_label, label: t('admin.settings.enable_keybase.title'), hint: t('admin.settings.enable_keybase.desc_html')
+
+  .fields-group
+    = f.input :show_reblogs_in_public_timelines, as: :boolean, wrapper: :with_label, label: t('admin.settings.show_reblogs_in_public_timelines.title'), hint: t('admin.settings.show_reblogs_in_public_timelines.desc_html')
+
+  .fields-group
+    = f.input :show_replies_in_public_timelines, as: :boolean, wrapper: :with_label, label: t('admin.settings.show_replies_in_public_timelines.title'), hint: t('admin.settings.show_replies_in_public_timelines.desc_html')
 
   %hr.spacer/
 
