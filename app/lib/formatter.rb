@@ -398,7 +398,7 @@ class Formatter
           :quick_param_format_description => 'The size parameter \'%param%\' is incorrect, a number is expected',
           :param_tokens => [{:token => :direction}]},
         :marq => {
-          :html_open => '<span class="bbcode-marq-%vector%">', :html_close => '</span>',
+          :html_open => '<span class="marquee"><span class="bbcode-marq-%vector%">', :html_close => '</span></span>',
           :description => 'Make text marquee',
           :example => '[marq=lateral]marquee[/marq].',
           :allow_quick_param => true, :allow_between_as_param => false,
