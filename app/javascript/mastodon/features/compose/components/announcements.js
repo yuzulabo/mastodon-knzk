@@ -168,7 +168,7 @@ class Announcements extends React.PureComponent {
           </div>
         </li>
         <li>
-          <Collapsable isVisible={this.state.showId === 'stamp'} fullHeight={300} minHeight={22} >
+          <Collapsable isVisible={this.state.showId === 'stamp'} fullHeight={340} minHeight={22} >
             <div className='announcements__body'>
               <p>{ this.nl2br(intl.formatMessage(messages.stamp, { domain: document.title }))}<br />
                 <br />
@@ -185,6 +185,8 @@ class Announcements extends React.PureComponent {
                   :おやすみ:<br />
                   :ごはん:<br />
                   :おそよう:<br />
+                  :ありがとう:<br />
+                  :ルーレット:<br />
         			</p>
             </div>
           </Collapsable>
@@ -193,7 +195,7 @@ class Announcements extends React.PureComponent {
           </div>
         </li>
         <li>
-          <Collapsable isVisible={this.state.showId === 'bbcode'} fullHeight={360} minHeight={20} >
+          <Collapsable isVisible={this.state.showId === 'bbcode'} fullHeight={380} minHeight={20} >
             <div className='announcements__body'>
               <p>{ this.nl2br(intl.formatMessage(messages.bbcode, { domain: document.title }))}<br />
               <br />
@@ -202,6 +204,7 @@ class Announcements extends React.PureComponent {
 			  [large=2x]倍角文字[/large]<br />
 			  [flip=vertical]縦反転[/flip]<br />
 			  [flip=horizontal]横反転[/flip]<br />
+        [marq=lateral]横移動[/marq]<br />
 			  [b]太字[/b]<br />
 			  [i]斜体[/i]<br />
 			  [u]アンダーライン[/u]<br />

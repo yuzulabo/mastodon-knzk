@@ -360,9 +360,9 @@ class Formatter
 
     if html.match(/\[(spin|pulse|large|flip=vertical|flip=horizontal|b|i|u|s)\]/)
       s = html
-      start = s.gsub!(/\[(spin|pulse|large|flip=vertical|flip=horizontal|b|i|u|s)\]/) { "\[#{$1}\]​" }
-      stop = start.gsub!(/\[/) { "​\[" }
-      
+      start = s.gsub!(/\[(spin|pulse|large|flip=vertical|flip=horizontal|marq=lateral|marq=vertical|b|i|u|s)\]/) { "&#8203;\[#{$1}\]​&#8203;" }
+      stop = start.gsub!(/\[\//) { "​&#8203;\[\/" }
+      emojis = stop.gsub!(/::/) {":&#8203;&#8203;:"}
     end
 
     html
@@ -398,7 +398,7 @@ class Formatter
           :quick_param_format_description => 'The size parameter \'%param%\' is incorrect, a number is expected',
           :param_tokens => [{:token => :direction}]},
         :marq => {
-          :html_open => '<span class="bbcode-marq-%vector%">', :html_close => '</span>',
+          :html_open => '<span class="marquee"><span class="bbcode-marq-%vector%">', :html_close => '</span></span>',
           :description => 'Make text marquee',
           :example => '[marq=lateral]marquee[/marq].',
           :allow_quick_param => true, :allow_between_as_param => false,
