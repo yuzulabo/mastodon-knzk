@@ -358,9 +358,9 @@ class Formatter
 
   def avoid_bbcode(html)
 
-    if html.match(/\[(spin|pulse|large|flip=vertical|flip=horizontal|b|i|u|s)\]/)
+    if html.match(/\[(spin|pulse|large=(2x|3x|4x|5x|ex)|flip=vertical|flip=horizontal|b|i|u|s)\]/)
       s = html
-      start = s.gsub!(/\[(spin|pulse|large|flip=vertical|flip=horizontal|marq=lateral|marq=vertical|b|i|u|s)\]/) { "​​\[#{$1}\]​​" }
+      start = s.gsub!(/\[(spin|pulse|large=(2x|3x|4x|5x|ex)|flip=vertical|flip=horizontal|marq=lateral|marq=vertical|b|i|u|s)\]/) { "​​\[#{$1}\]​​" }
       stop = start.gsub!(/\[\//) { "​​​\[\/" }
       emojis = stop.gsub!(/::/) {":​​​:"}
     end
