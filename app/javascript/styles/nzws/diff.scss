@@ -1,0 +1,33 @@
+// TLカラム
+.column {
+  > .scrollable {
+    background: rgba($ui-base-color, 0.6);
+  }
+
+  &-header {
+    background: rgba(lighten($ui-base-color, 4%), 0.8);
+
+    &__button {
+      background: transparent;
+    }
+  }
+}
+
+.drawer {
+  &__header {
+    background: rgba(lighten($ui-base-color, 13%), 0.8);
+  }
+
+  &__inner {
+    background: rgba(lighten($ui-base-color, 13%), 0.8);
+
+    &__mastodon {
+      background: transparent;
+    }
+  }
+}
+
+// 全ページの背景に画像追加
+body, body.app-body, .ui {
+  background: url('../images/nzws_theme_background.png');
+}
