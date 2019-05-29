@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::V1::Timelines::PublicController < Api::BaseController
+  before_action -> { doorkeeper_authorize! :read, :'read:statuses' }, only: [:show]
+  before_action :require_user!, only: [:show]
   after_action :insert_pagination_headers, unless: -> { @statuses.empty? }
 
   respond_to :json
