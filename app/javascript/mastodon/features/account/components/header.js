@@ -233,7 +233,7 @@ class Header extends ImmutablePureComponent {
 
           <div className='account__header__extra'>
             <div className='account__header__bio'>
-              { (fields.size > 0 || identity_proofs.size > 0 || 1) && (
+              { (fields.size > 0 || identity_proofs.size > 0 || account.get('acct') === account.get('username')) && (
                 <div className='account__header__fields'>
                   {identity_proofs.map((proof, i) => (
                     <dl key={i}>
