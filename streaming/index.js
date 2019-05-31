@@ -260,18 +260,8 @@ const startWorker = (workerId) => {
     accountFromToken(token, allowedScopes, req, next);
   };
 
-  const PUBLIC_STREAMS = [
-    'public',
-    'public:media',
-    'public:local',
-    'public:local:media',
-    'hashtag',
-    'hashtag:local',
-  ];
-
   const wsVerifyClient = (info, cb) => {
     const location = url.parse(info.req.url, true);
-    // const authRequired = !PUBLIC_STREAMS.some(stream => stream === location.query.stream);
     const allowedScopes = [];
 
     const authRequired = true;
