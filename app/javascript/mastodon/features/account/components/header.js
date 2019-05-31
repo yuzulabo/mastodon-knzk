@@ -233,7 +233,7 @@ class Header extends ImmutablePureComponent {
 
           <div className='account__header__extra'>
             <div className='account__header__bio'>
-              { (fields.size > 0 || identity_proofs.size > 0) && (
+              { (fields.size > 0 || identity_proofs.size > 0 || 1) && (
                 <div className='account__header__fields'>
                   {identity_proofs.map((proof, i) => (
                     <dl key={i}>
@@ -256,6 +256,17 @@ class Header extends ImmutablePureComponent {
                       </dd>
                     </dl>
                   ))}
+                  { (account.get('acct') === account.get('username')) && (
+                    <dl>
+                      <dt>
+                        <Icon id='clock-o' /> Joined at
+                      </dt>
+
+                      <dd>
+                        {intl.formatDate(account.get('created_at'), dateFormatOptions)}
+                      </dd>
+                    </dl>
+                  )}
                 </div>
               )}
 
