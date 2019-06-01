@@ -116,6 +116,7 @@ class Notification extends ImmutablePureComponent {
 
             <span title={notification.get('created_at')}>
               <FormattedMessage id='notification.follow' defaultMessage='{name} followed you' values={{ name: link }} />
+
               <span className='notification__relative_time'>
                 <RelativeTimestamp timestamp={notification.get('created_at')} />
               </span>
@@ -158,7 +159,10 @@ class Notification extends ImmutablePureComponent {
 
             <span title={notification.get('created_at')}>
               <FormattedMessage id='notification.favourite' defaultMessage='{name} favourited your status' values={{ name: link }} />
-              <RelativeTimestamp className='notification__relative_time' timestamp={notification.get('created_at')} />
+
+              <span className='notification__relative_time'>
+                <RelativeTimestamp timestamp={notification.get('created_at')} />
+              </span>
             </span>
           </div>
 
@@ -191,6 +195,10 @@ class Notification extends ImmutablePureComponent {
 
             <span title={notification.get('created_at')}>
               <FormattedMessage id='notification.reblog' defaultMessage='{name} boosted your status' values={{ name: link }} />
+
+              <span className='notification__relative_time'>
+                <RelativeTimestamp timestamp={notification.get('created_at')} />
+              </span>
             </span>
           </div>
 
@@ -223,7 +231,10 @@ class Notification extends ImmutablePureComponent {
 
             <span title={notification.get('created_at')}>
               <FormattedMessage id='notification.poll' defaultMessage='A poll you have voted in has ended' />
-              <RelativeTimestamp className='notification__relative_time' timestamp={notification.get('created_at')} />
+
+              <span className='notification__relative_time'>
+                <RelativeTimestamp timestamp={notification.get('created_at')} />
+              </span>
             </span>
           </div>
 

@@ -986,16 +986,17 @@
   padding-bottom: 2px;
   font-size: 14px;
   position: relative;
+  margin-right: 10px;
 
   .status__display-name strong {
     color: $dark-text-color;
   }
 
-  > span {
-    // display: block;
+  > span:not(.notification__relative_time) {
+    display: block;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-right: 10px;
+    padding-right: 5px;
   }
 }
 
