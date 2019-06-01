@@ -184,7 +184,7 @@ class ComposeForm extends ImmutablePureComponent {
 
     const secondaryVisibilities = [
       { value: 'private', icon: 'lock' },
-      { value: 'unlisted', icon: 'unlock' }
+      { value: 'unlisted', icon: 'unlock' },
     ];
 
     return (
@@ -248,7 +248,7 @@ class ComposeForm extends ImmutablePureComponent {
         <div className='compose-form__publish'>
           {secondaryVisibilities.map(privacy => (
             <div className='compose-form__publish-button-wrapper' style={{ marginRight: '10px' }}>
-              <Button onClick={() => this.handleSecondarySubmit(privacy.value)} disabled={disabledButton} block>
+              <Button onClick={this.handleSecondarySubmit(privacy.value)} disabled={disabledButton} block>
                 <Icon id={privacy.icon} />
               </Button>
             </div>
