@@ -4,6 +4,10 @@
     background: rgba($ui-base-color, 0.6);
   }
 
+  .load-more:hover {
+    background: rgba(lighten($ui-base-color, 2%), 0.6);
+  }
+
   &-header {
     background: rgba(lighten($ui-base-color, 4%), 0.8);
 
@@ -13,6 +17,7 @@
   }
 }
 
+// トゥート欄
 .drawer {
   &__header {
     background: rgba(lighten($ui-base-color, 13%), 0.8);
@@ -30,4 +35,14 @@
 // 全ページの背景に画像追加
 body, body.app-body, .ui {
   background: url('../images/nzws_theme_background.png');
+}
+
+// エラー
+.error-column {
+  background: rgba($ui-base-color, 0.6);
+}
+
+// empty
+.empty-column-indicator {
+  background: transparent;
 }
