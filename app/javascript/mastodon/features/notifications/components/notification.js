@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import StatusContainer from '../../../containers/status_container';
 import AccountContainer from '../../../containers/account_container';
+import RelativeTimestamp from '../../../components/relative_timestamp';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import Permalink from '../../../components/permalink';
 import ImmutablePureComponent from 'react-immutable-pure-component';
@@ -115,6 +116,9 @@ class Notification extends ImmutablePureComponent {
 
             <span title={notification.get('created_at')}>
               <FormattedMessage id='notification.follow' defaultMessage='{name} followed you' values={{ name: link }} />
+              <span className='notification__relative_time'>
+                <RelativeTimestamp timestamp={notification.get('created_at')} />
+              </span>
             </span>
           </div>
 
@@ -154,6 +158,7 @@ class Notification extends ImmutablePureComponent {
 
             <span title={notification.get('created_at')}>
               <FormattedMessage id='notification.favourite' defaultMessage='{name} favourited your status' values={{ name: link }} />
+              <RelativeTimestamp className='notification__relative_time' timestamp={notification.get('created_at')} />
             </span>
           </div>
 
@@ -218,6 +223,7 @@ class Notification extends ImmutablePureComponent {
 
             <span title={notification.get('created_at')}>
               <FormattedMessage id='notification.poll' defaultMessage='A poll you have voted in has ended' />
+              <RelativeTimestamp className='notification__relative_time' timestamp={notification.get('created_at')} />
             </span>
           </div>
 
