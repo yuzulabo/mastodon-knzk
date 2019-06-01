@@ -5,7 +5,7 @@ require 'rails_helper'
 describe Api::V1::Timelines::PublicController do
   render_views
 
-  let(:user) { Fabricate(:user, account: Fabricate(:account, username: 'alice')) }
+  let(:user) { Fabricate(:user, account: Fabricate(:account, username: 'alice'), current_sign_in_at: 1.day.ago) }
 
   before do
     allow(controller).to receive(:doorkeeper_token) { token }
@@ -45,10 +45,10 @@ describe Api::V1::Timelines::PublicController do
     let(:token) { Fabricate(:accessible_access_token, resource_owner_id: nil, scopes: 'read') }
 
     describe 'GET #show' do
-      it 'returns http success' do
+      it 'returns http unprocessable entity' do
         get :show
 
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:unprocessable_entity)
         expect(response.headers['Link']).to be_nil
       end
     end
