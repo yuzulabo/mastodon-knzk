@@ -1461,10 +1461,11 @@ a.account__display-name {
     color: $highlight-text-color;
   }
 
-  > span {
-    display: inline;
+  > span > span:not(.notification__relative_time) {
+    display: block;
     overflow: hidden;
     text-overflow: ellipsis;
+    padding-right: 5px;
   }
 }
 

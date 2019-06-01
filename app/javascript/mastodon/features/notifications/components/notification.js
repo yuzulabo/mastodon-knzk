@@ -115,11 +115,11 @@ class Notification extends ImmutablePureComponent {
             </div>
 
             <span title={notification.get('created_at')}>
-              <FormattedMessage id='notification.follow' defaultMessage='{name} followed you' values={{ name: link }} />
-
               <span className='notification__relative_time'>
                 <RelativeTimestamp timestamp={notification.get('created_at')} />
               </span>
+
+              <FormattedMessage id='notification.follow' defaultMessage='{name} followed you' values={{ name: link }} />
             </span>
           </div>
 
@@ -158,11 +158,11 @@ class Notification extends ImmutablePureComponent {
             </div>
 
             <span title={notification.get('created_at')}>
-              <FormattedMessage id='notification.favourite' defaultMessage='{name} favourited your status' values={{ name: link }} />
-
               <span className='notification__relative_time'>
                 <RelativeTimestamp timestamp={notification.get('created_at')} />
               </span>
+
+              <FormattedMessage id='notification.favourite' defaultMessage='{name} favourited your status' values={{ name: link }} />
             </span>
           </div>
 
@@ -194,11 +194,11 @@ class Notification extends ImmutablePureComponent {
             </div>
 
             <span title={notification.get('created_at')}>
-              <FormattedMessage id='notification.reblog' defaultMessage='{name} boosted your status' values={{ name: link }} />
-
               <span className='notification__relative_time'>
                 <RelativeTimestamp timestamp={notification.get('created_at')} />
               </span>
+
+              <FormattedMessage id='notification.reblog' defaultMessage='{name} boosted your status' values={{ name: link }} />
             </span>
           </div>
 
@@ -230,11 +230,11 @@ class Notification extends ImmutablePureComponent {
             </div>
 
             <span title={notification.get('created_at')}>
-              <FormattedMessage id='notification.poll' defaultMessage='A poll you have voted in has ended' />
-
               <span className='notification__relative_time'>
                 <RelativeTimestamp timestamp={notification.get('created_at')} />
               </span>
+
+              <FormattedMessage id='notification.poll' defaultMessage='A poll you have voted in has ended' />
             </span>
           </div>
 
