@@ -405,6 +405,14 @@ class Status extends ImmutablePureComponent {
       toggleSensitive: this.handleHotkeyToggleSensitive,
     };
 
+    const visibilityIcons = [
+      { visibility: 'public', icon: 'globe' },
+      { visibility: 'unlisted', icon: 'unlock' },
+      { visibility: 'private', icon: 'lock' },
+      { visibility: 'direct', icon: 'envelope' },
+    ];
+    const visibilityIcon = visibilityIcons.find(data => data.visibility === status.get('visibility')).icon;
+
     return (
       <HotKeys handlers={handlers}>
         <div className={classNames('status__wrapper', `status__wrapper-${status.get('visibility')}`, { 'status__wrapper-reply': !!status.get('in_reply_to_id'), read: unread === false, focusable: !this.props.muted })} tabIndex={this.props.muted ? null : 0} data-featured={featured ? 'true' : null} aria-label={textForScreenReader(intl, status, rebloggedByText)} ref={this.handleRef}>
@@ -413,6 +421,8 @@ class Status extends ImmutablePureComponent {
           <div className={classNames('status', `status-${status.get('visibility')}`, { 'status-reply': !!status.get('in_reply_to_id'), muted: this.props.muted, read: unread === false })} data-id={status.get('id')}>
             <div className='status__expand' onClick={this.handleExpandClick} role='presentation' />
             <div className='status__info'>
+              <span className='status__relative-time'><Icon id={visibilityIcon ? visibilityIcon : 'question'} className='fa-fw'/></span>
+
               <a href={status.get('url')} className='status__relative-time' target='_blank' rel='noopener'><RelativeTimestamp timestamp={status.get('created_at')} /></a>
 
               <a onClick={this.handleAccountClick} target='_blank' data-id={status.getIn(['account', 'id'])} href={status.getIn(['account', 'url'])} title={status.getIn(['account', 'acct'])} className='status__display-name'>
