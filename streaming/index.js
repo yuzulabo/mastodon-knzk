@@ -260,11 +260,14 @@ const startWorker = (workerId) => {
     accountFromToken(token, allowedScopes, req, next);
   };
 
+  const PUBLIC_STREAMS = [
+    'hashtag',
+  ];
+
   const wsVerifyClient = (info, cb) => {
     const location = url.parse(info.req.url, true);
+    const authRequired = !PUBLIC_STREAMS.some(stream => stream === location.query.stream);
     const allowedScopes = [];
-
-    const authRequired = true;
 
     if (authRequired) {
       allowedScopes.push('read');
