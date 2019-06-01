@@ -95,7 +95,9 @@ class ComposeForm extends ImmutablePureComponent {
     this.props.onSubmit(this.context.router ? this.context.router.history : null);
   }
 
-  handleSecondarySubmit = privacy => {
+  handleSecondarySubmit = e => {
+    const privacy = e.currentTarget.parentElement.dataset.privacy;
+
     this.props.onChangeVisibility(privacy);
     this.handleSubmit();
   }
@@ -247,8 +249,8 @@ class ComposeForm extends ImmutablePureComponent {
 
         <div className='compose-form__publish'>
           {secondaryVisibilities.map(privacy => (
-            <div className='compose-form__publish-button-wrapper' style={{ marginRight: '10px' }}>
-              <Button onClick={this.handleSecondarySubmit(privacy.value)} disabled={disabledButton} block>
+            <div className='compose-form__publish-button-wrapper' data-privacy={privacy.value} style={{ marginRight: '10px' }}>
+              <Button onClick={this.handleSecondarySubmit} disabled={disabledButton} block>
                 <Icon id={privacy.icon} />
               </Button>
             </div>
