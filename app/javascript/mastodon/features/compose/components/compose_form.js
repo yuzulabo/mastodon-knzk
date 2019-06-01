@@ -60,6 +60,7 @@ class ComposeForm extends ImmutablePureComponent {
     onPickEmoji: PropTypes.func.isRequired,
     showSearch: PropTypes.bool,
     anyMedia: PropTypes.bool,
+    onChangeVisibility: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -92,6 +93,11 @@ class ComposeForm extends ImmutablePureComponent {
     }
 
     this.props.onSubmit(this.context.router ? this.context.router.history : null);
+  }
+
+  handleSecondarySubmit = privacy => {
+    this.props.onChangeVisibility(privacy);
+    this.handleSubmit();
   }
 
   onSuggestionsClearRequested = () => {
@@ -176,6 +182,11 @@ class ComposeForm extends ImmutablePureComponent {
       publishText = this.props.privacy !== 'unlisted' ? intl.formatMessage(messages.publishLoud, { publish: intl.formatMessage(messages.publish) }) : intl.formatMessage(messages.publish);
     }
 
+    const secondaryVisibilities = [
+      { value: 'private', icon: 'lock' },
+      { value: 'unlisted', icon: 'unlock' }
+    ];
+
     return (
       <div className='compose-form'>
         <WarningContainer />
@@ -235,6 +246,14 @@ class ComposeForm extends ImmutablePureComponent {
         </div>
 
         <div className='compose-form__publish'>
+          {secondaryVisibilities.map(privacy => (
+            <div className='compose-form__publish-button-wrapper' style={{ marginRight: '10px' }}>
+              <Button onClick={() => this.handleSecondarySubmit(privacy.value)} disabled={disabledButton} block>
+                <Icon id={privacy.icon} />
+              </Button>
+            </div>
+          ))}
+
           <div className='compose-form__publish-button-wrapper'><Button text={publishText} onClick={this.handleSubmit} disabled={disabledButton} block /></div>
         </div>
       </div>
