@@ -1171,6 +1171,15 @@
   float: left;
   margin-left: 12px;
   margin-right: 12px;
+  position: relative;
+
+  &__follower {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    color: $action-button-color;
+  }
 }
 
 .account__avatar {

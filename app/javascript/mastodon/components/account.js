@@ -8,6 +8,7 @@ import IconButton from './icon_button';
 import { defineMessages, injectIntl } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { me } from '../initial_state';
+import Icon from 'mastodon/components/icon';
 
 const messages = defineMessages({
   follow: { id: 'account.follow', defaultMessage: 'Follow' },
@@ -107,11 +108,23 @@ class Account extends ImmutablePureComponent {
       }
     }
 
+    let followerBadge;
+    if (account.get('id') !== me && account.get('relationship', null) !== null) {
+      const followed_by = account.getIn(['relationship', 'followed_by']);
+
+      if (followed_by) {
+        followerBadge = <Icon id='user-circle-o' className='account__avatar-wrapper__follower' title='Follower'/>;
+      }
+    }
+
     return (
       <div className='account'>
         <div className='account__wrapper'>
           <Permalink key={account.get('id')} className='account__display-name' title={account.get('acct')} href={account.get('url')} to={`/accounts/${account.get('id')}`}>
-            <div className='account__avatar-wrapper'><Avatar account={account} size={36} /></div>
+            <div className='account__avatar-wrapper'>
+              <Avatar account={account} size={36} />
+              {followerBadge}
+            </div>
             <DisplayName account={account} />
           </Permalink>
 
