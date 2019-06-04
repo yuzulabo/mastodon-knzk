@@ -40,12 +40,10 @@ module HomeHelper
   end
 
   def obscured_counter(count)
-    if count <= 0
-      0
-    elsif count == 1
-      1
+    if count <= 99
+      count
     else
-      '1+'
+      '99+'
     end
   end
 
