@@ -360,9 +360,12 @@ class Formatter
 
     if html.match(/\[(spin|pulse|large=(2x|3x|4x|5x|ex)|flip=vertical|flip=horizontal|b|i|u|s)\]/)
       s = html
-      start = s.gsub!(/\[(spin|pulse|large=(2x|3x|4x|5x|ex)|flip=vertical|flip=horizontal|marq=lateral|marq=vertical|b|i|u|s)\]/) { "​​\[#{$1}\]​​" }
-      stop = start.gsub!(/\[\//) { "​​​\[\/" }
-      emojis = stop.gsub!(/::/) {":​​​:"}
+      start = s.gsub!(/(\[\/?[a-z0-9\=]*\])/) { "​​#{$1}​​" }
+    end
+
+    if html.match(/:@?[a-z0-9_]*:/)
+      s = html
+      emojis = s.gsub!(/(:@?[a-z0-9_]*:)/) { "​​#{$1}​​" }
     end
 
     html
