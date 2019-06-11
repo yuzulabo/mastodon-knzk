@@ -51,6 +51,14 @@ export default class LocalSettingsPage extends React.PureComponent {
           <FormattedMessage id='settings.hicolor_privacy_icons' defaultMessage='High color privacy icons' />
           <span className='hint'><FormattedMessage id='settings.hicolor_privacy_icons.hint' defaultMessage="Display privacy icons in bright and easily distinguishable colors" /></span>
         </LocalSettingsPageItem>
+        <LocalSettingsPageItem
+          settings={settings}
+          item={['confirm_boost_missing_media_description']}
+          id='mastodon-settings--confirm_boost_missing_media_description'
+          onChange={onChange}
+        >
+          <FormattedMessage id='settings.confirm_boost_missing_media_description' defaultMessage='Show confirmation dialog before boosting toots lacking media descriptions' />
+        </LocalSettingsPageItem>
         <section>
           <h2><FormattedMessage id='settings.notifications_opts' defaultMessage='Notifications options' /></h2>
           <LocalSettingsPageItem
@@ -150,6 +158,14 @@ export default class LocalSettingsPage extends React.PureComponent {
           onChange={onChange}
         >
           <FormattedMessage id='settings.confirm_before_clearing_draft' defaultMessage='Show confirmation dialog before overwriting the message being composed' />
+        </LocalSettingsPageItem>
+        <LocalSettingsPageItem
+          settings={settings}
+          item={['show_content_type_choice']}
+          id='mastodon-settings--show_content_type_choice'
+          onChange={onChange}
+        >
+          <FormattedMessage id='settings.show_content_type_choice' defaultMessage='Show content-type choice when authoring toots' />
         </LocalSettingsPageItem>
         <LocalSettingsPageItem
           settings={settings}
