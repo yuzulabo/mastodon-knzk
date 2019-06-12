@@ -69,16 +69,17 @@ class Formatter
     html = encode_and_link_urls(html, linkable_accounts, keep_html: %w(text/markdown text/html).include?(status.content_type))
     html = encode_custom_emojis(html, status.emojis + status.avatar_emojis, options[:autoplay]) if options[:custom_emojify]
 
-    if %w(text/markdown text/html).include?(status.content_type)
-#      html = reformat(html)
+    if %w(text/markdown).include?(status.content_type)
       mdLinkDecoder = MDLinkDecoder.new(html)
       html = mdLinkDecoder.decode
       html.gsub!(/(&amp;)/){"&"}
+      html = format_bbcode(html)
+    elsif %w(text/html).include?(status.content_type)
+      html = reformat(html)
     else
       html = simple_format(html, {}, sanitize: false)
       html = html.delete("\n")
     end
-    html = format_bbcode(html)
     html.html_safe # rubocop:disable Rails/OutputSafety
   end
 
@@ -185,10 +186,10 @@ class Formatter
   end
 
   def encode_and_link_urls(html, accounts = nil, options = {})
-    entities = utf8_friendly_extractor(html, extract_url_without_protocol: false)
+#    entities = utf8_friendly_extractor(html, extract_url_without_protocol: false)
 
-    mdExtractor = MDExtractor.new(html)
-    entities.concat(mdExtractor.extractEntities)
+    entities = options[:keep_html] ? html_friendly_extractor(html) : utf8_friendly_extractor(html, extract_url_without_protocol: false)
+
 
     if accounts.is_a?(Hash)
       options  = accounts
@@ -197,15 +198,31 @@ class Formatter
     
 #    entities = options[:keep_html] ? html_friendly_extractor(html) : utf8_friendly_extractor(html, extract_url_without_protocol: false)
 
-    rewrite(html.dup, entities) do |entity|
-      if entity[:markdown]
-        html[entity[:indices][0]...entity[:indices][1]]
-      elsif entity[:url]
-        link_to_url(entity, options)
-      elsif entity[:hashtag]
-        link_to_hashtag(entity)
-      elsif entity[:screen_name]
-        link_to_mention(entity, accounts)
+    if %w(text/markdown).include?(html)
+
+      mdExtractor = MDExtractor.new(html)
+      entities.concat(mdExtractor.extractEntities)
+
+      rewrite(html.dup, entities) do |entity|
+        if entity[:markdown]
+          html[entity[:indices][0]...entity[:indices][1]]
+        elsif entity[:url]
+          link_to_url(entity, options)
+        elsif entity[:hashtag]
+          link_to_hashtag(entity)
+        elsif entity[:screen_name]
+          link_to_mention(entity, accounts)
+        end
+      end
+    else
+      rewrite(html.dup, entities, options[:keep_html]) do |entity|
+        if entity[:url]
+          link_to_url(entity, options)
+        elsif entity[:hashtag]
+          link_to_hashtag(entity)
+        elsif entity[:screen_name]
+          link_to_mention(entity, accounts)
+        end
       end
     end
   end
