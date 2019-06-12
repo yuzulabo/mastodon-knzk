@@ -85,7 +85,7 @@ class Formatter_Markdown
         def header(text, header_level)
             urlRemoved = "#{remove_url(text)}"
             mdContentsRemoved = "#{markdown_escape(urlRemoved)}"
-            %(<h#{header_level}>#{encode(mdContentsRemoved)}</h#{header_level}>\n)
+            %(\n<h#{header_level}>#{encode(mdContentsRemoved)}</h#{header_level}>\n)
         end
 
         def block_code(code, language)
