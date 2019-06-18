@@ -50,6 +50,7 @@ class Formatter_Markdown
         s = @html
         s.gsub!(/\n[\n]+/) {"\n　\n"}# 改行周りの問題を修正
         s.gsub!(/`[ ]+`/) {"｀ ｀"}# code内が半角スペースのみだとHTMLが壊れるのでそれの回避
+#        s.gsub!(/(https?:\/\/[^<>"\[\] 　]+)/){"[#{$1[0, 20]}](#{$1})"}
 
         renderedMD = md.render(s)
 
