@@ -64,7 +64,7 @@ class Formatter
     mdFormatter = Formatter_Markdown.new(html)
 
     html = "RT @#{prepend_reblog} #{html}" if prepend_reblog
-    html.gsub!(/([^\(])(https?:\/\/([^<>"\[\] 　]+))/){"#{$1}[#{$3[0, 20]}](#{$2})"} if status.content_type == 'text/markdown'
+    html.gsub!(/(\A|[^\(])(https?:\/\/([^<>"\[\] 　]+))/){"#{$1}[#{$3[0, 20]}](#{$2})"} if status.content_type == 'text/markdown'
     html = mdFormatter.formatted if status.content_type == 'text/markdown'
     html = encode_and_link_urls(html, linkable_accounts, keep_html: %w(text/markdown text/html).include?(status.content_type))
     html = encode_custom_emojis(html, status.emojis + status.avatar_emojis, options[:autoplay]) if options[:custom_emojify]
