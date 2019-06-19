@@ -29,7 +29,7 @@ module Mastodon
     end
 
     def suffix
-      '+glitch'
+      '+ Astarte on Glitch'
     end
 
     def to_s
