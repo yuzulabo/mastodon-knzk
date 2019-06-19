@@ -27,14 +27,18 @@ ja:
         phrase: トゥートの大文字小文字や閲覧注意に関係なく一致
         scopes: アプリの API に許可するアクセス権を選択してください。最上位のスコープを選択する場合、個々のスコープを選択する必要はありません。
         setting_aggregate_reblogs: 最近ブーストされたトゥートが新たにブーストされても表示しません (設定後受信したものにのみ影響)
+        setting_default_content_type_html: とても高度な知識の要求される投稿形態です。あなたは全ての文章をHTMLタグを用いて入力する必要があります。しかし拡張性は高く6229文字を使い尽くすブログを投稿することも可能でしょう。
+        setting_default_content_type_markdown: このモードではMarkdownとBBcodeを利用することができます。文字の装飾がしたい、でも難しいのはイヤという方におすすめの投稿形式です
+        setting_default_content_type_plain: このモードでは文字の装飾をすることは一切できません。投稿内容にこだわりがないのであれば一番おすすめできる投稿形式です
         setting_default_sensitive: 閲覧注意状態のメディアはデフォルトでは内容が伏せられ、クリックして初めて閲覧できるようになります
         setting_display_media_default: 閲覧注意としてマークされたメディアは隠す
         setting_display_media_hide_all: 全てのメディアを常に隠す
         setting_display_media_show_all: 閲覧注意としてマークされたメディアも常に表示する
-        setting_hide_followers_count: フォロワーの数をプロフィール画面で見られないようにします
+        setting_hide_followers_count: これを設定することで他人があなたがどのような人たちを購読しているのか知ることができなくなります
         setting_hide_network: フォローとフォロワーの情報がプロフィールページで見られないようにします
         setting_noindex: 公開プロフィールおよび各投稿ページに影響します
         setting_show_application: トゥートするのに使用したアプリがトゥートの詳細ビューに表示されるようになります
+        setting_skin: ここではあなたの好きな見た目を選ぶことができます。開発メンバーは＋colorを用いてデバックを行なっています。
         username: あなたのユーザー名は %{domain} の中で重複していない必要があります
         whole_word: キーワードまたはフレーズが英数字のみの場合、単語全体と一致する場合のみ適用されるようになります
       featured_tag:
@@ -94,6 +98,10 @@ ja:
         setting_aggregate_reblogs: ブーストをまとめる
         setting_auto_play_gif: アニメーションGIFを自動再生する
         setting_boost_modal: ブーストする前に確認ダイアログを表示する
+        setting_default_content_type: 投稿様式の設定
+        setting_default_content_type_html: HTMLモード
+        setting_default_content_type_markdown: アスタルテモード
+        setting_default_content_type_plain: 通常テキストモード
         setting_default_language: 投稿する言語
         setting_default_privacy: 投稿の公開範囲
         setting_default_sensitive: メディアを常に閲覧注意としてマークする
@@ -104,6 +112,7 @@ ja:
         setting_display_media_show_all: 表示
         setting_expand_spoilers: 閲覧注意としてマークされたトゥートを常に展開する
         setting_favourite_modal: お気に入りをする前に確認ダイアログを表示する
+        setting_hide_followers_count: フォロワーの数をプロフィール画面で見られないようにします
         setting_hide_network: 繋がりを隠す
         setting_noindex: 検索エンジンによるインデックスを拒否する
         setting_reduce_motion: アニメーションの動きを減らす

@@ -28,6 +28,7 @@ const messages = {
   'settings.close': '閉じる',
   'settings.collapsed_statuses': 'トゥート',
   'settings.confirm_before_clearing_draft': '入力中の投稿が上書きされる前に、確認のダイアログを表示する',
+  'settings.confirm_boost_missing_media_description': '投稿時にメディアの説明が付いていない場合警告を表示する',
   'settings.confirm_missing_media_description': '画像に対する補助記載がないときに投稿前の警告を表示する',
   'settings.content_warnings': 'コンテンツワーニング',
   'settings.content_warnings_filter': '説明に指定した文字が含まれているものを自動で展開しないようにする',
@@ -59,6 +60,7 @@ const messages = {
   'settings.wide_view_hint':'ワイドディスプレイを活用し、カラムを横に伸ばして空き領域を調整します',
   'settings.compose_box_opts': '投稿に関する設定',
   'settings.show_action_bar':'折りたたまれた投稿にもアクションバーを表示する',
+  'settings.show_content_type_choice': '投稿時に「プレーン」「アスタルテ」「HTML」のモードを選択できるようにします',
   'settings.show_reply_counter': '投稿に対するリプライの数を表示する',
   'settings.side_arm': 'セカンダリートゥートボタン',
   'settings.side_arm.none': '表示しない',
@@ -78,6 +80,11 @@ const messages = {
   'favourite_modal.combo': '次からは {combo} を押せば、これをスキップできます。',
 
   'home.column_settings.show_direct': 'DMを表示',
+
+  '': '',
+  'layout.hint.auto': 'お使いのディスプレイの横幅に合わせて自動でレイアウトを変更します',
+  'layout.hint.desktop': '画面の大きさに関係なくデスクトップUIで表示します',
+  'layout.hint.single': '画面の大きさに関係なくシングルカラムUIで表示します',
 
   'notification.markForDeletion': '選択',
   'notifications.clear': '通知を全てクリアする',
