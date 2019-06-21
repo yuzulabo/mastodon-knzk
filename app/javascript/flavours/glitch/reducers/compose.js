@@ -25,6 +25,7 @@ import {
   COMPOSE_SPOILERNESS_CHANGE,
   COMPOSE_SPOILER_TEXT_CHANGE,
   COMPOSE_VISIBILITY_CHANGE,
+  COMPOSE_CONTENT_TYPE_CHANGE,
   COMPOSE_EMOJI_INSERT,
   COMPOSE_UPLOAD_CHANGE_REQUEST,
   COMPOSE_UPLOAD_CHANGE_SUCCESS,
@@ -44,7 +45,7 @@ import { REDRAFT } from 'flavours/glitch/actions/statuses';
 import { Map as ImmutableMap, List as ImmutableList, OrderedSet as ImmutableOrderedSet, fromJS } from 'immutable';
 import uuid from 'flavours/glitch/util/uuid';
 import { privacyPreference } from 'flavours/glitch/util/privacy_preference';
-import { me } from 'flavours/glitch/util/initial_state';
+import { me, defaultContentType } from 'flavours/glitch/util/initial_state';
 import { overwrite } from 'flavours/glitch/util/js_helpers';
 import { unescapeHTML } from 'flavours/glitch/util/html';
 import { recoverHashtags } from 'flavours/glitch/util/hashtag';
@@ -56,7 +57,7 @@ const totalElefriends = 3;
 const glitchProbability = 1 - 0.0420215528;
 
 const initialState = ImmutableMap({
-  mounted: false,
+  mounted: 0,
   advanced_options: ImmutableMap({
     do_not_federate: false,
     threaded_mode: false,
@@ -66,6 +67,7 @@ const initialState = ImmutableMap({
   spoiler: false,
   spoiler_text: '',
   privacy: null,
+  content_type: defaultContentType || 'text/plain',
   text: '',
   focusDate: null,
   caretPosition: null,
@@ -141,6 +143,7 @@ function apiStatusToTextHashtags (state, status) {
 function clearAll(state) {
   return state.withMutations(map => {
     map.set('text', '');
+    if (defaultContentType) map.set('content_type', defaultContentType);
     map.set('spoiler', false);
     map.set('spoiler_text', '');
     map.set('is_submitting', false);
@@ -277,9 +280,9 @@ export default function compose(state = initialState, action) {
   case STORE_HYDRATE:
     return hydrate(state, action.state.get('compose'));
   case COMPOSE_MOUNT:
-    return state.set('mounted', true);
+    return state.set('mounted', state.get('mounted') + 1);
   case COMPOSE_UNMOUNT:
-    return state.set('mounted', false);
+    return state.set('mounted', Math.max(state.get('mounted') - 1, 0));
   case COMPOSE_ADVANCED_OPTIONS_CHANGE:
     return state
       .set('advanced_options', state.get('advanced_options').set(action.option, !!overwrite(!state.getIn(['advanced_options', action.option]), action.value)))
@@ -309,6 +312,10 @@ export default function compose(state = initialState, action) {
   case COMPOSE_VISIBILITY_CHANGE:
     return state
       .set('privacy', action.value)
+      .set('idempotencyKey', uuid());
+  case COMPOSE_CONTENT_TYPE_CHANGE:
+    return state
+      .set('content_type', action.value)
       .set('idempotencyKey', uuid());
   case COMPOSE_CHANGE:
     return state
@@ -348,6 +355,7 @@ export default function compose(state = initialState, action) {
   case COMPOSE_RESET:
     return state.withMutations(map => {
       map.set('in_reply_to', null);
+      if (defaultContentType) map.set('content_type', defaultContentType);
       map.set('text', '');
       map.set('spoiler', false);
       map.set('spoiler_text', '');
@@ -427,13 +435,16 @@ export default function compose(state = initialState, action) {
   case REDRAFT:
     return state.withMutations(map => {
 //      map.set('text', action.status.get('original_content'));
-      map.set('text', action.raw_text || unescapeHTML(expandMentions(action.status.get('original_content'))));
+//      map.set('text', action.raw_text || unescapeHTML(expandMentions(action.status.get('original_content'))));
+      map.set('text', action.raw_text || unescapeHTML(expandMentions(action.status)));
+      map.set('content_type', action.content_type || 'text/plain');
       map.set('in_reply_to', action.status.get('in_reply_to_id'));
       map.set('privacy', action.status.get('visibility'));
       map.set('media_attachments', action.status.get('media_attachments'));
       map.set('focusDate', new Date());
       map.set('caretPosition', null);
       map.set('idempotencyKey', uuid());
+      map.set('sensitive', action.status.get('sensitive'));
 
       if (action.status.get('spoiler_text').length > 0) {
         map.set('spoiler', true);

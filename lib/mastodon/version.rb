@@ -9,11 +9,11 @@ module Mastodon
     end
 
     def minor
-      8
+      9
     end
 
     def patch
-      2
+      0
     end
 
     def pre
@@ -29,7 +29,7 @@ module Mastodon
     end
 
     def suffix
-      '+glitch'
+      '+ Astarte on Glitch'
     end
 
     def to_s

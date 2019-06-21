@@ -46,6 +46,7 @@ export const COMPOSE_SPOILERNESS_CHANGE = 'COMPOSE_SPOILERNESS_CHANGE';
 export const COMPOSE_SPOILER_TEXT_CHANGE = 'COMPOSE_SPOILER_TEXT_CHANGE';
 export const COMPOSE_VISIBILITY_CHANGE  = 'COMPOSE_VISIBILITY_CHANGE';
 export const COMPOSE_LISTABILITY_CHANGE = 'COMPOSE_LISTABILITY_CHANGE';
+export const COMPOSE_CONTENT_TYPE_CHANGE = 'COMPOSE_CONTENT_TYPE_CHANGE';
 
 export const COMPOSE_EMOJI_INSERT = 'COMPOSE_EMOJI_INSERT';
 
@@ -67,6 +68,14 @@ const messages = defineMessages({
   uploadErrorPoll:  { id: 'upload_error.poll', defaultMessage: 'File upload not allowed with polls.' },
 });
 
+const COMPOSE_PANEL_BREAKPOINT = 600 + (285 * 1) + (10 * 1);
+
+export const ensureComposeIsVisible = (getState, routerHistory) => {
+  if (!getState().getIn(['compose', 'mounted']) && window.innerWidth < COMPOSE_PANEL_BREAKPOINT) {
+    routerHistory.push('/statuses/new');
+  }
+};
+
 export function changeCompose(text) {
   return {
     type: COMPOSE_CHANGE,
@@ -80,16 +89,14 @@ export function cycleElefriendCompose() {
   };
 };
 
-export function replyCompose(status, router) {
+export function replyCompose(status, routerHistory) {
   return (dispatch, getState) => {
     dispatch({
       type: COMPOSE_REPLY,
       status: status,
     });
 
-    if (router && !getState().getIn(['compose', 'mounted'])) {
-      router.push('/statuses/new');
-    }
+    ensureComposeIsVisible(getState, routerHistory);
   };
 };
 
@@ -105,29 +112,25 @@ export function resetCompose() {
   };
 };
 
-export function mentionCompose(account, router) {
+export function mentionCompose(account, routerHistory) {
   return (dispatch, getState) => {
     dispatch({
       type: COMPOSE_MENTION,
       account: account,
     });
 
-    if (!getState().getIn(['compose', 'mounted'])) {
-      router.push('/statuses/new');
-    }
+    ensureComposeIsVisible(getState, routerHistory);
   };
 };
 
-export function directCompose(account, router) {
+export function directCompose(account, routerHistory) {
   return (dispatch, getState) => {
     dispatch({
       type: COMPOSE_DIRECT,
       account: account,
     });
 
-    if (!getState().getIn(['compose', 'mounted'])) {
-      router.push('/statuses/new');
-    }
+    ensureComposeIsVisible(getState, routerHistory);
   };
 };
 
@@ -147,6 +150,7 @@ export function submitCompose(routerHistory) {
     }
     api(getState).post('/api/v1/statuses', {
       status,
+      content_type: getState().getIn(['compose', 'content_type']),
       in_reply_to_id: getState().getIn(['compose', 'in_reply_to'], null),
       media_ids: media.map(item => item.get('id')),
       sensitive: getState().getIn(['compose', 'sensitive']) || (spoilerText.length > 0 && media.size !== 0),
@@ -513,6 +517,13 @@ export function changeComposeSpoilerText(text) {
 export function changeComposeVisibility(value) {
   return {
     type: COMPOSE_VISIBILITY_CHANGE,
+    value,
+  };
+};
+
+export function changeComposeContentType(value) {
+  return {
+    type: COMPOSE_CONTENT_TYPE_CHANGE,
     value,
   };
 };

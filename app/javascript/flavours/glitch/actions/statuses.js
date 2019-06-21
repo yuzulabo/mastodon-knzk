@@ -2,6 +2,7 @@ import api from 'flavours/glitch/util/api';
 
 import { deleteFromTimelines } from './timelines';
 import { importFetchedStatus, importFetchedStatuses } from './importer';
+import { ensureComposeIsVisible } from './compose';
 
 export const STATUS_FETCH_REQUEST = 'STATUS_FETCH_REQUEST';
 export const STATUS_FETCH_SUCCESS = 'STATUS_FETCH_SUCCESS';
@@ -71,15 +72,16 @@ export function fetchStatusFail(id, error, skipLoading) {
   };
 };
 
-export function redraft(status, raw_text) {
+export function redraft(status, raw_text, content_type) {
   return {
     type: REDRAFT,
     status,
     raw_text,
+    content_type,
   };
 };
 
-export function deleteStatus(id, router, withRedraft = false) {
+export function deleteStatus(id, routerHistory, withRedraft = false) {
   return (dispatch, getState) => {
     let status = getState().getIn(['statuses', id]);
 
@@ -94,11 +96,9 @@ export function deleteStatus(id, router, withRedraft = false) {
       dispatch(deleteFromTimelines(id));
 
       if (withRedraft) {
-        dispatch(redraft(status, response.data.text));
+        dispatch(redraft(status, response.data.text, response.data.content_type));
 
-        if (!getState().getIn(['compose', 'mounted'])) {
-          router.push('/statuses/new');
-        }
+        ensureComposeIsVisible(getState, routerHistory);
       }
     }).catch(error => {
       dispatch(deleteStatusFail(id, error));
