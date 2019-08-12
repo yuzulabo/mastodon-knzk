@@ -1,5 +1,5 @@
 echo -e "\e[33m Backup the database: \e[m"
-pg_dump mastodon > ../backup/$(date +%Y%m%d_%H-%M-%S).sql
+/usr/pgsql-11/bin/pg_dump mastodon > ../backup/$(date +%Y%m%d_%H-%M-%S).sql
 
 echo -e "\e[33m Get new codes from Git: \e[m"
 git fetch origin
