@@ -113,7 +113,7 @@ class Account extends ImmutablePureComponent {
       const followed_by = account.getIn(['relationship', 'followed_by']);
 
       if (followed_by) {
-        followerBadge = <Icon id='user-circle-o' className='account__avatar-wrapper__follower' title='Follower'/>;
+        followerBadge = <Icon id='user-circle-o' className='account__avatar-wrapper__follower' title='Follower' />;
       }
     }
 
