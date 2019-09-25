@@ -5,14 +5,14 @@ require 'rails_helper'
 describe Api::V1::Timelines::PublicController do
   render_views
 
-  let(:user) { Fabricate(:user, account: Fabricate(:account, username: 'alice'), current_sign_in_at: 1.day.ago) }
+  let(:user) { Fabricate(:user, account: Fabricate(:account, username: 'alice')) }
 
   before do
     allow(controller).to receive(:doorkeeper_token) { token }
   end
 
   context 'with a user context' do
-    let(:token) { Fabricate(:accessible_access_token, resource_owner_id: user.id, scopes: 'read:statuses') }
+    let(:token) { Fabricate(:accessible_access_token, resource_owner_id: user.id) }
 
     describe 'GET #show' do
       before do
@@ -42,13 +42,13 @@ describe Api::V1::Timelines::PublicController do
   end
 
   context 'without a user context' do
-    let(:token) { Fabricate(:accessible_access_token, resource_owner_id: nil, scopes: 'read') }
+    let(:token) { Fabricate(:accessible_access_token, resource_owner_id: nil) }
 
     describe 'GET #show' do
-      it 'returns http unprocessable entity' do
+      it 'returns http success' do
         get :show
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(200)
         expect(response.headers['Link']).to be_nil
       end
     end
