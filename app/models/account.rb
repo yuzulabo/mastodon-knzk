@@ -80,11 +80,7 @@ class Account < ApplicationRecord
   validates :username, format: { with: /\A#{USERNAME_RE}\z/i }, if: -> { !local? && will_save_change_to_username? }
 
   # Local user validations
-<<<<<<< HEAD
-  validates :username, format: { with: /\A[a-z0-9_]+\z/i }, length: { maximum: 70 }, if: -> { local? && will_save_change_to_username? }
-=======
-  validates :username, format: { with: /\A[a-z0-9_]+\z/i }, length: { maximum: 30 }, if: -> { local? && will_save_change_to_username? && actor_type != 'Application' }
->>>>>>> d2f7b8685cfd0ec9b69af505b56c791d9b5f1c82
+  validates :username, format: { with: /\A[a-z0-9_]+\z/i }, length: { maximum: 70 }, if: -> { local? && will_save_change_to_username? && actor_type != 'Application' }
   validates_with UniqueUsernameValidator, if: -> { local? && will_save_change_to_username? }
   validates_with UnreservedUsernameValidator, if: -> { local? && will_save_change_to_username? }
   validates :display_name, length: { maximum: MAX_DISPLAY_NAME_LENGTH }, if: -> { local? && will_save_change_to_display_name? }

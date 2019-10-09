@@ -80,6 +80,7 @@ class Formatter
       html = simple_format(html, {}, sanitize: false)
       html = html.delete("\n")
     end
+    
     html.html_safe # rubocop:disable Rails/OutputSafety
   end
 
