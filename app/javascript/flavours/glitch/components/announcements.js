@@ -2,7 +2,7 @@ import React from 'react';
 import Immutable from 'immutable';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
-import IconButton from '../../../mastodon/components/announcement_icon_button';
+import IconButton from './announcement_icon_button';
 import Motion from 'react-motion/lib/Motion';
 import spring from 'react-motion/lib/spring';
 
@@ -10,11 +10,11 @@ import Music from './music';
 
 const Collapsable = ({ fullHeight, minHeight, isVisible, children }) => (
   <Motion defaultStyle={{ height: isVisible ? fullHeight : minHeight }} style={{ height: spring(!isVisible ? minHeight : fullHeight) }}>
-    {({ height }) =>
+    {({ height }) => (
       <div style={{ height: `${height}px`, overflow: 'hidden', width: '100%' }}>
         {children}
       </div>
-    }
+    )}
   </Motion>
 );
 
@@ -74,21 +74,21 @@ class Announcements extends React.PureComponent {
           <Collapsable isVisible={this.state.showId === 'info'} fullHeight={360} minHeight={20} >
             <div className='announcements__body'>
               <p>{ this.nl2br(intl.formatMessage(messages.info, { domain: document.title }))}<br />
-              <br />
+                <br />
 			  アスタルテと関連のサービス<br />
-			  <br />
+                <br />
 			  ・MINECRAFT Server(停止中)<br />
 			  [address] mc.kirishima.cloud <br />
 			  [URL] http://mc.kirishima.cloud:8123 <br />
-        <a href="http://mc.kirishima.cloud:8123" target="_blank">マップを開く</a><br /><br />
+                <a href='http://mc.kirishima.cloud:8123' target='_blank'>マップを開く</a><br /><br />
         ・Cutlsさんのサービス<br />
         TheDeskはCutlsさんが製作している<br />アスタルテの公認クライアントです<br />
-        <a href="https://thedesk.top/" target="_blank">TheDeskホームページ</a><br /><br />
+                <a href='https://thedesk.top/' target='_blank'>TheDeskホームページ</a><br /><br />
         暇人ランキング<br />
         暇人ランキングはアスタルテの投稿数で<br />ランキング付けされてます<br />
-        <a href="https://astarte.thedesk.top/" target="_blank">暇ラン</a>
-			  <br />
-			  </p>
+                <a href='https://astarte.thedesk.top/' target='_blank'>暇ラン</a>
+                <br />
+              </p>
             </div>
           </Collapsable>
           <div className='announcements__icon'>
@@ -99,17 +99,17 @@ class Announcements extends React.PureComponent {
           <Collapsable isVisible={this.state.showId === 'donation'} fullHeight={270} minHeight={20} >
             <div className='announcements__body'>
               <p>{ this.nl2br(intl.formatMessage(messages.donation, { domain: document.title }))}<br />
-              <br />
+                <br />
 			  ・欲しいものリスト<br />
 			  [URL] http://amzn.asia/hJLmEbc <br />
-        <a href="http://amzn.asia/hJLmEbc" target="_blank">欲しいものリストを開く</a><br />
+                <a href='http://amzn.asia/hJLmEbc' target='_blank'>欲しいものリストを開く</a><br />
         ・FanBox <br />
 			  [URL] https://www.pixiv.net/fanbox/creator/13015144 <br />
-        <a href="https://www.pixiv.net/fanbox/creator/13015144" target="_blank">FanBoxのページを開く</a><br />
+                <a href='https://www.pixiv.net/fanbox/creator/13015144' target='_blank'>FanBoxのページを開く</a><br />
 			  寄付していただいた場合<br />
 			  お名前を寄付一覧に載せます。<br />
 			  強制ではありませんのでDMでご連絡ください<br />
-			  </p>
+              </p>
             </div>
           </Collapsable>
           <div className='announcements__icon'>
@@ -136,7 +136,7 @@ class Announcements extends React.PureComponent {
                   :おそよう:<br />
                   :ありがとう:<br />
                   :ルーレット:<br />
-        			</p>
+              </p>
             </div>
           </Collapsable>
           <div className='announcements__icon'>
@@ -147,7 +147,7 @@ class Announcements extends React.PureComponent {
           <Collapsable isVisible={this.state.showId === 'bbcode'} fullHeight={380} minHeight={20} >
             <div className='announcements__body'>
               <p>{ this.nl2br(intl.formatMessage(messages.bbcode, { domain: document.title }))}<br />
-              <br />
+                <br />
 			  [spin]回転[/spin]<br />
 			  [pulse]点滅[/pulse]<br />
 			  [large=2x]倍角文字[/large]<br />
@@ -162,10 +162,10 @@ class Announcements extends React.PureComponent {
 			  [code]コード[/code]<br />
 			  [quote]引用[/quote]<br />
         [youtube]動画ID[/youtube]<br />
-        [faicon]coffee[/faicon](<span class="fa fa-coffee"></span>の例)<br />
-        <a href="https://yuzulabo.github.io/generate-faicon/" target="_blank">faiconを生成</a>
-        <a href="https://fontawesome.com/v4.7.0/icons/" target="_blank">faicon アイコン一覧</a><br /><br />
-			  </p>
+        [faicon]coffee[/faicon](<span class='fa fa-coffee' />の例)<br />
+                <a href='https://yuzulabo.github.io/generate-faicon/' target='_blank'>faiconを生成</a>
+                <a href='https://fontawesome.com/v4.7.0/icons/' target='_blank'>faicon アイコン一覧</a><br /><br />
+              </p>
             </div>
           </Collapsable>
           <div className='announcements__icon'>
@@ -210,7 +210,7 @@ class Announcements extends React.PureComponent {
                 〜〜〜〜〜〜画像〜〜〜〜〜〜<br /><br />
                 ![画像説明](https://・・・)<br /><br />
                 リンク、画像ともにURLにはhttps://から始まる物のみご利用可能です。
-      			  </p>
+              </p>
             </div>
           </Collapsable>
           <div className='announcements__icon'>

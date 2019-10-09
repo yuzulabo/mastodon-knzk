@@ -1,7 +1,7 @@
 /* eslint react/jsx-no-bind: 0 */
 
 import React from 'react';
-import IconButton from '../../../mastodon/components/announcement_icon_button';
+import IconButton from './announcement_icon_button';
 
 const musicList = [
   { name: 'Listen.moe', url: 'https://listen.moe/stream' },
