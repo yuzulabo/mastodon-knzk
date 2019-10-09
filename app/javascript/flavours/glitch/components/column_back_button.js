@@ -1,11 +1,17 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
+import Icon from 'flavours/glitch/components/icon';
+import { createPortal } from 'react-dom';
 
 export default class ColumnBackButton extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
+  };
+
+  static propTypes = {
+    multiColumn: PropTypes.bool,
   };
 
   handleClick = (event) => {
@@ -23,12 +29,20 @@ export default class ColumnBackButton extends React.PureComponent {
   }
 
   render () {
-    return (
+    const { multiColumn } = this.props;
+
+    const component = (
       <button onClick={this.handleClick} className='column-back-button'>
-        <i className='fa fa-fw fa-chevron-left column-back-button__icon' />
+        <Icon id='chevron-left' className='column-back-button__icon' fixedWidth />
         <FormattedMessage id='column_back_button.label' defaultMessage='Back' />
       </button>
     );
+
+    if (multiColumn) {
+      return component;
+    } else {
+      return createPortal(component, document.getElementById('tabs-bar__portal'));
+    }
   }
 
 }

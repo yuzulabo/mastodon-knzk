@@ -29,6 +29,7 @@ class UserSettingsDecorator
     user.settings['expand_spoilers']     = expand_spoilers_preference if change?('setting_expand_spoilers')
     user.settings['reduce_motion']       = reduce_motion_preference if change?('setting_reduce_motion')
     user.settings['system_font_ui']      = system_font_ui_preference if change?('setting_system_font_ui')
+    user.settings['system_emoji_font']   = system_emoji_font_preference if change?('setting_system_emoji_font')
     user.settings['noindex']             = noindex_preference if change?('setting_noindex')
     user.settings['hide_followers_count']= hide_followers_count_preference if change?('setting_hide_followers_count')
     user.settings['flavour']             = flavour_preference if change?('setting_flavour')
@@ -38,6 +39,9 @@ class UserSettingsDecorator
     user.settings['show_application']    = show_application_preference if change?('setting_show_application')
     user.settings['advanced_layout']     = advanced_layout_preference if change?('setting_advanced_layout')
     user.settings['default_content_type']= default_content_type_preference if change?('setting_default_content_type')
+    user.settings['use_blurhash']        = use_blurhash_preference if change?('setting_use_blurhash')
+    user.settings['use_pending_items']   = use_pending_items_preference if change?('setting_use_pending_items')
+    user.settings['trends']              = trends_preference if change?('setting_trends')
   end
 
   def merged_notification_emails
@@ -74,6 +78,10 @@ class UserSettingsDecorator
 
   def system_font_ui_preference
     boolean_cast_setting 'setting_system_font_ui'
+  end
+
+  def system_emoji_font_preference
+    boolean_cast_setting 'setting_system_emoji_font'
   end
 
   def auto_play_gif_preference
@@ -130,6 +138,18 @@ class UserSettingsDecorator
 
   def default_content_type_preference
     settings['setting_default_content_type']
+  end
+
+  def use_blurhash_preference
+    boolean_cast_setting 'setting_use_blurhash'
+  end
+
+  def use_pending_items_preference
+    boolean_cast_setting 'setting_use_pending_items'
+  end
+
+  def trends_preference
+    boolean_cast_setting 'setting_trends'
   end
 
   def boolean_cast_setting(key)

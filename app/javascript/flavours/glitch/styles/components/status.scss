@@ -36,6 +36,12 @@
   }
 
   .e-content {
+
+    & > ul,
+    & > ol {
+      margin-bottom: 20px;
+    }
+
     h1, h2, h3, h4, h5 {
       margin-top: 20px;
       margin-bottom: 20px;
@@ -76,6 +82,11 @@
     sub {
       font-size: smaller;
       text-align: sub;
+    }
+
+    sup {
+      font-size: smaller;
+      vertical-align: super;
     }
 
     ul, ol {
@@ -127,6 +138,15 @@
 
     &.status__content__spoiler--visible {
       display: block;
+    }
+  }
+
+  a.unhandled-link {
+    color: lighten($ui-highlight-color, 8%);
+
+    .link-origin-tag {
+      color: $gold-star;
+      font-size: 0.8em;
     }
   }
 
@@ -190,10 +210,8 @@
 }
 
 .status__prepend-icon-wrapper {
-  float: left;
-  margin: 0 10px 0 -58px;
-  width: 48px;
-  text-align: right;
+  left: -26px;
+  position: absolute;
 }
 
 .notification-follow {
@@ -248,7 +266,8 @@
   opacity: 1;
   animation: fade 150ms linear;
 
-  .video-player {
+  .video-player,
+  .audio-player {
     margin-top: 8px;
   }
 
@@ -367,9 +386,7 @@
 
 .status__relative-time {
   display: inline-block;
-  margin-left: auto;
-  padding-left: 18px;
-  width: 120px;
+  flex-grow: 1;
   color: $dark-text-color;
   font-size: 14px;
   text-align: right;
@@ -379,7 +396,6 @@
 }
 
 .status__display-name {
-  margin: 0 auto 0 0;
   color: $dark-text-color;
   overflow: hidden;
 }
@@ -391,6 +407,7 @@
 
 .status__info {
   display: flex;
+  justify-content: space-between;
   font-size: 15px;
 
   > span {
@@ -404,7 +421,6 @@
 }
 
 .status__info__icons {
-  margin-left: auto;
   display: flex;
   align-items: center;
   height: 1em;
@@ -420,6 +436,7 @@
 .status__info__account {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
 }
 
 .status-check-box {
@@ -439,7 +456,8 @@
       white-space: normal;
     }
 
-    .video-player {
+    .video-player,
+    .audio-player {
       margin-top: 8px;
       max-width: 250px;
     }
@@ -459,9 +477,12 @@
 }
 
 .status__prepend {
-  margin: -10px -10px 10px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  margin-left: 58px;
   color: $dark-text-color;
-  padding: 8px 10px 0 68px;
+  padding: 8px 0;
+  padding-bottom: 2px;
   font-size: 14px;
   position: relative;
 
@@ -528,7 +549,8 @@
     }
   }
 
-  .video-player {
+  .video-player,
+  .audio-player {
     margin-top: 8px;
   }
 }
@@ -604,6 +626,10 @@ a.status__display-name,
   color: inherit;
 }
 
+.detailed-status .button.logo-button {
+  margin-bottom: 15px;
+}
+
 .detailed-status__display-name {
   color: $secondary-text-color;
   display: block;
@@ -637,6 +663,7 @@ a.status__display-name,
 }
 
 .muted {
+  .status__content,
   .status__content p,
   .status__content a,
   .status__content__text {
@@ -850,67 +877,6 @@ a.status-card.compact:hover {
   background-position: center center;
 }
 
-.status__video-player {
-  display: flex;
-  align-items: center;
-  background: $base-shadow-color;
-  box-sizing: border-box;
-  cursor: default; /* May not be needed */
-  margin-top: 8px;
-  overflow: hidden;
-  position: relative;
-
-  @include fullwidth-gallery;
-}
-
-.status__video-player-video {
-  height: 100%;
-  object-fit: contain;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 100%;
-  z-index: 1;
-
-  &:not(.letterbox) {
-    height: 100%;
-    object-fit: cover;
-  }
-}
-
-.status__video-player-expand,
-.status__video-player-mute {
-  color: $primary-text-color;
-  opacity: 0.8;
-  position: absolute;
-  right: 4px;
-  text-shadow: 0 1px 1px $base-shadow-color, 1px 0 1px $base-shadow-color;
-}
-
-.status__video-player-spoiler {
-  display: none;
-  color: $primary-text-color;
-  left: 4px;
-  position: absolute;
-  text-shadow: 0 1px 1px $base-shadow-color, 1px 0 1px $base-shadow-color;
-  top: 4px;
-  z-index: 100;
-
-  &.status__video-player-spoiler--visible {
-    display: block;
-  }
-}
-
-.status__video-player-expand {
-  bottom: 4px;
-  z-index: 100;
-}
-
-.status__video-player-mute {
-  top: 4px;
-  z-index: 5;
-}
-
 .attachment-list {
   display: flex;
   font-size: 14px;
@@ -972,5 +938,20 @@ a.status-card.compact:hover {
     .fa {
       color: $dark-text-color;
     }
+  }
+}
+
+.status__wrapper--filtered__button {
+  display: inline;
+  color: lighten($ui-highlight-color, 8%);
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+  line-height: inherit;
+
+  &:hover,
+  &:active {
+    text-decoration: underline;
   }
 }

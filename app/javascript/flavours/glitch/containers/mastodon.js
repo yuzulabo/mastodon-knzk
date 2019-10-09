@@ -53,6 +53,10 @@ export default class Mastodon extends React.PureComponent {
     }
   }
 
+  shouldUpdateScroll (_, { location }) {
+    return !(location.state && location.state.mastodonModalOpen);
+  }
+
   render () {
     const { locale } = this.props;
 
@@ -61,7 +65,7 @@ export default class Mastodon extends React.PureComponent {
         <Provider store={store}>
           <ErrorBoundary>
             <BrowserRouter basename='/web'>
-              <ScrollContext>
+              <ScrollContext shouldUpdateScroll={this.shouldUpdateScroll}>
                 <Route path='/' component={UI} />
               </ScrollContext>
             </BrowserRouter>

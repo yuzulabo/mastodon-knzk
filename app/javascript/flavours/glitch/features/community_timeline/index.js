@@ -18,16 +18,17 @@ const mapStateToProps = (state, { onlyMedia, columnId }) => {
   const uuid = columnId;
   const columns = state.getIn(['settings', 'columns']);
   const index = columns.findIndex(c => c.get('uuid') === uuid);
+  const timelineState = state.getIn(['timelines', `community${onlyMedia ? ':media' : ''}`]);
 
   return {
-    hasUnread: state.getIn(['timelines', `community${onlyMedia ? ':media' : ''}`, 'unread']) > 0,
+    hasUnread: !!timelineState && (timelineState.get('unread') > 0 || timelineState.get('pendingItems').size > 0),
     onlyMedia: (columnId && index >= 0) ? columns.get(index).getIn(['params', 'other', 'onlyMedia']) : state.getIn(['settings', 'community', 'other', 'onlyMedia']),
   };
 };
 
-@connect(mapStateToProps)
+export default @connect(mapStateToProps)
 @injectIntl
-export default class CommunityTimeline extends React.PureComponent {
+class CommunityTimeline extends React.PureComponent {
 
   static defaultProps = {
     onlyMedia: false,
@@ -99,16 +100,12 @@ export default class CommunityTimeline extends React.PureComponent {
     dispatch(expandCommunityTimeline({ maxId, onlyMedia }));
   }
 
-  shouldUpdateScroll = (prevRouterProps, { location }) => {
-    return !(location.state && location.state.mastodonModalOpen)
-  }
-
   render () {
     const { intl, hasUnread, columnId, multiColumn, onlyMedia } = this.props;
     const pinned = !!columnId;
 
     return (
-      <Column ref={this.setRef} name='local' label={intl.formatMessage(messages.title)}>
+      <Column ref={this.setRef} name='local' bindToDocument={!multiColumn} label={intl.formatMessage(messages.title)}>
         <ColumnHeader
           icon='users'
           active={hasUnread}
@@ -125,10 +122,10 @@ export default class CommunityTimeline extends React.PureComponent {
         <StatusListContainer
           trackScroll={!pinned}
           scrollKey={`community_timeline-${columnId}`}
-          shouldUpdateScroll={this.shouldUpdateScroll}
           timelineId={`community${onlyMedia ? ':media' : ''}`}
           onLoadMore={this.handleLoadMore}
           emptyMessage={<FormattedMessage id='empty_column.community' defaultMessage='The local timeline is empty. Write something publicly to get the ball rolling!' />}
+          bindToDocument={!multiColumn}
         />
       </Column>
     );
