@@ -3,7 +3,6 @@
 const path = require('path');
 const { URL } = require('url');
 const merge = require('webpack-merge');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const OfflinePlugin = require('offline-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
@@ -27,7 +26,6 @@ if (process.env.S3_ENABLED === 'true') {
 
 module.exports = merge(sharedConfig, {
   mode: 'production',
-  devtool: 'source-map',
   stats: 'normal',
   bail: true,
   optimization: {
@@ -36,7 +34,7 @@ module.exports = merge(sharedConfig, {
       new TerserPlugin({
         cache: true,
         parallel: true,
-        sourceMap: true,
+        sourceMap: false,
       }),
     ],
   },
@@ -46,11 +44,6 @@ module.exports = merge(sharedConfig, {
       filename: '[path].gz[query]',
       cache: true,
       test: /\.(js|css|html|json|ico|svg|eot|otf|ttf|map)$/,
-    }),
-    new BundleAnalyzerPlugin({ // generates report.html
-      analyzerMode: 'static',
-      openAnalyzer: false,
-      logLevel: 'silent', // do not bother Webpacker, who runs with --json and parses stdout
     }),
     new OfflinePlugin({
       publicPath: output.publicPath, // sw.js must be served from the root to avoid scope issues
