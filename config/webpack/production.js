@@ -27,7 +27,6 @@ if (process.env.S3_ENABLED === 'true') {
 
 module.exports = merge(sharedConfig, {
   mode: 'production',
-  devtool: 'source-map',
   stats: 'normal',
   bail: true,
   optimization: {
@@ -36,7 +35,7 @@ module.exports = merge(sharedConfig, {
       new TerserPlugin({
         cache: true,
         parallel: true,
-        sourceMap: true,
+        sourceMap: false,
       }),
     ],
   },
