@@ -119,10 +119,6 @@ class REST::StatusSerializer < ActiveModel::Serializer
       %w(public unlisted).include?(object.visibility)
   end
 
-  def emojis
-    object.emojis + object.avatar_emojis
-  end
-
   def source_requested?
     instance_options[:source_requested]
   end

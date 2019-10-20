@@ -49,7 +49,7 @@ class Formatter
 
     unless status.local?
       html = reformat(raw_content)
-      html = encode_custom_emojis(html, status.emojis + status.avatar_emojis, options[:autoplay]) if options[:custom_emojify]
+      html = encode_custom_emojis(html, status.emojis, options[:autoplay]) if options[:custom_emojify]
       return html.html_safe # rubocop:disable Rails/OutputSafety
     end
 
@@ -67,7 +67,7 @@ class Formatter
     html = "RT @#{prepend_reblog} #{html}" if prepend_reblog    
     html = mdFormatter.formatted if status.content_type == 'text/markdown'
     html = encode_and_link_urls(html, linkable_accounts, keep_html: %w(text/markdown text/html).include?(status.content_type))
-    html = encode_custom_emojis(html, status.emojis + status.avatar_emojis, options[:autoplay]) if options[:custom_emojify]
+    html = encode_custom_emojis(html, status.emojis, options[:autoplay]) if options[:custom_emojify]
 
     if status.content_type == 'text/markdown'      
       mdLinkDecoder = MDLinkDecoder.new(html)
