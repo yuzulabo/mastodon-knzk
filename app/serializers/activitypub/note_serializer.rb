@@ -232,6 +232,24 @@ class ActivityPub::NoteSerializer < ActivityPub::Serializer
   class CustomEmojiSerializer < ActivityPub::EmojiSerializer
   end
 
+  class AvatarEmojiSerializer < ActiveModel::Serializer
+    include RoutingHelper
+
+    attributes :type, :href, :name
+
+    def type
+      'Emoji'
+    end
+
+    def href
+      full_asset_url(object.image.url)
+    end
+
+    def name
+      ":#{object.shortcode}:"
+    end
+  end
+
   class OptionSerializer < ActivityPub::Serializer
     class RepliesSerializer < ActivityPub::Serializer
       attributes :type, :total_items
