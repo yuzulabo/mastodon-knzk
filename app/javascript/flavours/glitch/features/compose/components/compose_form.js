@@ -63,6 +63,9 @@ class ComposeForm extends ImmutablePureComponent {
     layout: PropTypes.string,
     media: ImmutablePropTypes.list,
     sideArm: PropTypes.string,
+    showSideArmLocalToot: PropTypes.bool,
+    showSideArmLocalSecondary: PropTypes.bool,
+    onChangeLocal: PropTypes.func,
     sensitive: PropTypes.bool,
     spoilersAlwaysOn: PropTypes.bool,
     mediaDescriptionConfirmation: PropTypes.bool,
@@ -158,6 +161,17 @@ class ComposeForm extends ImmutablePureComponent {
     if (sideArm !== 'none' && onChangeVisibility) {
       onChangeVisibility(sideArm);
     }
+    this.handleSubmit();
+  }
+
+  handleSideArmLocalSubmit = type => {
+    const {
+      onChangeVisibility,
+      onChangeLocal,
+    } = this.props;
+
+    onChangeVisibility(type);
+    onChangeLocal(true);
     this.handleSubmit();
   }
 
@@ -266,6 +280,7 @@ class ComposeForm extends ImmutablePureComponent {
       handleSelect,
       handleSubmit,
       handleRefTextarea,
+      handleSideArmLocalSubmit,
     } = this;
     const {
       advancedOptions,
@@ -285,6 +300,8 @@ class ComposeForm extends ImmutablePureComponent {
       sensitive,
       showSearch,
       sideArm,
+      showSideArmLocalToot,
+      showSideArmLocalSecondary,
       spoiler,
       spoilerText,
       suggestions,
@@ -368,6 +385,9 @@ class ComposeForm extends ImmutablePureComponent {
           onSubmit={handleSubmit}
           privacy={privacy}
           sideArm={sideArm}
+          showSideArmLocalToot={showSideArmLocalToot}
+          showSideArmLocalSecondary={showSideArmLocalSecondary}
+          handleSideArmLocalSubmit={handleSideArmLocalSubmit}
         />
       </div>
     );
