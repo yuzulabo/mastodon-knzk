@@ -194,7 +194,7 @@ class ColumnsArea extends ImmutablePureComponent {
       );
 
       return (
-        <div className='columns-area__panels'>
+        <div className={`columns-area__panels ${navbarUnder && ' is_under'}`}>
           <div className='columns-area__panels__pane columns-area__panels__pane--compositional'>
             <div className='columns-area__panels__pane__inner'>
               <ComposePanel />
@@ -204,7 +204,7 @@ class ColumnsArea extends ImmutablePureComponent {
           <div className='columns-area__panels__main'>
             {!navbarUnder && <TabsBar key='tabs' />}
             {content}
-            {navbarUnder && <TabsBar key='tabs' isUnder />}
+            {navbarUnder && <TabsBar key='tabs' />}
           </div>
 
           <div className='columns-area__panels__pane columns-area__panels__pane--start columns-area__panels__pane--navigational'>

@@ -31,7 +31,6 @@ class TabsBar extends React.PureComponent {
   static propTypes = {
     intl: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
-    isUnder: PropTypes.bool,
   }
 
   setRef = ref => {
@@ -71,10 +70,10 @@ class TabsBar extends React.PureComponent {
   }
 
   render () {
-    const { intl: { formatMessage }, isUnder } = this.props;
+    const { intl: { formatMessage } } = this.props;
 
     return (
-      <div className={`tabs-bar__wrapper ${isUnder && 'is_under'}`}>
+      <div className='tabs-bar__wrapper'>
         <nav className='tabs-bar' ref={this.setRef}>
           {links.map(link => React.cloneElement(link, { key: link.props.to, onClick: this.handleClick, 'aria-label': formatMessage({ id: link.props['data-preview-title-id'] }) }))}
         </nav>
