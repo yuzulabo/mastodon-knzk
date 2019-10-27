@@ -1,3 +1,5 @@
+/* eslint react/jsx-no-bind: 0 */
+
 //  Package imports.
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -36,10 +38,14 @@ class Publisher extends ImmutablePureComponent {
     onSubmit: PropTypes.func,
     privacy: PropTypes.oneOf(['direct', 'private', 'unlisted', 'public']),
     sideArm: PropTypes.oneOf(['none', 'direct', 'private', 'unlisted', 'public']),
+    showSideArmLocalToot: PropTypes.bool,
+    showSideArmLocalSecondary: PropTypes.bool,
+    handleSideArmLocalSubmit: PropTypes.func,
   };
 
   render () {
     const { countText, disabled, intl, onSecondarySubmit, onSubmit, privacy, sideArm } = this.props;
+    const { showSideArmLocalToot, showSideArmLocalSecondary, handleSideArmLocalSubmit } = this.props;
 
     const diff = maxChars - length(countText || '');
     const computedClass = classNames('composer--publisher', {
@@ -49,6 +55,29 @@ class Publisher extends ImmutablePureComponent {
 
     return (
       <div className={computedClass}>
+        {sideArm && sideArm !== 'none' && showSideArmLocalSecondary && (
+          <Button
+            className='side_arm is_local'
+            disabled={disabled || diff < 0}
+            onClick={() => handleSideArmLocalSubmit(sideArm)}
+            text={
+              <span>
+                <Icon
+                  id={{
+                    public: 'globe',
+                    unlisted: 'unlock',
+                    private: 'lock',
+                    direct: 'envelope',
+                  }[sideArm]}
+                  fixedWidth
+                />
+                <Icon id='home' fixedWidth />
+              </span>
+            }
+            title={`${intl.formatMessage(messages.publish)}: ${intl.formatMessage({ id: `privacy.${sideArm}.short` })} (${intl.formatMessage({ id: 'advanced_options.local-only.short' })})`}
+          />
+        )}
+
         {sideArm && sideArm !== 'none' ? (
           <Button
             className='side_arm'
@@ -70,6 +99,30 @@ class Publisher extends ImmutablePureComponent {
             title={`${intl.formatMessage(messages.publish)}: ${intl.formatMessage({ id: `privacy.${sideArm}.short` })}`}
           />
         ) : null}
+
+        {showSideArmLocalToot && (
+          <Button
+            className='side_arm is_local'
+            disabled={disabled || diff < 0}
+            onClick={() => handleSideArmLocalSubmit(privacy)}
+            text={
+              <span>
+                <Icon
+                  id={{
+                    public: 'globe',
+                    unlisted: 'unlock',
+                    private: 'lock',
+                    direct: 'envelope',
+                  }[privacy]}
+                  fixedWidth
+                />
+                <Icon id='home' fixedWidth />
+              </span>
+            }
+            title={`${intl.formatMessage(messages.publish)}: ${intl.formatMessage({ id: `privacy.${privacy}.short` })} (${intl.formatMessage({ id: 'advanced_options.local-only.short' })})`}
+          />
+        )}
+
         <Button
           className='primary'
           text={function () {

@@ -68,6 +68,8 @@ const messages = {
   'settings.side_arm_reply_mode.copy': '返信先の投稿範囲を利用する',
   'settings.side_arm_reply_mode.keep': 'セカンダリートゥートボタンの設定を維持する',
   'settings.side_arm_reply_mode.restrict': '返信先の投稿範囲に制限する',
+  'settings.side_arm_local_toot': 'トゥートボタンの横にローカル投稿ボタンを表示する',
+  'settings.side_arm_local_secondary': 'セカンダリボタンの横に(セカンダリの)ローカル投稿ボタンを表示する',
   'settings.layout': 'レイアウト',
   'settings.layout_opts': 'レイアウトの設定',
   'status.collapse': '折りたたむ',
