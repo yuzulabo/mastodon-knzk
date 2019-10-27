@@ -84,7 +84,14 @@ class ComposeForm extends ImmutablePureComponent {
     this.props.onChange(e.target.value);
   }
 
-  handleKeyDown = ({ ctrlKey, keyCode, metaKey, altKey }) => {
+  handleKeyDown = ({ ctrlKey, keyCode, metaKey, altKey, shiftKey }) => {
+    const { onChangeLocal } = this.props;
+
+    // Shift + Enter + x = Local
+    if (shiftKey && keyCode === 13 && (ctrlKey || metaKey || altKey)) {
+      onChangeLocal(true);
+    }
+
     //  We submit the status on control/meta + enter.
     if (keyCode === 13 && (ctrlKey || metaKey)) {
       this.handleSubmit();
