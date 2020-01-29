@@ -321,6 +321,10 @@ class StatusActionBar extends ImmutablePureComponent {
       <IconButton className='status__action-bar-button' title={intl.formatMessage(messages.share)} icon='share-alt' onClick={this.handleShareClick} />
     );
 
+    const bookmarkButton = !shareButton && (
+      <IconButton className='status__action-bar-button bookmark-icon' active={status.get('bookmarked')} title={intl.formatMessage(messages.bookmark)} icon='bookmark' onClick={this.handleBookmarkClick} />
+    );
+
     return (
       <div className='status__action-bar'>
         <div className='status__action-bar__counter'>
@@ -335,6 +339,8 @@ class StatusActionBar extends ImmutablePureComponent {
           <IconButton className='status__action-bar-button star-icon' animate active={status.get('favourited')} pressed={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} />
           <span className='status__action-bar__counter__label'>{obfuscatedCount(status.get('favourites_count'))}</span>
         </div>
+
+        {bookmarkButton}
         {shareButton}
 
         <div className='status__action-bar-dropdown'>
