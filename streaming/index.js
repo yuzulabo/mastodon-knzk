@@ -292,6 +292,7 @@ const startWorker = (workerId) => {
   const PUBLIC_ENDPOINTS = [
     '/api/v1/streaming/public',
     '/api/v1/streaming/public/local',
+    '/api/v1/streaming/public/remote',
     '/api/v1/streaming/hashtag',
     '/api/v1/streaming/hashtag/local',
   ];
@@ -530,6 +531,13 @@ const startWorker = (workerId) => {
     streamFrom(channel, req, streamToHttp(req, res), streamHttpEnd(req), true);
   });
 
+  app.get('/api/v1/streaming/public/remote', (req, res) => {
+    const onlyMedia = req.query.only_media === '1' || req.query.only_media === 'true';
+    const channel   = onlyMedia ? 'timeline:public:remote:media' : 'timeline:public:remote';
+
+    streamFrom(channel, req, streamToHttp(req, res), streamHttpEnd(req), true);
+  });
+
   app.get('/api/v1/streaming/direct', (req, res) => {
     const channel = `timeline:direct:${req.accountId}`;
     streamFrom(channel, req, streamToHttp(req, res), streamHttpEnd(req, subscriptionHeartbeat(channel)), true);
@@ -594,11 +602,17 @@ const startWorker = (workerId) => {
     case 'public:local':
       streamFrom('timeline:public:local', req, streamToWs(req, ws), streamWsEnd(req, ws), true);
       break;
+    case 'public:remote':
+      streamFrom('timeline:public:remote', req, streamToWs(req, ws), streamWsEnd(req, ws), true);
+      break;
     case 'public:media':
       streamFrom('timeline:public:media', req, streamToWs(req, ws), streamWsEnd(req, ws), true);
       break;
     case 'public:local:media':
       streamFrom('timeline:public:local:media', req, streamToWs(req, ws), streamWsEnd(req, ws), true);
+      break;
+    case 'public:remote:media':
+      streamFrom('timeline:public:remote:media', req, streamToWs(req, ws), streamWsEnd(req, ws), true);
       break;
     case 'direct':
       channel = `timeline:direct:${req.accountId}`;
