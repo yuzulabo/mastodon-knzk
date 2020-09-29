@@ -17,6 +17,24 @@
   }
 }
 
+body {
+  &::-webkit-scrollbar {
+    &-track, &-track:hover {
+      background: $ui-base-color;
+    }
+  }
+}
+
+::-webkit-scrollbar {
+  &-thumb, &-thumb:active {
+    background: lighten($ui-base-color, 8%);
+  }
+
+  &-thumb:hover {
+    background: lighten($ui-base-color, 10%);
+  }
+}
+
 // トゥート欄
 .drawer {
   &__header {
